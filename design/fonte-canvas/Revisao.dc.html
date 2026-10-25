@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Revisão: painel do seu PC</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#3D4250}a:hover{color:#1A1D24}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes ring{from{stroke-dashoffset:213.6}}
+@keyframes draw{from{stroke-dashoffset:420}to{stroke-dashoffset:0}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(138,102,48,0)}50%{box-shadow:0 0 0 7px rgba(138,102,48,.16)}}
+@keyframes fill{from{transform:scaleX(0)}}
+.rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.05s}.d2{animation-delay:.11s}.d3{animation-delay:.17s}.d4{animation-delay:.23s}.d5{animation-delay:.29s}.d6{animation-delay:.35s}
+.ring{animation:ring 1.5s cubic-bezier(.2,.7,.2,1) .3s both}
+.draw{stroke-dasharray:420;animation:draw 1.8s cubic-bezier(.2,.7,.2,1) .4s both}
+.glow{animation:glow 2.4s ease-in-out infinite}
+.bar{transform-origin:left center;animation:fill 1.3s cubic-bezier(.2,.7,.2,1) .3s both}
+@media (prefers-reduced-motion: reduce){.rise,.ring,.draw,.glow,.bar{animation:none}}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F2F3F5; font-family: 'Manrope', system-ui, sans-serif; color: #1A1D24; display: flex; flex-wrap: wrap; align-items: stretch">
+
+  <aside style="flex: 1 1 220px; box-sizing: border-box; padding: 28px 20px; background: #FFFFFF; border-right: 1px solid #E4E6EB; display: flex; flex-direction: column; gap: 32px">
+    <div style="display: flex; align-items: center; gap: 12px">
+      <div style="width: 40px; height: 40px; border-radius: 12px; background: {{accent}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+        <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16a8 8 0 1 1 15 0"></path><path d="M12 12l4-3"></path><circle cx="12" cy="12" r="1.2"></circle><path d="M7 20h10"></path></svg>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <div style="font-size: 17px; font-weight: 800; letter-spacing: -0.01em">Revisão</div>
+        <div style="font-size: 12px; color: #5B6170">O painel do seu PC</div>
+      </div>
+    </div>
+
+    <nav aria-label="Seções" style="display: flex; flex-direction: column; gap: 4px">
+      <a href="#" style="display: flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 12px; background: {{accentSoft}}; color: #1A1D24; font-size: 14px; font-weight: 700; text-decoration: none">Painel</a>
+      <a href="#" style="display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 0 14px; border-radius: 12px; color: #3D4250; font-size: 14px; font-weight: 600; text-decoration: none">Checklist <span style="font-size: 12px; color: #5B6170">3</span></a>
+      <a href="#" style="display: flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 12px; color: #3D4250; font-size: 14px; font-weight: 600; text-decoration: none">Previsões</a>
+      <a href="#" style="display: flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 12px; color: #3D4250; font-size: 14px; font-weight: 600; text-decoration: none">Carnê do PC</a>
+      <a href="#" style="display: flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 12px; color: #3D4250; font-size: 14px; font-weight: 600; text-decoration: none">Configurações</a>
+    </nav>
+
+    <div style="margin-top: auto; padding: 16px; border-radius: 14px; background: #F2F3F5; display: flex; flex-direction: column; gap: 6px">
+      <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{accent}}"></span>Monitorando há 9 meses</div>
+      <div style="font-size: 12px; line-height: 1.5; color: #5B6170">Sem pesar no PC: uma leitura por minuto.</div>
+    </div>
+  </aside>
+
+  <main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 44px 48px 56px; display: flex; justify-content: center">
+    <div style="width: 100%; max-width: 1000px; display: flex; flex-direction: column; gap: 28px">
+
+      <header class="rise" style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between">
+        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 580px">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #5B6170">PAINEL DO SEU PC</div>
+          <h1 style="margin: 0; font-size: 40px; line-height: 1.1; font-weight: 800; letter-spacing: -0.025em">Uma luz acesa no painel.</h1>
+          <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #5B6170">A temperatura subiu fazendo a mesma coisa de sempre. Uma limpeza deve resolver, e o passo a passo já está pronto.</p>
+        </div>
+        <div style="flex: 0 0 auto; display: flex; align-items: center; gap: 18px; padding: 18px 24px 18px 18px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 20px">
+          <svg role="img" aria-label="Próxima revisão em 23 dias" width="80" height="80" viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="34" fill="none" stroke="#E8EAEE" stroke-width="7"></circle>
+            <circle class="ring" cx="40" cy="40" r="34" fill="none" stroke="{{accent}}" stroke-width="7" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="54" transform="rotate(-90 40 40)"></circle>
+          </svg>
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #5B6170">PRÓXIMA REVISÃO</div>
+            <div style="font-size: 28px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums">em 23 dias</div>
+          </div>
+        </div>
+      </header>
+
+      <section aria-label="Luzes do painel" class="rise d1" style="display: flex; flex-wrap: wrap; gap: 12px">
+        <div style="flex: 1 1 160px; box-sizing: border-box; padding: 16px; background: #FFFFFF; border: 1px solid #E4D6BE; border-radius: 16px; display: flex; align-items: center; gap: 12px">
+          <div class="glow" style="flex: 0 0 40px; height: 40px; border-radius: 999px; background: #F6EFE3; color: #8A6630; display: flex; align-items: center; justify-content: center">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.8V4a2 2 0 1 0-4 0v10.8a4 4 0 1 0 4 0z"></path></svg>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 700">Temperatura</span><span style="font-size: 12px; font-weight: 700; color: #8A6630">Atenção</span></div>
+        </div>
+        <div style="flex: 1 1 160px; box-sizing: border-box; padding: 16px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 16px; display: flex; align-items: center; gap: 12px">
+          <div style="flex: 0 0 40px; height: 40px; border-radius: 999px; background: {{accentSoft}}; color: {{accent}}; display: flex; align-items: center; justify-content: center">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"></rect><path d="M7 10h4M7 14h2"></path></svg>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 700">SSD</span><span style="font-size: 12px; color: #5B6170">Em dia</span></div>
+        </div>
+        <div style="flex: 1 1 160px; box-sizing: border-box; padding: 16px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 16px; display: flex; align-items: center; gap: 12px">
+          <div style="flex: 0 0 40px; height: 40px; border-radius: 999px; background: {{accentSoft}}; color: {{accent}}; display: flex; align-items: center; justify-content: center">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"></ellipse><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6"></path><path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"></path></svg>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 700">Espaço</span><span style="font-size: 12px; color: #5B6170">Em dia</span></div>
+        </div>
+        <div style="flex: 1 1 160px; box-sizing: border-box; padding: 16px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 16px; display: flex; align-items: center; gap: 12px">
+          <div style="flex: 0 0 40px; height: 40px; border-radius: 999px; background: {{accentSoft}}; color: {{accent}}; display: flex; align-items: center; justify-content: center">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"></circle><path d="M12 10c0-4 1-6 4-6 2 0 2 3 0 4.5L12 10zM14 12c4 0 6 1 6 4 0 2-3 2-4.5 0L14 12zM12 14c0 4-1 6-4 6-2 0-2-3 0-4.5L12 14zM10 12c-4 0-6-1-6-4 0-2 3-2 4.5 0L10 12z"></path></svg>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 700">Ventoinhas</span><span style="font-size: 12px; color: #5B6170">Em dia</span></div>
+        </div>
+        <div style="flex: 1 1 160px; box-sizing: border-box; padding: 16px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 16px; display: flex; align-items: center; gap: 12px">
+          <div style="flex: 0 0 40px; height: 40px; border-radius: 999px; background: {{accentSoft}}; color: {{accent}}; display: flex; align-items: center; justify-content: center">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.3-5.7"></path><path d="M20 4v4h-4"></path></svg>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 700">Drivers</span><span style="font-size: 12px; color: #5B6170">Em dia</span></div>
+        </div>
+      </section>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px">
+        <article class="rise d2" style="flex: 1 1 280px; box-sizing: border-box; padding: 22px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 18px; display: flex; flex-direction: column; gap: 12px">
+          <h2 style="margin: 0; font-size: 13px; font-weight: 700; color: #5B6170">Temperatura jogando</h2>
+          <div style="font-size: 26px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums">71 → 79 °C</div>
+          <svg role="img" aria-label="Temperatura subindo de 71 para 79 graus em 6 semanas" width="100%" height="72" viewBox="0 0 280 72" preserveAspectRatio="none">
+            <line x1="0" y1="56" x2="280" y2="56" stroke="#E4E6EB" stroke-width="1" stroke-dasharray="4 4"></line>
+            <polyline class="draw" points="0,56 28,55 56,56 84,52 112,50 140,46 168,42 196,38 224,33 252,27 280,20" fill="none" stroke="#8A6630" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+          </svg>
+          <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #5B6170">Mesma carga, 8 °C a mais em 6 semanas. É o padrão de poeira acumulando.</p>
+        </article>
+
+        <article class="rise d3" style="flex: 1 1 280px; box-sizing: border-box; padding: 22px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 18px; display: flex; flex-direction: column; gap: 12px">
+          <h2 style="margin: 0; font-size: 13px; font-weight: 700; color: #5B6170">Vida do SSD</h2>
+          <div style="font-size: 26px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums">72% restante</div>
+          <div style="height: 72px; display: flex; flex-direction: column; justify-content: center; gap: 10px">
+            <div style="height: 10px; border-radius: 999px; background: #E4E6EB; overflow: hidden"><div class="bar" style="width: 72%; height: 100%; border-radius: 999px; background: {{accent}}"></div></div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: #5B6170"><span>Novo</span><span>Trocar</span></div>
+          </div>
+          <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #5B6170">No seu ritmo de uso, a estimativa é de mais [X] anos.</p>
+        </article>
+
+        <article class="rise d4" style="flex: 1 1 280px; box-sizing: border-box; padding: 22px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 18px; display: flex; flex-direction: column; gap: 12px">
+          <h2 style="margin: 0; font-size: 13px; font-weight: 700; color: #5B6170">Espaço em disco</h2>
+          <div style="font-size: 26px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums">Enche em ~40 dias</div>
+          <svg role="img" aria-label="Uso do disco subindo, com projeção de ficar cheio em cerca de 40 dias" width="100%" height="72" viewBox="0 0 280 72" preserveAspectRatio="none">
+            <line x1="0" y1="10" x2="280" y2="10" stroke="#C9CDD5" stroke-width="1" stroke-dasharray="4 4"></line>
+            <polyline class="draw" points="0,64 35,61 70,57 105,54 140,50 175,46" fill="none" stroke="{{accent}}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+            <line x1="175" y1="46" x2="280" y2="10" stroke="{{accent}}" stroke-width="2" stroke-dasharray="3 5" stroke-linecap="round"></line>
+          </svg>
+          <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #5B6170">+11 GB por semana, puxado por Downloads e jogos.</p>
+        </article>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+        <section class="rise d5" style="flex: 999 1 420px; min-width: 0; box-sizing: border-box; padding: 22px 24px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 18px; display: flex; flex-direction: column; gap: 6px">
+          <h2 style="margin: 0 0 8px; font-size: 16px; font-weight: 800">Checklist da revisão</h2>
+
+          <div style="display: flex; align-items: center; gap: 14px; min-height: 56px; border-bottom: 1px solid #EEF0F3">
+            <input id="c1" type="checkbox" style="width: 20px; height: 20px; accent-color: {{accent}}; margin: 0">
+            <label for="c1" style="flex: 1; display: flex; flex-direction: column; gap: 2px; cursor: pointer"><span style="font-size: 14px; font-weight: 700">Limpar entradas de ar e filtros</span><span style="font-size: 12px; color: #5B6170">Guia com fotos do seu modelo de gabinete · 10 min</span></label>
+            <span style="font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 999px; background: #F6EFE3; color: #6E5226">Recomendado</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px; min-height: 56px; border-bottom: 1px solid #EEF0F3">
+            <input id="c2" type="checkbox" style="width: 20px; height: 20px; accent-color: {{accent}}; margin: 0">
+            <label for="c2" style="flex: 1; display: flex; flex-direction: column; gap: 2px; cursor: pointer"><span style="font-size: 14px; font-weight: 700">Medir de novo depois da limpeza</span><span style="font-size: 12px; color: #5B6170">Automático: comparamos com a mesma carga</span></label>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px; min-height: 56px; border-bottom: 1px solid #EEF0F3">
+            <input id="c3" type="checkbox" style="width: 20px; height: 20px; accent-color: {{accent}}; margin: 0">
+            <label for="c3" style="flex: 1; display: flex; flex-direction: column; gap: 2px; cursor: pointer"><span style="font-size: 14px; font-weight: 700">Trocar a pasta térmica</span><span style="font-size: 12px; color: #5B6170">Só se a temperatura não cair · guia · 30 min</span></label>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px; min-height: 56px">
+            <input id="c4" type="checkbox" checked style="width: 20px; height: 20px; accent-color: {{accent}}; margin: 0">
+            <label for="c4" style="flex: 1; display: flex; flex-direction: column; gap: 2px; cursor: pointer"><span style="font-size: 14px; font-weight: 700; color: #5B6170; text-decoration: line-through">Liberar 38 GB de arquivos temporários</span><span style="font-size: 12px; color: #5B6170">Feito em 1 clique, ontem</span></label>
+          </div>
+        </section>
+
+        <section class="rise d6" style="flex: 1 1 280px; min-width: 0; box-sizing: border-box; padding: 22px 24px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 18px; display: flex; flex-direction: column; gap: 16px">
+          <h2 style="margin: 0; font-size: 16px; font-weight: 800">Carnê do PC</h2>
+          <div style="display: flex; gap: 14px">
+            <div style="display: flex; flex-direction: column; align-items: center; padding-top: 4px"><span style="width: 10px; height: 10px; border-radius: 999px; background: {{accent}}"></span><span style="flex: 1; width: 2px; background: #E4E6EB; margin-top: 4px"></span></div>
+            <div style="display: flex; flex-direction: column; gap: 2px; padding-bottom: 12px"><span style="font-size: 12px; font-weight: 700; color: #5B6170">12 JUN 2026</span><span style="font-size: 14px; font-weight: 700">Revisão: limpeza completa</span><span style="font-size: 13px; color: #5B6170">Temperatura jogando caiu de 82 para 70 °C.</span></div>
+          </div>
+          <div style="display: flex; gap: 14px">
+            <div style="display: flex; flex-direction: column; align-items: center; padding-top: 4px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #C9CDD5"></span><span style="flex: 1; width: 2px; background: #E4E6EB; margin-top: 4px"></span></div>
+            <div style="display: flex; flex-direction: column; gap: 2px; padding-bottom: 12px"><span style="font-size: 12px; font-weight: 700; color: #5B6170">03 MAR 2026</span><span style="font-size: 14px; font-weight: 700">SSD novo instalado</span><span style="font-size: 13px; color: #5B6170">Tempo de inicialização caiu pela metade.</span></div>
+          </div>
+          <div style="display: flex; gap: 14px">
+            <div style="display: flex; flex-direction: column; align-items: center; padding-top: 4px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #C9CDD5"></span></div>
+            <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; font-weight: 700; color: #5B6170">JAN 2026</span><span style="font-size: 14px; font-weight: 700">Começamos a acompanhar</span></div>
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#3F6E86","options":["#3F6E86","#4E7D6C","#55628F","#6B5B8E"]},"$preview":{"width":1280,"height":1040}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const accent = this.props.accent ?? '#3F6E86';
+    return { accent: accent, accentSoft: accent + '1F' };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zenith: logotipo só com o nome</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes drop{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+.rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.drop{animation:drop .9s cubic-bezier(.2,.7,.2,1) .5s both}
+@media (prefers-reduced-motion: reduce){.rise,.drop{animation:none}}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px;box-sizing:border-box;background:#E6E8EC"><div style="width: 880px; height: 600px; display: flex; flex-direction: column; background: #FFFFFF; font-family: 'Manrope', system-ui, sans-serif; color: #172036">
+  <div style="flex: 1; display: flex">
+    <div class="rise" style="flex: 1; display: flex; align-items: center; justify-content: center; background: #F2F3F5">
+      <div role="img" aria-label="Zenith" style="display: flex; align-items: flex-end; font-size: 68px; font-weight: 800; letter-spacing: 0.16em; line-height: 1; margin-right: -0.16em; color: #172036">
+        <span aria-hidden="true">ZEN</span><span aria-hidden="true" style="position: relative">I<span class="drop" style="position: absolute; left: calc(50% - 0.16em); top: -0.14em; width: 0.16em; height: 0.16em; border-radius: 999px; background: #172036"></span></span><span aria-hidden="true">TH</span>
+      </div>
+    </div>
+    <div class="rise" style="flex: 0 0 300px; display: flex; align-items: center; justify-content: center; background: #172036">
+      <div role="img" aria-label="Zenith em versão clara" style="display: flex; align-items: flex-end; font-size: 34px; font-weight: 800; letter-spacing: 0.16em; line-height: 1; margin-right: -0.16em; color: #F4F1EA">
+        <span aria-hidden="true">ZEN</span><span aria-hidden="true" style="position: relative">I<span class="drop" style="position: absolute; left: calc(50% - 0.16em); top: -0.14em; width: 0.16em; height: 0.16em; border-radius: 999px; background: #F4F1EA"></span></span><span aria-hidden="true">TH</span>
+      </div>
+    </div>
+  </div>
+  <div style="flex: 0 0 150px; box-sizing: border-box; padding: 0 40px; border-top: 1px solid #E4E6EB; display: flex; align-items: center; gap: 40px">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+      <div style="position: relative; width: 64px; height: 64px; border-radius: 16px; background: #172036; display: flex; align-items: center; justify-content: center; color: #F4F1EA; font-size: 34px; font-weight: 800; line-height: 1">
+        <span aria-hidden="true" style="margin-top: 8px">Z</span>
+        <span style="position: absolute; left: 28px; top: 9px; width: 8px; height: 8px; border-radius: 999px; background: #F4F1EA"></span>
+      </div>
+      <span style="font-size: 12px; font-weight: 600; color: #5B6170">Ícone · 64 px</span>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+      <div style="position: relative; width: 32px; height: 32px; border-radius: 8px; background: #172036; display: flex; align-items: center; justify-content: center; color: #F4F1EA; font-size: 17px; font-weight: 800; line-height: 1">
+        <span aria-hidden="true" style="margin-top: 4px">Z</span>
+        <span style="position: absolute; left: 13.5px; top: 4px; width: 5px; height: 5px; border-radius: 999px; background: #F4F1EA"></span>
+      </div>
+      <span style="font-size: 12px; font-weight: 600; color: #5B6170">32 px</span>
+    </div>
+    <div style="width: 1px; height: 64px; background: #E4E6EB"></div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+      <div style="height: 32px; display: flex; align-items: center">
+        <span aria-hidden="true" style="position: relative; display: inline-flex; width: 16px; height: 16px; align-items: flex-end; justify-content: center; color: #172036; font-size: 13px; font-weight: 800; line-height: 1">Z<span style="position: absolute; left: 6.5px; top: -1px; width: 3px; height: 3px; border-radius: 999px; background: #172036"></span></span>
+      </div>
+      <span style="font-size: 12px; font-weight: 600; color: #5B6170">Barra de tarefas · 16 px</span>
+    </div>
+  </div>
+</div></div>
+</body>
+</html>

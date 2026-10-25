@@ -1,0 +1,235 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Bestiario.dc.html": {
+      "expand": "fill",
+      "h": 1040,
+      "page": "conceitos",
+      "title": "2 · Bestiário do PC",
+      "w": 1280,
+      "x": 1360,
+      "y": 0
+    },
+    "GamerAtivo.dc.html": {
+      "h": 720,
+      "page": "gamer",
+      "title": "Modo gamer · 2. Ativo na barra de tarefas",
+      "w": 1280,
+      "x": 1360,
+      "y": 0
+    },
+    "GamerIcone.dc.html": {
+      "h": 280,
+      "page": "gamer",
+      "title": "Modo gamer · Estados do ícone",
+      "w": 720,
+      "x": 1360,
+      "y": 840
+    },
+    "GamerLigar.dc.html": {
+      "expand": "fill",
+      "h": 1120,
+      "is_interactive": true,
+      "page": "gamer",
+      "title": "Modo gamer · 1. Configurar e ligar",
+      "w": 1280,
+      "x": 0,
+      "y": 0
+    },
+    "GamerResumo.dc.html": {
+      "h": 980,
+      "is_interactive": true,
+      "page": "gamer",
+      "title": "Modo gamer · 3. Resumo da sessão",
+      "w": 720,
+      "x": 2720,
+      "y": 0
+    },
+    "Inicio.dc.html": {
+      "expand": "fill",
+      "h": 1040,
+      "is_interactive": true,
+      "page": "inicio",
+      "title": "Tela inicial unificada",
+      "w": 1280,
+      "x": 0,
+      "y": 0
+    },
+    "Main.dc.html": {
+      "expand": "fill",
+      "h": 1040,
+      "page": "conceitos",
+      "title": "1 · Valores a Receber do PC (Resgate)",
+      "w": 1280,
+      "x": 0,
+      "y": 0
+    },
+    "MarcaCores.dc.html": {
+      "h": 520,
+      "page": "marca",
+      "title": "Cores e o ponto como status",
+      "w": 880,
+      "x": 0,
+      "y": 720
+    },
+    "MarcaMonograma.dc.html": {
+      "h": 600,
+      "page": "marca",
+      "title": "B · Monograma",
+      "w": 880,
+      "x": 960,
+      "y": 0
+    },
+    "MarcaNome.dc.html": {
+      "h": 600,
+      "page": "marca",
+      "title": "C · Só o nome",
+      "w": 901,
+      "x": 1899,
+      "y": 0
+    },
+    "MarcaPrevia.dc.html": {
+      "h": 920,
+      "page": "marca",
+      "title": "Prévia: os quatro refinamentos",
+      "w": 1360,
+      "x": 960,
+      "y": 720
+    },
+    "MarcaSimbolo.dc.html": {
+      "h": 600,
+      "page": "marca",
+      "title": "A · Símbolo abstrato",
+      "w": 880,
+      "x": 0,
+      "y": 0
+    },
+    "Revisao.dc.html": {
+      "expand": "fill",
+      "h": 1040,
+      "page": "conceitos",
+      "title": "3 · Revisão do PC",
+      "w": 1280,
+      "x": 2720,
+      "y": 0
+    },
+    "MarcaVariacoes.dc.html": {
+      "x": 0,
+      "y": 1760,
+      "w": 1360,
+      "h": 520,
+      "title": "Novas variações: sem campainha",
+      "page": "marca"
+    },
+    "MarcaAscensao.dc.html": {
+      "x": 0,
+      "y": 2400,
+      "w": 1360,
+      "h": 780,
+      "title": "Ascensão refinada",
+      "page": "marca"
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-24T12:00:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "page": "marca",
+    "view": "canvas"
+  },
+  "notes": {
+    "funcoes1": {
+      "fill": "green",
+      "page": "conceitos",
+      "size": 40,
+      "text": "Funções possíveis: Resgate (Valores a Receber do PC)\n\n• Varredura em 1 clique de recursos pagos e não usados: taxa do monitor, HDR, G-Sync/FreeSync, perfil de memória (XMP/EXPO), placa de vídeo certa, porta e cabo certos, plano de energia\n• Cada achado em linguagem simples, com o ganho “antes → depois”\n• Aplicar com 1 clique e desfazer quando quiser; o que exige BIOS ou hardware vem com guia passo a passo\n• Comprovante: medição antes e depois de cada resgate\n• Vigia: avisa quando uma atualização desfaz um resgate (ex.: o driver volta o monitor para 60 Hz)",
+      "w": 1280,
+      "x": 0,
+      "y": 1160
+    },
+    "funcoes2": {
+      "fill": "blue",
+      "page": "conceitos",
+      "size": 40,
+      "text": "Funções possíveis: Bestiário do PC\n\n• Ficha de tudo que roda e inicia com o Windows, em linguagem simples\n• Nível de ameaça e detector de impostores: nomes que imitam processos do sistema, pasta estranha, sem assinatura digital\n• Custo de cada habitante: RAM, CPU, rede, bateria e tempo de inicialização\n• Ações seguras: impedir de iniciar com o Windows, isolar, abrir o local\n• Sentinela: avisa quando chega um habitante novo e de onde ele veio\n• Coleção e progresso de catalogação",
+      "w": 1280,
+      "x": 1360,
+      "y": 1160
+    },
+    "funcoes3": {
+      "fill": "teal",
+      "page": "conceitos",
+      "size": 40,
+      "text": "Funções possíveis: Revisão do PC\n\n• Monitora os sensores em silêncio por semanas, comparando sempre a mesma carga\n• Luzes de painel: poeira e temperatura, SSD, espaço em disco, ventoinhas, drivers\n• Previsões: disco cheio, desgaste do SSD, saúde da bateria (notebook)\n• Checklist de revisão com guias e reteste automático depois\n• Carnê do PC: histórico de manutenções e o efeito de cada uma\n• Lembretes de revisão no ritmo do seu uso",
+      "w": 1280,
+      "x": 2720,
+      "y": 1160
+    },
+    "titulo": {
+      "kind": "title1",
+      "maxW": 4000,
+      "page": "conceitos",
+      "text": "Três conceitos para PC: mesmo visual, três ideias",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "tituloGamer": {
+      "kind": "title1",
+      "maxW": 3440,
+      "page": "gamer",
+      "text": "Modo gamer: ligar, ativo e resumo",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "tituloMarca": {
+      "kind": "title1",
+      "maxW": 2800,
+      "page": "marca",
+      "text": "Zenith: três caminhos de marca",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Bestiario.dc.html",
+    "Revisao.dc.html",
+    "Inicio.dc.html",
+    "GamerLigar.dc.html",
+    "GamerAtivo.dc.html",
+    "GamerIcone.dc.html",
+    "GamerResumo.dc.html",
+    "MarcaSimbolo.dc.html",
+    "MarcaMonograma.dc.html",
+    "MarcaNome.dc.html",
+    "MarcaCores.dc.html",
+    "MarcaPrevia.dc.html",
+    "MarcaVariacoes.dc.html",
+    "MarcaAscensao.dc.html"
+  ],
+  "pages": [
+    {
+      "id": "conceitos",
+      "name": "Conceitos"
+    },
+    {
+      "id": "inicio",
+      "name": "Tela inicial"
+    },
+    {
+      "id": "gamer",
+      "name": "Modo gamer"
+    },
+    {
+      "id": "marca",
+      "name": "Marca"
+    }
+  ],
+  "title": "Três conceitos para PC"
+}

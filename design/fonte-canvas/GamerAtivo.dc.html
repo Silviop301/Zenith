@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Modo gamer ativo na barra de tarefas</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(107,91,142,.0)}50%{box-shadow:0 0 0 5px rgba(107,91,142,.22)}}
+@keyframes fill{from{transform:scaleX(0)}}
+.pop{animation:pop .6s cubic-bezier(.2,.7,.2,1) .2s both}
+.pulse{animation:pulse 2.2s ease-in-out infinite}
+.bar{transform-origin:left center;animation:fill 1.1s cubic-bezier(.2,.7,.2,1) .5s both}
+@media (prefers-reduced-motion: reduce){.pop,.pulse,.bar{animation:none}}
+</style>
+</helmet>
+<div style="position: relative; width: 1280px; height: 720px; overflow: hidden; background: #1F2229; font-family: 'Manrope', system-ui, sans-serif; color: #1A1D24">
+
+  <div style="position: absolute; left: 0; top: 0; width: 1280px; height: 668px; display: flex; align-items: center; justify-content: center">
+    <span style="font-size: 14px; font-weight: 600; letter-spacing: 0.08em; color: #8A90A0">JOGO EM EXECUÇÃO</span>
+  </div>
+
+  <section class="pop" aria-label="Painel do modo gamer" style="position: absolute; right: 84px; bottom: 68px; width: 360px; box-sizing: border-box; padding: 20px; background: #FFFFFF; border-radius: 18px; box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35); display: flex; flex-direction: column; gap: 16px">
+    <div style="display: flex; align-items: center; gap: 12px">
+      <div style="flex: 0 0 40px; height: 40px; border-radius: 12px; background: {{accent}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"></rect><path d="M8 20h8M12 16v4"></path><path d="M9.5 10l1.8 1.8L15 8.2"></path></svg>
+      </div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 15px; font-weight: 800">Modo gamer ativo</span>
+        <span style="font-size: 12px; color: #5B6170">Valorant · há 1h 12min</span>
+      </div>
+      <span class="pulse" style="width: 10px; height: 10px; border-radius: 999px; background: {{accent}}"></span>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 10px">
+      <div style="flex: 1 1 140px; box-sizing: border-box; padding: 12px; border-radius: 12px; background: #F2F3F5; display: flex; flex-direction: column; gap: 8px">
+        <span style="font-size: 12px; font-weight: 600; color: #5B6170">Processador · temperatura</span>
+        <span style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums">72 °C</span>
+        <div style="height: 5px; border-radius: 999px; background: #E0E3E8; overflow: hidden"><div class="bar" style="width: 72%; height: 100%; border-radius: 999px; background: #3F6E86"></div></div>
+      </div>
+      <div style="flex: 1 1 140px; box-sizing: border-box; padding: 12px; border-radius: 12px; background: #F2F3F5; display: flex; flex-direction: column; gap: 8px">
+        <span style="font-size: 12px; font-weight: 600; color: #5B6170">Placa de vídeo · temperatura</span>
+        <span style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums">68 °C</span>
+        <div style="height: 5px; border-radius: 999px; background: #E0E3E8; overflow: hidden"><div class="bar" style="width: 68%; height: 100%; border-radius: 999px; background: #3F6E86"></div></div>
+      </div>
+      <div style="flex: 1 1 140px; box-sizing: border-box; padding: 12px; border-radius: 12px; background: #F2F3F5; display: flex; flex-direction: column; gap: 8px">
+        <span style="font-size: 12px; font-weight: 600; color: #5B6170">Processador · uso</span>
+        <span style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums">41%</span>
+        <div style="height: 5px; border-radius: 999px; background: #E0E3E8; overflow: hidden"><div class="bar" style="width: 41%; height: 100%; border-radius: 999px; background: {{accent}}"></div></div>
+      </div>
+      <div style="flex: 1 1 140px; box-sizing: border-box; padding: 12px; border-radius: 12px; background: #F2F3F5; display: flex; flex-direction: column; gap: 8px">
+        <span style="font-size: 12px; font-weight: 600; color: #5B6170">Placa de vídeo · uso</span>
+        <span style="font-size: 22px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums">96%</span>
+        <div style="height: 5px; border-radius: 999px; background: #E0E3E8; overflow: hidden"><div class="bar" style="width: 96%; height: 100%; border-radius: 999px; background: {{accent}}"></div></div>
+      </div>
+    </div>
+
+    <span style="font-size: 12px; color: #5B6170">Aviso se passar de 85 °C (processador) ou 83 °C (vídeo).</span>
+
+    <div style="display: flex; gap: 10px">
+      <button type="button" style="flex: 1; min-height: 44px; border-radius: 12px; border: 1px solid #D5D8DF; background: #FFFFFF; color: #1A1D24; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Abrir painel</button>
+      <button type="button" style="flex: 1; min-height: 44px; border-radius: 12px; border: 0; background: #1A1D24; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer">Encerrar sessão</button>
+    </div>
+  </section>
+
+  <div aria-hidden="true" style="position: absolute; right: 166px; bottom: 60px; width: 16px; height: 16px; background: #FFFFFF; transform: rotate(45deg); border-radius: 3px"></div>
+
+  <div style="position: absolute; left: 0; bottom: 0; width: 1280px; height: 52px; box-sizing: border-box; padding: 0 16px; background: #F3F4F6; border-top: 1px solid #DADDE3; display: flex; align-items: center; justify-content: space-between">
+    <div style="width: 220px"></div>
+    <div aria-hidden="true" style="display: flex; align-items: center; gap: 8px">
+      <span style="width: 34px; height: 34px; border-radius: 9px; background: #D9DCE2"></span>
+      <span style="width: 34px; height: 34px; border-radius: 9px; background: #D9DCE2"></span>
+      <span style="width: 34px; height: 34px; border-radius: 9px; background: #D9DCE2"></span>
+      <span style="position: relative; width: 34px; height: 34px; border-radius: 9px; background: #B9BEC8"><span style="position: absolute; left: 11px; bottom: -6px; width: 12px; height: 3px; border-radius: 999px; background: #5B6170"></span></span>
+      <span style="width: 34px; height: 34px; border-radius: 9px; background: #D9DCE2"></span>
+    </div>
+    <div style="width: 220px; display: flex; align-items: center; justify-content: flex-end; gap: 6px">
+      <button type="button" aria-label="Modo gamer ativo" style="position: relative; width: 36px; height: 36px; border-radius: 9px; border: 0; background: #E1E3E8; color: #1A1D24; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"></rect><path d="M8 20h8M12 16v4"></path><path d="M9.5 10l1.8 1.8L15 8.2"></path></svg>
+        <span style="position: absolute; right: 5px; top: 5px; width: 8px; height: 8px; border-radius: 999px; background: {{accent}}; border: 2px solid #E1E3E8"></span>
+      </button>
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D4250" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 4px"><path d="M2 9a15 15 0 0 1 20 0"></path><path d="M5.5 12.5a10 10 0 0 1 13 0"></path><path d="M9 16a5 5 0 0 1 6 0"></path><path d="M12 19.5v.01"></path></svg>
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D4250" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 4px"><path d="M4 9v6h4l5 4V5L8 9H4z"></path><path d="M16.5 9a4 4 0 0 1 0 6"></path></svg>
+      <div style="display: flex; flex-direction: column; align-items: flex-end; margin-left: 6px; font-size: 12px; line-height: 1.3; color: #1A1D24; font-variant-numeric: tabular-nums"><span>21:47</span><span>24/10/2026</span></div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#6B5B8E","options":["#6B5B8E","#55628F","#3F6E86","#4E7D6C"]},"$preview":{"width":1280,"height":720}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#6B5B8E' };
+  }
+}
+</script>
+</body>
+</html>
