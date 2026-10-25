@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zenith: símbolo Ascensão refinado</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+@keyframes appear{0%{transform:scale(0);opacity:0}10%{transform:scale(1.25);opacity:1}16%{transform:scale(1)}82%{transform:scale(1);opacity:1}100%{transform:scale(1);opacity:0}}
+@keyframes halo{0%,30%{transform:scale(1);opacity:0}34%{opacity:.55}55%{transform:scale(2.8);opacity:0}100%{opacity:0}}
+@keyframes word{0%,30%{opacity:0;transform:translateX(-8px)}42%{opacity:1;transform:none}82%{opacity:1}100%{opacity:0}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ap{transform-box:fill-box;transform-origin:center;animation:appear 4s cubic-bezier(.2,.7,.2,1) infinite}
+.a1{animation-delay:0s}.a2{animation-delay:.22s}.a3{animation-delay:.44s}.a4{animation-delay:.66s}
+.halo{transform-box:fill-box;transform-origin:center;animation:halo 4s ease-out .66s infinite}
+.word{animation:word 4s cubic-bezier(.2,.7,.2,1) infinite}
+.pulse{animation:pulse 1.6s ease-in-out infinite}
+.rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+@media (prefers-reduced-motion: reduce){.ap,.halo,.word,.pulse,.rise{animation:none}}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px;box-sizing:border-box;background:#E6E8EC"><div style="width: 1360px; height: 780px; box-sizing: border-box; padding: 32px; background: #FFFFFF; font-family: 'Manrope', system-ui, sans-serif; color: #172036; display: flex; flex-direction: column; gap: 20px">
+
+  <div style="flex: 0 0 380px; display: flex; gap: 20px">
+    <div class="rise" style="flex: 1; border-radius: 22px; background: #F2F3F5; display: flex; align-items: center; justify-content: center; gap: 24px">
+      <svg role="img" aria-label="Símbolo Zenith: quatro pontos subindo e crescendo" width="120" height="120" viewBox="0 0 64 64">
+        <circle cx="18.4" cy="42" r="2.4" fill="#172036"></circle>
+        <circle cx="24" cy="32.5" r="3.2" fill="#172036"></circle>
+        <circle cx="31.8" cy="26.6" r="4" fill="#172036"></circle>
+        <circle cx="42" cy="24.5" r="5.4" fill="#172036"></circle>
+      </svg>
+      <span style="font-size: 72px; font-weight: 800; letter-spacing: -0.03em">Zenith</span>
+    </div>
+    <div style="flex: 0 0 480px; border-radius: 22px; background: #172036; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px">
+      <div style="display: flex; align-items: center; gap: 18px">
+        <svg role="img" aria-label="Animação: os pontos surgem um a um, subindo até o topo" width="104" height="104" viewBox="0 0 64 64">
+          <circle class="ap a1" cx="18.4" cy="42" r="2.4" fill="#F4F1EA"></circle>
+          <circle class="ap a2" cx="24" cy="32.5" r="3.2" fill="#F4F1EA"></circle>
+          <circle class="ap a3" cx="31.8" cy="26.6" r="4" fill="#F4F1EA"></circle>
+          <circle class="halo" cx="42" cy="24.5" r="5.4" fill="none" stroke="#F4F1EA" stroke-width="1"></circle>
+          <circle class="ap a4" cx="42" cy="24.5" r="5.4" fill="#F4F1EA"></circle>
+        </svg>
+        <span class="word" style="font-size: 52px; font-weight: 800; letter-spacing: -0.03em; color: #F4F1EA">Zenith</span>
+      </div>
+      <span style="font-size: 12px; color: #B9C0D4">Abertura do app: os pontos sobem um a um. Aqui em loop só para demonstrar.</span>
+    </div>
+  </div>
+
+  <div style="flex: 1; display: flex; gap: 20px">
+
+    <section aria-label="Tamanhos" style="flex: 1.3; box-sizing: border-box; padding: 22px 24px; border-radius: 22px; background: #F2F3F5; display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 15px; font-weight: 800">Um desenho por tamanho</h2>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: space-around; gap: 16px">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <div style="width: 72px; height: 72px; border-radius: 18px; background: #172036; display: flex; align-items: center; justify-content: center">
+            <svg role="img" aria-label="Ícone grande com quatro pontos" width="54" height="54" viewBox="0 0 64 64"><circle cx="18.4" cy="42" r="2.6" fill="#F4F1EA"></circle><circle cx="24" cy="32.5" r="3.4" fill="#F4F1EA"></circle><circle cx="31.8" cy="26.6" r="4.2" fill="#F4F1EA"></circle><circle cx="42" cy="24.5" r="5.6" fill="#F4F1EA"></circle></svg>
+          </div>
+          <span style="font-size: 12px; font-weight: 700; color: #3D4250">Grande · 4 pontos</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <div style="width: 36px; height: 36px; border-radius: 9px; background: #172036; display: flex; align-items: center; justify-content: center">
+            <svg role="img" aria-label="Ícone médio com três pontos" width="28" height="28" viewBox="0 0 64 64"><circle cx="18" cy="41.6" r="4" fill="#F4F1EA"></circle><circle cx="27" cy="30.9" r="5.5" fill="#F4F1EA"></circle><circle cx="42.5" cy="26" r="7.5" fill="#F4F1EA"></circle></svg>
+          </div>
+          <span style="font-size: 12px; font-weight: 700; color: #3D4250">32 px · 3 pontos</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+          <div style="width: 36px; height: 36px; border-radius: 9px; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+            <svg role="img" aria-label="Barra de tarefas, 16 pixels, três pontos reforçados" width="16" height="16" viewBox="0 0 64 64"><circle cx="13.5" cy="45" r="5" fill="#172036"></circle><circle cx="26.5" cy="32" r="7" fill="#172036"></circle><circle cx="45.5" cy="24" r="10" fill="#172036"></circle></svg>
+          </div>
+          <span style="font-size: 12px; font-weight: 700; color: #3D4250">16 px · pontos reforçados</span>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="O maior ponto é o status" style="flex: 1; box-sizing: border-box; padding: 22px 24px; border-radius: 22px; background: #F2F3F5; display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 15px; font-weight: 800">O ponto do topo é o status</h2>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: space-around; gap: 12px">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+          <svg role="img" aria-label="Em repouso" width="64" height="64" viewBox="0 0 64 64"><circle cx="18.4" cy="42" r="2.4" fill="#172036"></circle><circle cx="24" cy="32.5" r="3.2" fill="#172036"></circle><circle cx="31.8" cy="26.6" r="4" fill="#172036"></circle><circle cx="42" cy="24.5" r="5.4" fill="#172036"></circle></svg>
+          <span style="font-size: 12px; font-weight: 700">Repouso</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+          <svg role="img" aria-label="Modo gamer ativo" width="64" height="64" viewBox="0 0 64 64"><circle cx="18.4" cy="42" r="2.4" fill="#172036"></circle><circle cx="24" cy="32.5" r="3.2" fill="#172036"></circle><circle cx="31.8" cy="26.6" r="4" fill="#172036"></circle><circle cx="42" cy="24.5" r="5.8" fill="#6B5B8E"></circle></svg>
+          <span style="font-size: 12px; font-weight: 700">Ativo</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+          <svg role="img" aria-label="Alerta de temperatura" width="64" height="64" viewBox="0 0 64 64"><circle cx="18.4" cy="42" r="2.4" fill="#172036"></circle><circle cx="24" cy="32.5" r="3.2" fill="#172036"></circle><circle cx="31.8" cy="26.6" r="4" fill="#172036"></circle><circle class="pulse" cx="42" cy="24.5" r="5.8" fill="#B07F2E"></circle></svg>
+          <span style="font-size: 12px; font-weight: 700">Alerta</span>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="No app" style="flex: 0.9; box-sizing: border-box; padding: 22px 24px; border-radius: 22px; background: #F2F3F5; display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 15px; font-weight: 800">No app</h2>
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 14px">
+        <div style="padding: 14px; border-radius: 14px; background: #FFFFFF; display: flex; align-items: center; gap: 12px">
+          <div style="width: 40px; height: 40px; border-radius: 12px; background: #172036; display: flex; align-items: center; justify-content: center">
+            <svg aria-hidden="true" width="30" height="30" viewBox="0 0 64 64"><circle cx="18" cy="41.6" r="4" fill="#F4F1EA"></circle><circle cx="27" cy="30.9" r="5.5" fill="#F4F1EA"></circle><circle cx="42.5" cy="26" r="7.5" fill="#F4F1EA"></circle></svg>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 800; letter-spacing: -0.01em">Zenith</span><span style="font-size: 12px; color: #5B6170">Seu PC, explicado</span></div>
+        </div>
+        <div style="height: 44px; box-sizing: border-box; padding: 0 14px; border-radius: 12px; background: #FFFFFF; border: 1px solid #DADDE3; display: flex; align-items: center; justify-content: flex-end; gap: 12px">
+          <span style="width: 30px; height: 30px; border-radius: 8px; background: #E1E3E8; display: flex; align-items: center; justify-content: center"><svg role="img" aria-label="Zenith ativo na barra de tarefas" width="16" height="16" viewBox="0 0 64 64"><circle cx="13.5" cy="45" r="5" fill="#172036"></circle><circle cx="26.5" cy="32" r="7" fill="#172036"></circle><circle class="pulse" cx="45.5" cy="24" r="10.5" fill="#6B5B8E"></circle></svg></span>
+          <span style="font-size: 12px; font-variant-numeric: tabular-nums">21:47</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div></div>
+</body>
+</html>

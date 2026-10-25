@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Zenith: cores e o ponto como status</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.pulse{animation:pulse 1.4s ease-in-out infinite}
+.rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}
+@media (prefers-reduced-motion: reduce){.pulse,.rise{animation:none}}
+</style>
+</helmet>
+<div style="width: 880px; height: 520px; box-sizing: border-box; padding: 36px 40px; background: #FFFFFF; font-family: 'Manrope', system-ui, sans-serif; color: #172036; display: flex; gap: 40px">
+
+  <section aria-label="Paleta" style="flex: 0 0 300px; display: flex; flex-direction: column; gap: 14px">
+    <h1 style="margin: 0 0 6px; font-size: 16px; font-weight: 800">Paleta</h1>
+    <div style="display: flex; align-items: center; gap: 14px"><span style="width: 52px; height: 52px; border-radius: 14px; background: #172036"></span><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800">Noite</span><span style="font-size: 12px; color: #5B6170">#172036 · cor da marca</span></span></div>
+    <div style="display: flex; align-items: center; gap: 14px"><span style="width: 52px; height: 52px; border-radius: 14px; background: #F4F1EA; border: 1px solid #E4E6EB; box-sizing: border-box"></span><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800">Luz</span><span style="font-size: 12px; color: #5B6170">#F4F1EA · o ponto sobre fundo escuro</span></span></div>
+    <div style="display: flex; align-items: center; gap: 14px"><span style="width: 52px; height: 52px; border-radius: 14px; background: #F2F3F5; border: 1px solid #E4E6EB; box-sizing: border-box"></span><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800">Névoa</span><span style="font-size: 12px; color: #5B6170">#F2F3F5 · fundo do app</span></span></div>
+    <div style="display: flex; align-items: center; gap: 14px"><span style="width: 52px; height: 52px; border-radius: 14px; background: #6B5B8E"></span><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800">Ativo</span><span style="font-size: 12px; color: #5B6170">#6B5B8E · modo gamer ligado</span></span></div>
+    <div style="display: flex; align-items: center; gap: 14px"><span style="width: 52px; height: 52px; border-radius: 14px; background: #B07F2E"></span><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800">Alerta</span><span style="font-size: 12px; color: #5B6170">#B07F2E · temperatura acima do limite</span></span></div>
+  </section>
+
+  <section aria-label="O ponto como status" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+    <h2 style="margin: 0 0 6px; font-size: 16px; font-weight: 800">O ponto do zênite é o status</h2>
+    <div style="display: flex; gap: 14px">
+      <div class="rise d1" style="flex: 1; box-sizing: border-box; padding: 20px 14px; border-radius: 16px; background: #F2F3F5; display: flex; flex-direction: column; align-items: center; gap: 12px">
+        <svg role="img" aria-label="Símbolo em repouso" width="72" height="72" viewBox="0 0 64 64"><path d="M10 45 A22 22 0 0 1 25.2 24.08" fill="none" stroke="#172036" stroke-width="4.5" stroke-linecap="round"></path><path d="M38.8 24.08 A22 22 0 0 1 54 45" fill="none" stroke="#172036" stroke-width="4.5" stroke-linecap="round"></path><path d="M6 45 H58" fill="none" stroke="#172036" stroke-width="4.5" stroke-linecap="round"></path><circle cx="32" cy="23" r="4.6" fill="#172036"></circle></svg>
+        <span style="font-size: 13px; font-weight: 800">Em repouso</span>
+      </div>
+      <div class="rise d2" style="flex: 1; box-sizing: border-box; padding: 20px 14px; border-radius: 16px; background: #F2F3F5; display: flex; flex-direction: column; align-items: center; gap: 12px">
+        <svg role="img" aria-label="Símbolo com modo gamer ativo" width="72" height="72" viewBox="0 0 64 64"><path d="M10 45 A22 22 0 0 1 25.2 24.08" fill="none" stroke="#172036" stroke-width="4.5" stroke-linecap="round"></path><path d="M38.8 24.08 A22 22 0 0 1 54 45" fill="none" stroke="#172036" stroke-width="4.5" stroke-linecap="round"></path><path d="M6 45 H58" fill="none" stroke="#172036" stroke-width="4.5" stroke-linecap="round"></path><circle cx="32" cy="23" r="5.2" fill="#6B5B8E"></circle></svg>
+        <span style="font-size: 13px; font-weight: 800">Modo gamer ativo</span>
+      </div>
+      <div class="rise d3" style="flex: 1; box-sizing: border-box; padding: 20px 14px; border-radius: 16px; background: #F2F3F5; display: flex; flex-direction: column; align-items: center; gap: 12px">
+        <svg role="img" aria-label="Símbolo em alerta de temperatura" width="72" height="72" viewBox="0 0 64 64"><path d="M10 45 A22 22 0 0 1 25.2 24.08" fill="none" stroke="#172036" stroke-width="4.5" stroke-linecap="round"></path><path d="M38.8 24.08 A22 22 0 0 1 54 45" fill="none" stroke="#172036" stroke-width="4.5" stroke-linecap="round"></path><path d="M6 45 H58" fill="none" stroke="#172036" stroke-width="4.5" stroke-linecap="round"></path><circle class="pulse" cx="32" cy="23" r="5.2" fill="#B07F2E"></circle></svg>
+        <span style="font-size: 13px; font-weight: 800">Alerta</span>
+      </div>
+    </div>
+
+    <div style="margin-top: auto; display: flex; flex-direction: column; gap: 8px">
+      <span style="font-size: 12px; font-weight: 600; color: #5B6170">Na barra de tarefas, em tamanho real</span>
+      <div style="height: 48px; box-sizing: border-box; padding: 0 16px; border-radius: 12px; background: #F3F4F6; border: 1px solid #DADDE3; display: flex; align-items: center; justify-content: flex-end; gap: 18px">
+        <svg role="img" aria-label="Repouso, 16 pixels" width="16" height="16" viewBox="0 0 64 64"><path d="M10 45 A22 22 0 0 1 25.2 24.08" fill="none" stroke="#172036" stroke-width="8" stroke-linecap="round"></path><path d="M38.8 24.08 A22 22 0 0 1 54 45" fill="none" stroke="#172036" stroke-width="8" stroke-linecap="round"></path><path d="M6 45 H58" fill="none" stroke="#172036" stroke-width="8" stroke-linecap="round"></path><circle cx="32" cy="23" r="7" fill="#172036"></circle></svg>
+        <svg role="img" aria-label="Ativo, 16 pixels" width="16" height="16" viewBox="0 0 64 64"><path d="M10 45 A22 22 0 0 1 25.2 24.08" fill="none" stroke="#172036" stroke-width="8" stroke-linecap="round"></path><path d="M38.8 24.08 A22 22 0 0 1 54 45" fill="none" stroke="#172036" stroke-width="8" stroke-linecap="round"></path><path d="M6 45 H58" fill="none" stroke="#172036" stroke-width="8" stroke-linecap="round"></path><circle cx="32" cy="23" r="9" fill="#6B5B8E"></circle></svg>
+        <svg role="img" aria-label="Alerta, 16 pixels" width="16" height="16" viewBox="0 0 64 64"><path d="M10 45 A22 22 0 0 1 25.2 24.08" fill="none" stroke="#172036" stroke-width="8" stroke-linecap="round"></path><path d="M38.8 24.08 A22 22 0 0 1 54 45" fill="none" stroke="#172036" stroke-width="8" stroke-linecap="round"></path><path d="M6 45 H58" fill="none" stroke="#172036" stroke-width="8" stroke-linecap="round"></path><circle class="pulse" cx="32" cy="23" r="9" fill="#B07F2E"></circle></svg>
+        <span style="font-size: 12px; color: #1A1D24; font-variant-numeric: tabular-nums">21:47</span>
+      </div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":880,"height":520}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

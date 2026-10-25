@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Resgate: achados do seu PC</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#3D4250}a:hover{color:#1A1D24}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes ring{from{stroke-dashoffset:163.4}}
+.rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.05s}.d2{animation-delay:.12s}.d3{animation-delay:.19s}.d4{animation-delay:.26s}.d5{animation-delay:.33s}.d6{animation-delay:.40s}.d7{animation-delay:.47s}
+.ring{animation:ring 1.4s cubic-bezier(.2,.7,.2,1) .3s both}
+@media (prefers-reduced-motion: reduce){.rise,.ring{animation:none}}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F2F3F5; font-family: 'Manrope', system-ui, sans-serif; color: #1A1D24; display: flex; flex-wrap: wrap; align-items: stretch">
+
+  <aside style="flex: 1 1 220px; box-sizing: border-box; padding: 28px 20px; background: #FFFFFF; border-right: 1px solid #E4E6EB; display: flex; flex-direction: column; gap: 32px">
+    <div style="display: flex; align-items: center; gap: 12px">
+      <div style="width: 40px; height: 40px; border-radius: 12px; background: {{accent}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+        <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11"></path><path d="M7.5 10l4.5 4.5 4.5-4.5"></path><path d="M4 16v2.5A2.5 2.5 0 0 0 6.5 21h11a2.5 2.5 0 0 0 2.5-2.5V16"></path></svg>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <div style="font-size: 17px; font-weight: 800; letter-spacing: -0.01em">Resgate</div>
+        <div style="font-size: 12px; color: #5B6170">Valores a receber do seu PC</div>
+      </div>
+    </div>
+
+    <nav aria-label="Seções" style="display: flex; flex-direction: column; gap: 4px">
+      <a href="#" style="display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 0 14px; border-radius: 12px; background: {{accentSoft}}; color: #1A1D24; font-size: 14px; font-weight: 700; text-decoration: none">Achados <span style="font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: {{accent}}; color: #FFFFFF">5</span></a>
+      <a href="#" style="display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 0 14px; border-radius: 12px; color: #3D4250; font-size: 14px; font-weight: 600; text-decoration: none">Resgatados <span style="font-size: 12px; color: #5B6170">2</span></a>
+      <a href="#" style="display: flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 12px; color: #3D4250; font-size: 14px; font-weight: 600; text-decoration: none">Comprovantes</a>
+      <a href="#" style="display: flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 12px; color: #3D4250; font-size: 14px; font-weight: 600; text-decoration: none">Vigia</a>
+      <a href="#" style="display: flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 12px; color: #3D4250; font-size: 14px; font-weight: 600; text-decoration: none">Configurações</a>
+    </nav>
+
+    <div style="margin-top: auto; padding: 16px; border-radius: 14px; background: #F2F3F5; display: flex; flex-direction: column; gap: 6px">
+      <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700"><span style="width: 8px; height: 8px; border-radius: 999px; background: {{accent}}"></span>Vigia ligado</div>
+      <div style="font-size: 12px; line-height: 1.5; color: #5B6170">Avisamos se uma atualização desfizer algum resgate.</div>
+    </div>
+  </aside>
+
+  <main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 44px 48px 56px; display: flex; justify-content: center">
+    <div style="width: 100%; max-width: 1000px; display: flex; flex-direction: column; gap: 32px">
+
+      <header class="rise" style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between">
+        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 620px">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #5B6170">VARREDURA CONCLUÍDA · HOJE, 14:32</div>
+          <h1 style="margin: 0; font-size: 40px; line-height: 1.1; font-weight: 800; letter-spacing: -0.025em">Você pagou por mais do que está usando.</h1>
+          <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #5B6170">Encontramos 5 recursos do seu hardware desligados ou limitados. Três dá para ativar agora, sem risco e com volta.</p>
+        </div>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap">
+          <button type="button" style="min-height: 44px; padding: 0 18px; border-radius: 12px; border: 1px solid #D5D8DF; background: #FFFFFF; color: #1A1D24; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Varrer de novo</button>
+          <button type="button" style="min-height: 44px; padding: 0 20px; border-radius: 12px; border: 0; background: {{accent}}; color: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Resgatar os 3 seguros</button>
+        </div>
+      </header>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px">
+        <div class="rise d1" style="flex: 1 1 260px; display: flex; align-items: center; gap: 18px; padding: 20px 22px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 18px">
+          <svg role="img" aria-label="3 de 5 achados resolvíveis em 1 clique" width="64" height="64" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="26" fill="none" stroke="#E8EAEE" stroke-width="7"></circle>
+            <circle class="ring" cx="32" cy="32" r="26" fill="none" stroke="{{accent}}" stroke-width="7" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="65.4" transform="rotate(-90 32 32)"></circle>
+          </svg>
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <div style="font-size: 26px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums">3 de 5</div>
+            <div style="font-size: 13px; color: #5B6170">resolvíveis em 1 clique</div>
+          </div>
+        </div>
+        <div class="rise d2" style="flex: 1 1 260px; display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 20px 22px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 18px">
+          <div style="font-size: 26px; font-weight: 800; letter-spacing: -0.02em">2 precisam de você</div>
+          <div style="font-size: 13px; line-height: 1.5; color: #5B6170">Trocar um cabo de lugar e um ajuste na BIOS, com guia.</div>
+        </div>
+        <div class="rise d3" style="flex: 1 1 260px; display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 20px 22px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 18px">
+          <div style="font-size: 26px; font-weight: 800; letter-spacing: -0.02em">Tudo reversível</div>
+          <div style="font-size: 13px; line-height: 1.5; color: #5B6170">Cada resgate tem botão de desfazer e comprovante.</div>
+        </div>
+      </div>
+
+      <section style="display: flex; flex-direction: column; gap: 12px">
+        <h2 style="margin: 0; font-size: 15px; font-weight: 700; color: #3D4250">Ativáveis agora</h2>
+
+        <article class="rise d3" style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px; padding: 18px 22px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 16px">
+          <div style="flex: 0 0 48px; height: 48px; border-radius: 12px; background: {{accentSoft}}; color: {{accent}}; display: flex; align-items: center; justify-content: center">
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"></rect><path d="M8 20h8"></path><path d="M12 16v4"></path></svg>
+          </div>
+          <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+            <h3 style="margin: 0; font-size: 16px; font-weight: 700">Seu monitor aguenta 144 Hz, mas está em 60 Hz</h3>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #5B6170">Tudo na tela fica mais fluido: jogo, mouse e rolagem.</p>
+          </div>
+          <div style="flex: 0 0 auto; font-size: 15px; font-weight: 800; font-variant-numeric: tabular-nums; color: {{accent}}">60 → 144 Hz</div>
+          <span style="flex: 0 0 auto; font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 999px; background: #F2F3F5; color: #3D4250">1 clique · reversível</span>
+          <button type="button" style="flex: 0 0 auto; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5D8DF; background: #FFFFFF; color: #1A1D24; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Ativar</button>
+        </article>
+
+        <article class="rise d4" style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px; padding: 18px 22px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 16px">
+          <div style="flex: 0 0 48px; height: 48px; border-radius: 12px; background: {{accentSoft}}; color: {{accent}}; display: flex; align-items: center; justify-content: center">
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"></path></svg>
+          </div>
+          <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+            <h3 style="margin: 0; font-size: 16px; font-weight: 700">Seu PC de mesa está no modo economia de energia</h3>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #5B6170">O processador está sendo segurado sem você saber.</p>
+          </div>
+          <div style="flex: 0 0 auto; font-size: 15px; font-weight: 800; color: {{accent}}">Limitado → Livre</div>
+          <span style="flex: 0 0 auto; font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 999px; background: #F2F3F5; color: #3D4250">1 clique · reversível</span>
+          <button type="button" style="flex: 0 0 auto; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5D8DF; background: #FFFFFF; color: #1A1D24; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Ativar</button>
+        </article>
+
+        <article class="rise d5" style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px; padding: 18px 22px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 16px">
+          <div style="flex: 0 0 48px; height: 48px; border-radius: 12px; background: {{accentSoft}}; color: {{accent}}; display: flex; align-items: center; justify-content: center">
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+          </div>
+          <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+            <h3 style="margin: 0; font-size: 16px; font-weight: 700">Seu monitor tem HDR, e ele está desligado</h3>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #5B6170">Cores mais vivas em jogos e vídeos compatíveis. Testa por 15 segundos antes de manter.</p>
+          </div>
+          <div style="flex: 0 0 auto; font-size: 15px; font-weight: 800; color: {{accent}}">Desligado → Ligado</div>
+          <span style="flex: 0 0 auto; font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 999px; background: #F2F3F5; color: #3D4250">1 clique · com teste</span>
+          <button type="button" style="flex: 0 0 auto; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5D8DF; background: #FFFFFF; color: #1A1D24; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Testar</button>
+        </article>
+      </section>
+
+      <section style="display: flex; flex-direction: column; gap: 12px">
+        <h2 style="margin: 0; font-size: 15px; font-weight: 700; color: #3D4250">Precisam de você</h2>
+
+        <article class="rise d6" style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px; padding: 18px 22px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 16px">
+          <div style="flex: 0 0 48px; height: 48px; border-radius: 12px; background: #F2F3F5; color: #3D4250; display: flex; align-items: center; justify-content: center">
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v5M15 2v5"></path><path d="M7 7h10v4a5 5 0 0 1-10 0V7z"></path><path d="M12 16v6"></path></svg>
+          </div>
+          <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+            <h3 style="margin: 0; font-size: 16px; font-weight: 700">O monitor está ligado na placa-mãe, não na placa de vídeo</h3>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #5B6170">Seus jogos estão usando o vídeo mais fraco do PC. Mostramos com foto onde ligar o cabo.</p>
+          </div>
+          <div style="flex: 0 0 auto; font-size: 15px; font-weight: 800; color: #3D4250">Integrado → Dedicado</div>
+          <span style="flex: 0 0 auto; font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 999px; background: #F2F3F5; color: #3D4250">Trocar o cabo · 1 min</span>
+          <button type="button" style="flex: 0 0 auto; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5D8DF; background: #FFFFFF; color: #1A1D24; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Ver onde ligar</button>
+        </article>
+
+        <article class="rise d7" style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px; padding: 18px 22px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 16px">
+          <div style="flex: 0 0 48px; height: 48px; border-radius: 12px; background: #F2F3F5; color: #3D4250; display: flex; align-items: center; justify-content: center">
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="9" rx="1.5"></rect><path d="M6 16v3M10 16v3M14 16v3M18 16v3"></path><path d="M6 10.5h3M11 10.5h3"></path></svg>
+          </div>
+          <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+            <h3 style="margin: 0; font-size: 16px; font-weight: 700">Sua memória roda abaixo da velocidade de fábrica</h3>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #5B6170">Precisa ativar um perfil na BIOS. Mostramos cada tela, na ordem.</p>
+          </div>
+          <div style="flex: 0 0 auto; font-size: 15px; font-weight: 800; font-variant-numeric: tabular-nums; color: #3D4250">2133 → 3200 MHz</div>
+          <span style="flex: 0 0 auto; font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 999px; background: #F2F3F5; color: #3D4250">Guia na BIOS · 5 min</span>
+          <button type="button" style="flex: 0 0 auto; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5D8DF; background: #FFFFFF; color: #1A1D24; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Abrir guia</button>
+        </article>
+      </section>
+
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#4E7D6C","options":["#4E7D6C","#55628F","#3F6E86","#6B5B8E"]},"$preview":{"width":1280,"height":1040}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const accent = this.props.accent ?? '#4E7D6C';
+    return { accent: accent, accentSoft: accent + '1F' };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "comment": "Rated (factory/XMP/EXPO) speed by part-number prefix, in MT/s. Longest matching prefix wins. Add entries as collector reports arrive.",
+  "modules": [
+    {
+      "partNumberPrefix": "JHD3600U1808JG",
+      "ratedMTs": 3600,
+      "brand": null,
+      "notes": "PC de teste do Silvio (2 x 8 GB DDR4). WMI informa o fabricante como \"Unknown\"; marca ainda não confirmada."
+    }
+  ]
+}

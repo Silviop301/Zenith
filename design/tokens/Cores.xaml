@@ -1,0 +1,70 @@
+<!-- Paleta do Zenith para WPF. Inclua em App.xaml via MergedDictionaries. -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- marca -->
+  <Color x:Key="MarcaNoiteColor">#172036</Color>
+  <SolidColorBrush x:Key="MarcaNoiteBrush" Color="{StaticResource MarcaNoiteColor}"/>
+  <Color x:Key="MarcaLuzColor">#F4F1EA</Color>
+  <SolidColorBrush x:Key="MarcaLuzBrush" Color="{StaticResource MarcaLuzColor}"/>
+  <Color x:Key="MarcaNevoaColor">#F2F3F5</Color>
+  <SolidColorBrush x:Key="MarcaNevoaBrush" Color="{StaticResource MarcaNevoaColor}"/>
+  <!-- status -->
+  <Color x:Key="StatusAtivoColor">#6B5B8E</Color>
+  <SolidColorBrush x:Key="StatusAtivoBrush" Color="{StaticResource StatusAtivoColor}"/>
+  <Color x:Key="StatusAlertaColor">#B07F2E</Color>
+  <SolidColorBrush x:Key="StatusAlertaBrush" Color="{StaticResource StatusAlertaColor}"/>
+  <Color x:Key="StatusAlertaFundoColor">#F6EFE3</Color>
+  <SolidColorBrush x:Key="StatusAlertaFundoBrush" Color="{StaticResource StatusAlertaFundoColor}"/>
+  <Color x:Key="StatusAlertaTextoColor">#6E5226</Color>
+  <SolidColorBrush x:Key="StatusAlertaTextoBrush" Color="{StaticResource StatusAlertaTextoColor}"/>
+  <Color x:Key="StatusPerigoColor">#9A3A2F</Color>
+  <SolidColorBrush x:Key="StatusPerigoBrush" Color="{StaticResource StatusPerigoColor}"/>
+  <Color x:Key="StatusPerigoFundoColor">#F8E9E6</Color>
+  <SolidColorBrush x:Key="StatusPerigoFundoBrush" Color="{StaticResource StatusPerigoFundoColor}"/>
+  <Color x:Key="StatusPerigoBordaColor">#B5473A</Color>
+  <SolidColorBrush x:Key="StatusPerigoBordaBrush" Color="{StaticResource StatusPerigoBordaColor}"/>
+  <!-- modulos -->
+  <Color x:Key="ModulosResgateColor">#4E7D6C</Color>
+  <SolidColorBrush x:Key="ModulosResgateBrush" Color="{StaticResource ModulosResgateColor}"/>
+  <Color x:Key="ModulosResgateTextoColor">#2F5D4C</Color>
+  <SolidColorBrush x:Key="ModulosResgateTextoBrush" Color="{StaticResource ModulosResgateTextoColor}"/>
+  <Color x:Key="ModulosResgateFundoColor">#E6EFEB</Color>
+  <SolidColorBrush x:Key="ModulosResgateFundoBrush" Color="{StaticResource ModulosResgateFundoColor}"/>
+  <Color x:Key="ModulosBestiarioColor">#55628F</Color>
+  <SolidColorBrush x:Key="ModulosBestiarioBrush" Color="{StaticResource ModulosBestiarioColor}"/>
+  <Color x:Key="ModulosBestiarioTextoColor">#3E4A72</Color>
+  <SolidColorBrush x:Key="ModulosBestiarioTextoBrush" Color="{StaticResource ModulosBestiarioTextoColor}"/>
+  <Color x:Key="ModulosBestiarioFundoColor">#ECEEF6</Color>
+  <SolidColorBrush x:Key="ModulosBestiarioFundoBrush" Color="{StaticResource ModulosBestiarioFundoColor}"/>
+  <Color x:Key="ModulosRevisaoColor">#3F6E86</Color>
+  <SolidColorBrush x:Key="ModulosRevisaoBrush" Color="{StaticResource ModulosRevisaoColor}"/>
+  <Color x:Key="ModulosRevisaoTextoColor">#2B5266</Color>
+  <SolidColorBrush x:Key="ModulosRevisaoTextoBrush" Color="{StaticResource ModulosRevisaoTextoColor}"/>
+  <Color x:Key="ModulosRevisaoFundoColor">#E3EDF1</Color>
+  <SolidColorBrush x:Key="ModulosRevisaoFundoBrush" Color="{StaticResource ModulosRevisaoFundoColor}"/>
+  <!-- texto -->
+  <Color x:Key="TextoPrincipalColor">#1A1D24</Color>
+  <SolidColorBrush x:Key="TextoPrincipalBrush" Color="{StaticResource TextoPrincipalColor}"/>
+  <Color x:Key="TextoForteColor">#3D4250</Color>
+  <SolidColorBrush x:Key="TextoForteBrush" Color="{StaticResource TextoForteColor}"/>
+  <Color x:Key="TextoSecundarioColor">#5B6170</Color>
+  <SolidColorBrush x:Key="TextoSecundarioBrush" Color="{StaticResource TextoSecundarioColor}"/>
+  <Color x:Key="TextoSobreEscuroColor">#F4F1EA</Color>
+  <SolidColorBrush x:Key="TextoSobreEscuroBrush" Color="{StaticResource TextoSobreEscuroColor}"/>
+  <!-- superficie -->
+  <Color x:Key="SuperficieFundoColor">#F2F3F5</Color>
+  <SolidColorBrush x:Key="SuperficieFundoBrush" Color="{StaticResource SuperficieFundoColor}"/>
+  <Color x:Key="SuperficieCartaoColor">#FFFFFF</Color>
+  <SolidColorBrush x:Key="SuperficieCartaoBrush" Color="{StaticResource SuperficieCartaoColor}"/>
+  <Color x:Key="SuperficieBordaColor">#E4E6EB</Color>
+  <SolidColorBrush x:Key="SuperficieBordaBrush" Color="{StaticResource SuperficieBordaColor}"/>
+  <Color x:Key="SuperficieBordaControleColor">#D5D8DF</Color>
+  <SolidColorBrush x:Key="SuperficieBordaControleBrush" Color="{StaticResource SuperficieBordaControleColor}"/>
+  <Color x:Key="SuperficieDivisoriaColor">#EEF0F3</Color>
+  <SolidColorBrush x:Key="SuperficieDivisoriaBrush" Color="{StaticResource SuperficieDivisoriaColor}"/>
+  <FontFamily x:Key="FonteZenith">Manrope, Segoe UI</FontFamily>
+  <CornerRadius x:Key="RaioControle">12</CornerRadius>
+  <CornerRadius x:Key="RaioCartao">16</CornerRadius>
+  <CornerRadius x:Key="RaioPainel">18</CornerRadius>
+  <CornerRadius x:Key="RaioDestaque">20</CornerRadius>
+</ResourceDictionary>

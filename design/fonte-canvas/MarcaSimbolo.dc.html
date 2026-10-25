@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Zenith: símbolo abstrato</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes glow{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
+.rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.dot{transform-box:fill-box;transform-origin:center;animation:glow .9s cubic-bezier(.2,.7,.2,1) .5s both}
+@media (prefers-reduced-motion: reduce){.rise,.dot{animation:none}}
+</style>
+</helmet>
+<div style="width: 880px; height: 600px; display: flex; flex-direction: column; background: #FFFFFF; font-family: 'Manrope', system-ui, sans-serif; color: #172036">
+  <div style="flex: 1; display: flex">
+    <div class="rise" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 22px; background: #F2F3F5">
+      <svg role="img" aria-label="Símbolo Zenith" width="104" height="104" viewBox="0 0 64 64">
+        <path d="M10 45 A22 22 0 0 1 25.2 24.08" fill="none" stroke="{{ink}}" stroke-width="4.5" stroke-linecap="round"></path>
+        <path d="M38.8 24.08 A22 22 0 0 1 54 45" fill="none" stroke="{{ink}}" stroke-width="4.5" stroke-linecap="round"></path>
+        <path d="M6 45 H58" fill="none" stroke="{{ink}}" stroke-width="4.5" stroke-linecap="round"></path>
+        <circle class="dot" cx="32" cy="23" r="4.2" fill="{{ink}}"></circle>
+      </svg>
+      <span style="font-size: 64px; font-weight: 800; letter-spacing: -0.03em; color: {{ink}}">Zenith</span>
+    </div>
+    <div class="rise" style="flex: 0 0 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: {{ink}}">
+      <svg role="img" aria-label="Símbolo Zenith em versão clara" width="104" height="104" viewBox="0 0 64 64">
+        <path d="M10 45 A22 22 0 0 1 25.2 24.08" fill="none" stroke="#F4F1EA" stroke-width="4.5" stroke-linecap="round"></path>
+        <path d="M38.8 24.08 A22 22 0 0 1 54 45" fill="none" stroke="#F4F1EA" stroke-width="4.5" stroke-linecap="round"></path>
+        <path d="M6 45 H58" fill="none" stroke="#F4F1EA" stroke-width="4.5" stroke-linecap="round"></path>
+        <circle class="dot" cx="32" cy="23" r="4.2" fill="#F4F1EA"></circle>
+      </svg>
+      <span style="font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: #F4F1EA">Zenith</span>
+    </div>
+  </div>
+  <div style="flex: 0 0 150px; box-sizing: border-box; padding: 0 40px; border-top: 1px solid #E4E6EB; display: flex; align-items: center; gap: 40px">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+      <div style="width: 64px; height: 64px; border-radius: 16px; background: {{ink}}; display: flex; align-items: center; justify-content: center">
+        <svg role="img" aria-label="Ícone do app, 64 pixels" width="44" height="44" viewBox="0 0 64 64"><path d="M10 45 A22 22 0 0 1 25.2 24.08" fill="none" stroke="#F4F1EA" stroke-width="5" stroke-linecap="round"></path><path d="M38.8 24.08 A22 22 0 0 1 54 45" fill="none" stroke="#F4F1EA" stroke-width="5" stroke-linecap="round"></path><path d="M6 45 H58" fill="none" stroke="#F4F1EA" stroke-width="5" stroke-linecap="round"></path><circle cx="32" cy="23" r="4.6" fill="#F4F1EA"></circle></svg>
+      </div>
+      <span style="font-size: 12px; font-weight: 600; color: #5B6170">Ícone · 64 px</span>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+      <div style="width: 32px; height: 32px; border-radius: 8px; background: {{ink}}; display: flex; align-items: center; justify-content: center">
+        <svg role="img" aria-label="Ícone do app, 32 pixels" width="24" height="24" viewBox="0 0 64 64"><path d="M10 45 A22 22 0 0 1 25.2 24.08" fill="none" stroke="#F4F1EA" stroke-width="6.5" stroke-linecap="round"></path><path d="M38.8 24.08 A22 22 0 0 1 54 45" fill="none" stroke="#F4F1EA" stroke-width="6.5" stroke-linecap="round"></path><path d="M6 45 H58" fill="none" stroke="#F4F1EA" stroke-width="6.5" stroke-linecap="round"></path><circle cx="32" cy="23" r="5.5" fill="#F4F1EA"></circle></svg>
+      </div>
+      <span style="font-size: 12px; font-weight: 600; color: #5B6170">32 px</span>
+    </div>
+    <div style="width: 1px; height: 64px; background: #E4E6EB"></div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+      <div style="height: 32px; display: flex; align-items: center">
+        <svg role="img" aria-label="Símbolo na barra de tarefas, 16 pixels" width="16" height="16" viewBox="0 0 64 64"><path d="M10 45 A22 22 0 0 1 25.2 24.08" fill="none" stroke="{{ink}}" stroke-width="8" stroke-linecap="round"></path><path d="M38.8 24.08 A22 22 0 0 1 54 45" fill="none" stroke="{{ink}}" stroke-width="8" stroke-linecap="round"></path><path d="M6 45 H58" fill="none" stroke="{{ink}}" stroke-width="8" stroke-linecap="round"></path><circle cx="32" cy="23" r="7" fill="{{ink}}"></circle></svg>
+      </div>
+      <span style="font-size: 12px; font-weight: 600; color: #5B6170">Barra de tarefas · 16 px</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"ink":{"editor":"color","default":"#172036","options":["#172036","#1A1D24","#24304F","#2B2540"]},"$preview":{"width":880,"height":600}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { ink: this.props.ink ?? '#172036' };
+  }
+}
+</script>
+</body>
+</html>

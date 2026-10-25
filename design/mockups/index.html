@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zenith · telas de referência</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;display=swap">
+<style>
+:root{--noite:#172036;--nevoa:#F2F3F5;--cartao:#FFFFFF;--borda:#E4E6EB;--texto:#1A1D24;--sec:#5B6170}
+@media (prefers-color-scheme: dark){:root{--nevoa:#12151C;--cartao:#1B1F29;--borda:#2A2F3B;--texto:#F4F1EA;--sec:#A9AFBD}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--nevoa);color:var(--texto);font-family:"Manrope","Segoe UI",system-ui,sans-serif}
+main{max-width:960px;margin:0 auto;padding:48px 24px 64px;display:flex;flex-direction:column;gap:32px}
+header{display:flex;align-items:center;gap:16px}
+.tile{width:48px;height:48px;border-radius:14px;background:var(--noite);display:flex;align-items:center;justify-content:center}
+h1{margin:0;font-size:32px;font-weight:800;letter-spacing:-0.02em}
+p{margin:4px 0 0;color:var(--sec);font-size:14px}
+h2{margin:0 0 12px;font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--sec)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+a.card{display:flex;flex-direction:column;gap:4px;min-height:84px;padding:18px;border-radius:16px;background:var(--cartao);border:1px solid var(--borda);color:var(--texto);text-decoration:none;transition:transform .2s cubic-bezier(.2,.7,.2,1),border-color .2s}
+a.card:hover,a.card:focus-visible{transform:translateY(-2px);border-color:var(--sec)}
+a.card strong{font-size:15px}
+a.card span{font-size:13px;color:var(--sec)}
+@media (prefers-reduced-motion: reduce){a.card{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="tile"><svg aria-hidden="true" width="34" height="34" viewBox="0 0 64 64"><circle cx="18.4" cy="42" r="2.6" fill="#F4F1EA"/><circle cx="24" cy="32.5" r="3.4" fill="#F4F1EA"/><circle cx="31.8" cy="26.6" r="4.2" fill="#F4F1EA"/><circle cx="42" cy="24.5" r="5.6" fill="#F4F1EA"/></svg></div>
+    <div><h1>Zenith</h1><p>Telas de referência e marca. As telas ainda usam um ícone provisório na barra lateral.</p></div>
+  </header>
+
+  <section>
+    <h2>MÓDULOS</h2>
+    <div class="grid">
+      <a class="card" href="01-resgate.html"><strong>Resgate</strong><span>Hardware pago e parado</span></a>
+      <a class="card" href="02-bestiario.html"><strong>Bestiário</strong><span>Quem mora no seu PC</span></a>
+      <a class="card" href="03-revisao.html"><strong>Revisão</strong><span>O painel do seu PC</span></a>
+      <a class="card" href="04-tela-inicial.html"><strong>Tela inicial</strong><span>Os três módulos juntos</span></a>
+    </div>
+  </section>
+
+  <section>
+    <h2>MODO GAMER</h2>
+    <div class="grid">
+      <a class="card" href="05-modo-gamer-ligar.html"><strong>Configurar e ligar</strong><span>As 8 alterações da sessão</span></a>
+      <a class="card" href="06-modo-gamer-ativo.html"><strong>Ativo</strong><span>Barra de tarefas e painel</span></a>
+      <a class="card" href="07-modo-gamer-icone.html"><strong>Estados do ícone</strong><span>Desligado, ativo e alerta</span></a>
+      <a class="card" href="08-modo-gamer-resumo.html"><strong>Resumo da sessão</strong><span>O que foi desfeito</span></a>
+    </div>
+  </section>
+
+  <section>
+    <h2>MARCA</h2>
+    <div class="grid">
+      <a class="card" href="../marca/ascensao-final.html"><strong>Ascensão (final)</strong><span>Logotipo, abertura, tamanhos e status</span></a>
+      <a class="card" href="../marca/exploracao/variacoes-sem-campainha.html"><strong>Variações</strong><span>Os cinco caminhos abstratos</span></a>
+      <a class="card" href="../marca/exploracao/cores-e-status.html"><strong>Cores e status</strong><span>Paleta proposta</span></a>
+      <a class="card" href="../marca/exploracao/previa-refinamentos.html"><strong>Prévia dos refinamentos</strong><span>Telas, animação e guia</span></a>
+    </div>
+  </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bestiário: quem mora no seu PC</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#3D4250}a:hover{color:#1A1D24}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes fill{from{transform:scaleX(0)}}
+@keyframes slidein{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+.rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.05s}.d2{animation-delay:.11s}.d3{animation-delay:.17s}.d4{animation-delay:.23s}.d5{animation-delay:.29s}.d6{animation-delay:.35s}
+.bar{transform-origin:left center;animation:fill 1.3s cubic-bezier(.2,.7,.2,1) .25s both}
+.panel{animation:slidein .8s cubic-bezier(.2,.7,.2,1) .2s both}
+@media (prefers-reduced-motion: reduce){.rise,.bar,.panel{animation:none}}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+<div style="min-height: 100vh; background: #F2F3F5; font-family: 'Manrope', system-ui, sans-serif; color: #1A1D24; display: flex; flex-wrap: wrap; align-items: stretch">
+
+  <aside style="flex: 1 1 220px; box-sizing: border-box; padding: 28px 20px; background: #FFFFFF; border-right: 1px solid #E4E6EB; display: flex; flex-direction: column; gap: 32px">
+    <div style="display: flex; align-items: center; gap: 12px">
+      <div style="width: 40px; height: 40px; border-radius: 12px; background: #55628F; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+        <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15z"></path><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5"></path><path d="M9 8h7M9 11.5h5"></path></svg>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <div style="font-size: 17px; font-weight: 800; letter-spacing: -0.01em">Bestiário</div>
+        <div style="font-size: 12px; color: #5B6170">Quem mora no seu PC</div>
+      </div>
+    </div>
+
+    <nav aria-label="Seções" style="display: flex; flex-direction: column; gap: 4px">
+      <a href="#" style="display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 0 14px; border-radius: 12px; background: #55628F1F; color: #1A1D24; font-size: 14px; font-weight: 700; text-decoration: none">Habitantes <span style="font-size: 12px; color: #3D4250">63</span></a>
+      <a href="#" style="display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 0 14px; border-radius: 12px; color: #3D4250; font-size: 14px; font-weight: 600; text-decoration: none">Iniciam com o Windows <span style="font-size: 12px; color: #5B6170">14</span></a>
+      <a href="#" style="display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 0 14px; border-radius: 12px; color: #3D4250; font-size: 14px; font-weight: 600; text-decoration: none">Novos habitantes <span style="font-size: 12px; color: #5B6170">2</span></a>
+      <a href="#" style="display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 0 14px; border-radius: 12px; color: #3D4250; font-size: 14px; font-weight: 600; text-decoration: none">Suspeitos <span style="font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #F8E9E6; color: #9A3A2F">1</span></a>
+      <a href="#" style="display: flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 12px; color: #3D4250; font-size: 14px; font-weight: 600; text-decoration: none">Coleção</a>
+    </nav>
+
+    <div style="margin-top: auto; padding: 16px; border-radius: 14px; background: #F2F3F5; display: flex; flex-direction: column; gap: 6px">
+      <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700"><span style="width: 8px; height: 8px; border-radius: 999px; background: #55628F"></span>Sentinela ligada</div>
+      <div style="font-size: 12px; line-height: 1.5; color: #5B6170">Avisamos quando um habitante novo chegar, e de onde ele veio.</div>
+    </div>
+  </aside>
+
+  <main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 44px 48px 56px; display: flex; justify-content: center">
+    <div style="width: 100%; max-width: 1000px; display: flex; flex-direction: column; gap: 28px">
+
+      <header class="rise" style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between">
+        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 560px">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #5B6170">SEU PC TEM 63 HABITANTES</div>
+          <h1 style="margin: 0; font-size: 40px; line-height: 1.1; font-weight: 800; letter-spacing: -0.025em">Quem mora no seu PC.</h1>
+          <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #5B6170">Cada programa em execução vira uma ficha: o que é, o que faz, se é perigoso e quanto custa.</p>
+        </div>
+        <div style="flex: 0 1 300px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; justify-content: space-between; font-size: 13px"><span style="font-weight: 700">52 de 63 catalogados</span><span style="color: #5B6170">83%</span></div>
+          <div style="height: 8px; border-radius: 999px; background: #E4E6EB; overflow: hidden"><div class="bar" style="width: 83%; height: 100%; border-radius: 999px; background: #55628F"></div></div>
+          <label for="busca" style="font-size: 12px; font-weight: 600; color: #5B6170; margin-top: 6px">Buscar habitante</label>
+          <input id="busca" type="search" placeholder="Nome ou arquivo" style="min-height: 44px; box-sizing: border-box; padding: 0 14px; border-radius: 12px; border: 1px solid #D5D8DF; background: #FFFFFF; font-family: inherit; font-size: 14px; color: #1A1D24">
+        </div>
+      </header>
+
+      <div role="group" aria-label="Filtros" class="rise d1" style="display: flex; flex-wrap: wrap; gap: 8px">
+        <button type="button" aria-pressed="true" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 0; background: #1A1D24; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer">Todos · 63</button>
+        <button type="button" aria-pressed="false" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #D5D8DF; background: #FFFFFF; color: #3D4250; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Iniciam com o Windows · 14</button>
+        <button type="button" aria-pressed="false" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #D5D8DF; background: #FFFFFF; color: #3D4250; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Pesados · 6</button>
+        <button type="button" aria-pressed="false" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #D5D8DF; background: #FFFFFF; color: #3D4250; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Desconhecidos · 3</button>
+        <button type="button" aria-pressed="false" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #D5D8DF; background: #FFFFFF; color: #3D4250; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Novos · 2</button>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+
+        <div style="flex: 999 1 460px; min-width: 0; display: flex; flex-wrap: wrap; gap: 14px">
+
+          <article class="rise d2" style="flex: 1 1 220px; box-sizing: border-box; padding: 18px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 16px; display: flex; flex-direction: column; gap: 16px">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <div style="flex: 0 0 44px; height: 44px; border-radius: 12px; background: #ECEEF6; color: #3E4A72; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800">WV</div>
+              <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                <h3 style="margin: 0; font-size: 15px; font-weight: 700">Edge WebView2</h3>
+                <div style="font-size: 12px; color: #5B6170">Motor de apps</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+              <span style="font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 999px; background: #E9F1EE; color: #2F5D4C">Inofensivo</span>
+              <span style="font-size: 12px; color: #5B6170; font-variant-numeric: tabular-nums">410 MB · Nº 014</span>
+            </div>
+          </article>
+
+          <article class="rise d2" style="flex: 1 1 220px; box-sizing: border-box; padding: 18px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 16px; display: flex; flex-direction: column; gap: 16px">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <div style="flex: 0 0 44px; height: 44px; border-radius: 12px; background: #ECEEF6; color: #3E4A72; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800">AS</div>
+              <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                <h3 style="margin: 0; font-size: 15px; font-weight: 700">Antimalware Service</h3>
+                <div style="font-size: 12px; color: #5B6170">Guardião do Windows</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+              <span style="font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 999px; background: #ECEEF6; color: #3E4A72">Protetor · não mexa</span>
+              <span style="font-size: 12px; color: #5B6170; font-variant-numeric: tabular-nums">Nº 002</span>
+            </div>
+          </article>
+
+          <article class="rise d3" style="flex: 1 1 220px; box-sizing: border-box; padding: 18px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 16px; display: flex; flex-direction: column; gap: 16px">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <div style="flex: 0 0 44px; height: 44px; border-radius: 12px; background: #ECEEF6; color: #3E4A72; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800">ST</div>
+              <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                <h3 style="margin: 0; font-size: 15px; font-weight: 700">Steam</h3>
+                <div style="font-size: 12px; color: #5B6170">Plataforma de jogos</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+              <span style="font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 999px; background: #E9F1EE; color: #2F5D4C">Inofensivo</span>
+              <span style="font-size: 12px; color: #5B6170">Inicia com o Windows</span>
+            </div>
+          </article>
+
+          <article class="rise d3" style="flex: 1 1 220px; box-sizing: border-box; padding: 18px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 16px; display: flex; flex-direction: column; gap: 16px">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <div style="flex: 0 0 44px; height: 44px; border-radius: 12px; background: #F3EEE4; color: #6E5226; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800">AI</div>
+              <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                <h3 style="margin: 0; font-size: 15px; font-weight: 700">Atualizador da impressora</h3>
+                <div style="font-size: 12px; color: #5B6170">Atualizador</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+              <span style="font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 999px; background: #F3EEE4; color: #6E5226">Dispensável</span>
+              <span style="font-size: 12px; color: #5B6170">+4 s na inicialização</span>
+            </div>
+          </article>
+
+          <article class="rise d4" style="flex: 1 1 220px; box-sizing: border-box; padding: 18px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 16px; display: flex; flex-direction: column; gap: 16px">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <div style="flex: 0 0 44px; height: 44px; border-radius: 12px; background: #ECEEF6; color: #3E4A72; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800">DC</div>
+              <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                <h3 style="margin: 0; font-size: 15px; font-weight: 700">Discord</h3>
+                <div style="font-size: 12px; color: #5B6170">Comunicação</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+              <span style="font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 999px; background: #E9F1EE; color: #2F5D4C">Inofensivo</span>
+              <span style="font-size: 12px; color: #5B6170; font-variant-numeric: tabular-nums">380 MB · Nº 031</span>
+            </div>
+          </article>
+
+          <article class="rise d4" style="flex: 1 1 220px; box-sizing: border-box; padding: 17px; background: #FFFFFF; border: 2px solid #B5473A; border-radius: 16px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 8px 24px rgba(181, 71, 58, 0.10)">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <div style="flex: 0 0 44px; height: 44px; border-radius: 12px; background: #F8E9E6; color: #9A3A2F; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800">?</div>
+              <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                <h3 style="margin: 0; font-size: 15px; font-weight: 700">svch0st.exe</h3>
+                <div style="font-size: 12px; color: #5B6170">Desconhecido</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+              <span style="font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 999px; background: #F8E9E6; color: #9A3A2F">Suspeito</span>
+              <span style="font-size: 12px; color: #5B6170">Novo · há 2 dias</span>
+            </div>
+          </article>
+
+        </div>
+
+        <aside aria-label="Ficha do habitante selecionado" class="panel" style="flex: 1 1 320px; min-width: 0; box-sizing: border-box; padding: 26px; background: #FFFFFF; border: 1px solid #E4E6EB; border-radius: 20px; display: flex; flex-direction: column; gap: 22px; box-shadow: 0 12px 32px rgba(20, 24, 33, 0.07)">
+          <div style="display: flex; align-items: center; gap: 14px">
+            <div style="flex: 0 0 56px; height: 56px; border-radius: 16px; background: #F8E9E6; color: #9A3A2F; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800">?</div>
+            <div style="display: flex; flex-direction: column; gap: 4px">
+              <h2 style="margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.01em">svch0st.exe</h2>
+              <div style="font-size: 12px; color: #5B6170">Nº 063 · avistado há 2 dias</div>
+            </div>
+          </div>
+          <span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px; background: #F8E9E6; color: #9A3A2F">Provável impostor</span>
+
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <h3 style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #5B6170">QUEM É</h3>
+            <p style="margin: 0; font-size: 14px; line-height: 1.6">O nome imita o svchost.exe, um processo legítimo do Windows, mas troca o “o” por um zero.</p>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <h3 style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #5B6170">POR QUE DESCONFIAMOS</h3>
+            <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.5"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9A3A2F" stroke-width="2" stroke-linecap="round" style="flex: 0 0 18px; margin-top: 2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5v.01"></path></svg><span>Fica numa pasta de usuário, onde o original nunca fica.</span></div>
+            <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.5"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9A3A2F" stroke-width="2" stroke-linecap="round" style="flex: 0 0 18px; margin-top: 2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5v.01"></path></svg><span>Não tem assinatura digital.</span></div>
+            <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.5"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9A3A2F" stroke-width="2" stroke-linecap="round" style="flex: 0 0 18px; margin-top: 2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5v.01"></path></svg><span>Chegou junto com “Conversor de Vídeo Grátis”, instalado há 2 dias.</span></div>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 10px">
+            <div style="flex: 1 1 80px; padding: 12px; border-radius: 12px; background: #F2F3F5; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 18px; font-weight: 800; font-variant-numeric: tabular-nums">12%</span><span style="font-size: 12px; color: #5B6170">CPU constante</span></div>
+            <div style="flex: 1 1 80px; padding: 12px; border-radius: 12px; background: #F2F3F5; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 18px; font-weight: 800">Sim</span><span style="font-size: 12px; color: #5B6170">Inicia sozinho</span></div>
+            <div style="flex: 1 1 80px; padding: 12px; border-radius: 12px; background: #F2F3F5; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 18px; font-weight: 800; font-variant-numeric: tabular-nums">3</span><span style="font-size: 12px; color: #5B6170">servidores contatados</span></div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <button type="button" style="min-height: 46px; border-radius: 12px; border: 0; background: #9A3A2F; color: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Isolar e analisar</button>
+            <div style="display: flex; gap: 10px">
+              <button type="button" style="flex: 1; min-height: 44px; border-radius: 12px; border: 1px solid #D5D8DF; background: #FFFFFF; color: #1A1D24; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Abrir local</button>
+              <button type="button" style="flex: 1; min-height: 44px; border-radius: 12px; border: 1px solid #D5D8DF; background: #FFFFFF; color: #1A1D24; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer">Não é ameaça</button>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

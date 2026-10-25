@@ -1,0 +1,31 @@
+:root{
+  --marca-noite: #172036;
+  --marca-luz: #F4F1EA;
+  --marca-nevoa: #F2F3F5;
+  --status-ativo: #6B5B8E;
+  --status-alerta: #B07F2E;
+  --status-alertaFundo: #F6EFE3;
+  --status-alertaTexto: #6E5226;
+  --status-perigo: #9A3A2F;
+  --status-perigoFundo: #F8E9E6;
+  --status-perigoBorda: #B5473A;
+  --modulos-resgate: #4E7D6C;
+  --modulos-resgateTexto: #2F5D4C;
+  --modulos-resgateFundo: #E6EFEB;
+  --modulos-bestiario: #55628F;
+  --modulos-bestiarioTexto: #3E4A72;
+  --modulos-bestiarioFundo: #ECEEF6;
+  --modulos-revisao: #3F6E86;
+  --modulos-revisaoTexto: #2B5266;
+  --modulos-revisaoFundo: #E3EDF1;
+  --texto-principal: #1A1D24;
+  --texto-forte: #3D4250;
+  --texto-secundario: #5B6170;
+  --texto-sobreEscuro: #F4F1EA;
+  --superficie-fundo: #F2F3F5;
+  --superficie-cartao: #FFFFFF;
+  --superficie-borda: #E4E6EB;
+  --superficie-bordaControle: #D5D8DF;
+  --superficie-divisoria: #EEF0F3;
+  --fonte: "Manrope", "Segoe UI", system-ui, sans-serif;
+}
