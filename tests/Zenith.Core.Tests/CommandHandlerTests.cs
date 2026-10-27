@@ -131,3 +131,28 @@ public class GpuPreferenceValueTests
     public void Changes_only_the_gpu_preference_field(string? existing, string value, string? expected) =>
         Assert.Equal(expected, GpuPreferenceSetting.WithPreference(existing, value));
 }
+
+public sealed class PingTests : IDisposable
+{
+    private readonly string _path = Path.Combine(Path.GetTempPath(), $"zenith-test-{Guid.NewGuid():N}.db");
+    private readonly ChangeJournal _journal;
+
+    public PingTests() => _journal = ChangeJournal.Open(_path);
+
+    public void Dispose()
+    {
+        _journal.Dispose();
+        Microsoft.Data.Sqlite.SqliteConnection.ClearAllPools();
+        foreach (var suffix in new[] { "", "-wal", "-shm" }) File.Delete(_path + suffix);
+    }
+
+    [Fact]
+    public void Ping_reports_who_the_service_thinks_is_calling()
+    {
+        var handler = new CommandHandler(_journal, new ChangeEngine(_journal, []), () => [], _path);
+
+        var result = handler.Handle(new Request(1, Protocol.Commands.Ping), "S-1-5-21-100").Result.Deserialize<PingResult>(Protocol.Json);
+
+        Assert.Equal("S-1-5-21-100", result!.CallerSid);
+    }
+}

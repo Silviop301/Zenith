@@ -39,9 +39,12 @@ public sealed class PipeServer(CommandHandler handler, ILogger<PipeServer> logge
 
     private async Task Serve(NamedPipeServerStream pipe, CancellationToken ct)
     {
-        var callerSid = CallerSid(pipe);
+        string? callerSid = null;
         while (pipe.IsConnected && await Protocol.ReadAsync<Request>(pipe, ct) is { } request)
         {
+            // Windows only allows identifying the client after reading from the pipe, so this waits for the first request.
+            callerSid ??= CallerSid(pipe);
+
             Response response;
             await _gate.WaitAsync(ct);
             try
@@ -57,18 +60,29 @@ public sealed class PipeServer(CommandHandler handler, ILogger<PipeServer> logge
         }
     }
 
-    private static string? CallerSid(NamedPipeServerStream pipe)
+    private string? CallerSid(NamedPipeServerStream pipe)
     {
-        string? sid = null;
         try
         {
+            string? sid = null;
             pipe.RunAsClient(() => sid = WindowsIdentity.GetCurrent(TokenAccessLevels.Query).User?.Value);
+            if (sid is not null) return sid;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            // Unknown caller: read-only commands still work, changes are refused by the handler.
+            logger.LogWarning(ex, "Could not identify the pipe client by impersonation; trying its process token.");
         }
-        return sid;
+
+        // Fallback: the token of the client process. Unknown caller means read-only commands still work and changes are refused.
+        try
+        {
+            return ClientProcess.UserSid(pipe.SafePipeHandle);
+        }
+        catch (Exception ex)
+        {
+            logger.LogWarning(ex, "Could not identify the pipe client.");
+            return null;
+        }
     }
 
     /// <summary>Signed-in users may connect; nobody over the network.</summary>

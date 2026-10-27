@@ -25,6 +25,12 @@ internal static class ChangeCommands
         var ping = client.Call<PingResult>(Protocol.Commands.Ping);
         Console.WriteLine($"Serviço do Zenith rodando (versão {ping.Version}).");
         Console.WriteLine($"Diário: {ping.JournalPath}");
+        if (ping.CallerSid != UserSid)
+        {
+            Console.WriteLine("O serviço não reconheceu este usuário, então não vai aceitar alterações.");
+            return 1;
+        }
+        Console.WriteLine("O serviço reconheceu este usuário.");
         return 0;
     }
 

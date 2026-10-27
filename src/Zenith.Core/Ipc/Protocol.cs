@@ -77,4 +77,5 @@ public sealed record ListArgs(bool ActiveOnly);
 
 public enum JournalStatusArg { Undone, Superseded, UndoFailed }
 
-public sealed record PingResult(string Version, string JournalPath);
+/// <summary><see cref="CallerSid"/> is who the service thinks is calling; null means changes will be refused.</summary>
+public sealed record PingResult(string Version, string JournalPath, string? CallerSid);

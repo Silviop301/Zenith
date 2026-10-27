@@ -39,7 +39,7 @@ public sealed class CommandHandler(
     private JsonNode? Dispatch(Request request, string? callerSid) => request.Command switch
     {
         Protocol.Commands.Ping => Node(new PingResult(
-            Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "?", journalPath)),
+            Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "?", journalPath, callerSid)),
         Protocol.Commands.JournalList => Node(journal.List(Args<ListArgs>(request)?.ActiveOnly ?? false)),
         Protocol.Commands.JournalGet => Node(journal.Get(Required<IdArgs>(request).Id)),
         Protocol.Commands.JournalNewestActive => NewestActive(Required<NewestActiveArgs>(request)),
