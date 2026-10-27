@@ -67,6 +67,24 @@ public sealed class SensorTests : IDisposable
     }
 
     [Fact]
+    public void A_daily_source_that_finds_nothing_is_tried_again_within_the_hour()
+    {
+        var found = false;
+        var disk = new FakeSource("disk", TimeSpan.FromDays(1), n => found ? [new("disk.wear", "disco 0", 3, n)] : []);
+        var collector = new SensorCollector(_store, [disk]);
+
+        collector.RunOnce(Now);
+        collector.RunOnce(Now.AddMinutes(30));
+        Assert.Equal(1, disk.Runs);
+        found = true;
+        collector.RunOnce(Now.AddHours(1));
+        Assert.Equal(2, disk.Runs);
+        // With readings stored it goes back to once a day.
+        collector.RunOnce(Now.AddHours(3));
+        Assert.Equal(2, disk.Runs);
+    }
+
+    [Fact]
     public void A_failing_source_does_not_stop_the_others_and_waits_its_turn()
     {
         var errors = new List<string>();

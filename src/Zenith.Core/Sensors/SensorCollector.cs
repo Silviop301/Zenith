@@ -17,6 +17,9 @@ public sealed class SensorCollector(SensorStore store, IReadOnlyList<ISensorSour
 {
     public static readonly TimeSpan Tick = TimeSpan.FromMinutes(1);
 
+    /// <summary>A daily source that failed or found nothing is tried again after this, not a day later.</summary>
+    public static readonly TimeSpan RetryAfter = TimeSpan.FromHours(1);
+
     private DateTimeOffset _lastPrune = DateTimeOffset.MinValue;
 
     /// <summary>Sources whose last run is at least one interval ago, or that never ran.</summary>
@@ -29,18 +32,20 @@ public sealed class SensorCollector(SensorStore store, IReadOnlyList<ISensorSour
         var stored = 0;
         foreach (var source in Due(sources, store.LastRuns(), now))
         {
+            var gotSome = false;
             try
             {
                 var samples = source.Read(now).ToList();
                 store.Add(samples);
                 stored += samples.Count;
+                gotSome = samples.Count > 0;
             }
             catch (Exception ex)
             {
                 onError?.Invoke(source.Name, ex);
             }
-            // Marked even after a failure, so a broken source is retried at its interval, not every minute.
-            store.MarkRun(source.Name, now);
+            // Marked even after a failure, so a broken source is retried at its interval (at most an hour), not every minute.
+            store.MarkRun(source.Name, gotSome || source.Interval <= RetryAfter ? now : now - source.Interval + RetryAfter);
         }
 
         if (now - _lastPrune >= TimeSpan.FromDays(1))

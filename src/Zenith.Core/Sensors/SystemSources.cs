@@ -86,29 +86,27 @@ public sealed class DiskHealthSource : ISensorSource
 
     public IEnumerable<SensorSample> Read(DateTimeOffset now)
     {
-        var names = new Dictionary<string, string>();
-        using (var disks = new ManagementObjectSearcher(Scope, "SELECT DeviceId, FriendlyName FROM MSFT_PhysicalDisk"))
-        {
-            foreach (var disk in disks.Get().Cast<ManagementBaseObject>())
-            {
-                var id = disk["DeviceId"]?.ToString();
-                if (id is not null) names[id] = DiskTarget(id, disk["FriendlyName"]?.ToString());
-            }
-        }
-
         var samples = new List<SensorSample>();
-        using var counters = new ManagementObjectSearcher(Scope,
-            "SELECT DeviceId, Wear, Temperature, PowerOnHours, ReadErrorsUncorrected FROM MSFT_StorageReliabilityCounter");
-        foreach (var counter in counters.Get().Cast<ManagementBaseObject>())
+        using var disks = new ManagementObjectSearcher(Scope, "SELECT * FROM MSFT_PhysicalDisk");
+        foreach (var disk in disks.Get().Cast<ManagementObject>())
         {
-            var id = counter["DeviceId"]?.ToString();
-            if (id is null) continue;
-            var target = names.GetValueOrDefault(id, DiskTarget(id, null));
-            Add(samples, SensorKeys.DiskWear, target, counter["Wear"], now);
-            // 0 °C means "not reported" on many drives.
-            if (Number(counter["Temperature"]) is double t and > 0) samples.Add(new SensorSample(SensorKeys.DiskTemperature, target, t, now));
-            Add(samples, SensorKeys.DiskPowerOnHours, target, counter["PowerOnHours"], now);
-            Add(samples, SensorKeys.DiskReadErrors, target, counter["ReadErrorsUncorrected"], now);
+            using (disk)
+            {
+                var target = DiskTarget(disk["DeviceId"]?.ToString() ?? "?", disk["FriendlyName"]?.ToString());
+                // The counters can only be reached from their disk (what Get-StorageReliabilityCounter does);
+                // listing the class directly returns nothing.
+                foreach (var counter in disk.GetRelated("MSFT_StorageReliabilityCounter").Cast<ManagementBaseObject>())
+                {
+                    using (counter)
+                    {
+                        Add(samples, SensorKeys.DiskWear, target, counter["Wear"], now);
+                        // 0 °C means "not reported" on many drives.
+                        if (Number(counter["Temperature"]) is double t and > 0) samples.Add(new SensorSample(SensorKeys.DiskTemperature, target, t, now));
+                        Add(samples, SensorKeys.DiskPowerOnHours, target, counter["PowerOnHours"], now);
+                        Add(samples, SensorKeys.DiskReadErrors, target, counter["ReadErrorsUncorrected"], now);
+                    }
+                }
+            }
         }
         return samples;
     }
