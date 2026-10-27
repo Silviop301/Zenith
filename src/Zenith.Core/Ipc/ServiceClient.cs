@@ -18,7 +18,7 @@ public sealed class ServiceClient : IDisposable
 
     public static ServiceClient Connect(TimeSpan? timeout = null)
     {
-        // Identification lets the service check who is calling without being able to act as us.
+        // The service identifies us from our process token; it never needs to act as us.
         var pipe = new NamedPipeClientStream(".", Protocol.PipeName, PipeDirection.InOut, PipeOptions.None, TokenImpersonationLevel.Identification);
         try
         {

@@ -42,7 +42,6 @@ public sealed class PipeServer(CommandHandler handler, ILogger<PipeServer> logge
         string? callerSid = null;
         while (pipe.IsConnected && await Protocol.ReadAsync<Request>(pipe, ct) is { } request)
         {
-            // Windows only allows identifying the client after reading from the pipe, so this waits for the first request.
             callerSid ??= CallerSid(pipe);
 
             Response response;
@@ -60,20 +59,9 @@ public sealed class PipeServer(CommandHandler handler, ILogger<PipeServer> logge
         }
     }
 
+    /// <summary>Unknown caller means read-only commands still work and changes are refused.</summary>
     private string? CallerSid(NamedPipeServerStream pipe)
     {
-        try
-        {
-            string? sid = null;
-            pipe.RunAsClient(() => sid = WindowsIdentity.GetCurrent(TokenAccessLevels.Query).User?.Value);
-            if (sid is not null) return sid;
-        }
-        catch (Exception ex)
-        {
-            logger.LogWarning(ex, "Could not identify the pipe client by impersonation; trying its process token.");
-        }
-
-        // Fallback: the token of the client process. Unknown caller means read-only commands still work and changes are refused.
         try
         {
             return ClientProcess.UserSid(pipe.SafePipeHandle);

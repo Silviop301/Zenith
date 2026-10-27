@@ -28,6 +28,7 @@ internal static class ChangeCommands
         if (ping.CallerSid != UserSid)
         {
             Console.WriteLine("O serviço não reconheceu este usuário, então não vai aceitar alterações.");
+            Console.WriteLine($"Este usuário: {UserSid}. O serviço viu: {ping.CallerSid ?? "ninguém"}.");
             return 1;
         }
         Console.WriteLine("O serviço reconheceu este usuário.");

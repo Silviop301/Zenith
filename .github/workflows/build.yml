@@ -57,6 +57,13 @@ jobs:
           powercfg /setactive ($original -replace '.*:\s*([0-9a-f-]{36}).*', '$1')
           ./scripts/remover-servico.ps1
 
+      - name: Service logs (on failure)
+        if: failure()
+        run: |
+          Get-WinEvent -LogName Application -MaxEvents 200 -ErrorAction SilentlyContinue |
+            Where-Object { $_.ProviderName -match 'zenith' -or $_.Message -match 'zenith' } |
+            Format-List TimeCreated, ProviderName, LevelDisplayName, Message
+
       - uses: actions/upload-artifact@v4
         with:
           name: zenith-phase0
