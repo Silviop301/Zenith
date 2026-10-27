@@ -36,6 +36,13 @@ internal static class PowerProfile
         in Guid powerSettingGuid, out uint dcValueIndex);
 
     [DllImport("powrprof.dll")]
+    private static extern uint PowerSetActiveScheme(IntPtr userRootPowerKey, in Guid schemeGuid);
+
+    [DllImport("powrprof.dll")]
+    private static extern uint PowerWriteACValueIndex(IntPtr rootPowerKey, in Guid schemeGuid, in Guid subGroupOfPowerSettingsGuid,
+        in Guid powerSettingGuid, uint acValueIndex);
+
+    [DllImport("powrprof.dll")]
     private static extern uint PowerGetActualOverlayScheme(out Guid actualOverlayGuid);
 
     [DllImport("kernel32.dll")]
@@ -78,6 +85,20 @@ internal static class PowerProfile
 
     public static uint? ReadDc(Guid scheme, Guid subgroup, Guid setting) =>
         PowerReadDCValueIndex(IntPtr.Zero, scheme, subgroup, setting, out var v) == 0 ? v : null;
+
+    public static void SetActiveScheme(Guid scheme)
+    {
+        var err = PowerSetActiveScheme(IntPtr.Zero, scheme);
+        if (err != 0) throw new InvalidOperationException($"PowerSetActiveScheme falhou ({err}).");
+    }
+
+    /// <summary>Writes a plugged-in value and re-applies the scheme if it is active, so the change takes effect now.</summary>
+    public static void WriteAc(Guid scheme, Guid subgroup, Guid setting, uint value)
+    {
+        var err = PowerWriteACValueIndex(IntPtr.Zero, scheme, subgroup, setting, value);
+        if (err != 0) throw new InvalidOperationException($"PowerWriteACValueIndex falhou ({err}).");
+        if (GetActiveScheme() == scheme) SetActiveScheme(scheme);
+    }
 
     /// <summary>The power mode slider position, or null where Windows does not expose it.</summary>
     public static Guid? GetActualOverlay()

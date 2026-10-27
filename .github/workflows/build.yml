@@ -21,17 +21,54 @@ jobs:
       - name: Test
         run: dotnet test -c Release --no-build
 
-      - name: Publish zenith-probe.exe
-        run: dotnet publish src/Zenith.Probe -c Release -o publish
+      - name: Publish zenith-probe.exe and zenith-service.exe
+        run: |
+          dotnet publish src/Zenith.Probe -c Release -o publish
+          dotnet publish src/Zenith.Service -c Release -o publish
+          Copy-Item scripts/*.ps1 publish/
 
       # Smoke test: the CI machine has no real monitor or GPU, so findings will mostly be
       # "não se aplica" or "erro"; this only checks the probe runs to the end and writes a report.
       - name: Run probe
         run: ./publish/zenith-probe.exe --no-wait --out publish/zenith-relatorio-ci.json
 
+      # End to end on a real Windows: install the service, provoke finding 3 with the power saver plan,
+      # fix it through the service, then undo everything and check Windows is back where it started.
+      - name: Service end-to-end (power plan)
+        run: |
+          $ErrorActionPreference = 'Stop'
+          ./scripts/instalar-servico.ps1 -ExePath publish/zenith-service.exe
+          ./publish/zenith-probe.exe servico
+          if ($LASTEXITCODE -ne 0) { throw 'service not reachable' }
+
+          $original = (powercfg /getactivescheme)
+          powercfg /setactive a1841308-3541-4fab-bc81-f71556f20b4a
+          $saver = (powercfg /getactivescheme)
+
+          ./publish/zenith-probe.exe aplicar energia
+          if ($LASTEXITCODE -ne 0) { throw 'apply failed' }
+          if ((powercfg /getactivescheme) -notmatch '381b4222-f694-41f0-9685-ff5bb260df2e') { throw 'plan was not switched to Balanced' }
+
+          ./publish/zenith-probe.exe diario
+          ./publish/zenith-probe.exe desfazer-tudo
+          if ($LASTEXITCODE -ne 0) { throw 'undo failed' }
+          if ((powercfg /getactivescheme) -ne $saver) { throw 'undo did not restore the power saver plan' }
+
+          powercfg /setactive ($original -replace '.*:\s*([0-9a-f-]{36}).*', '$1')
+          ./scripts/remover-servico.ps1
+
+      - name: Service logs (on failure)
+        if: failure()
+        run: |
+          Get-WinEvent -LogName Application -MaxEvents 200 -ErrorAction SilentlyContinue |
+            Where-Object { $_.ProviderName -match 'zenith' -or $_.Message -match 'zenith' } |
+            Format-List TimeCreated, ProviderName, LevelDisplayName, Message
+
       - uses: actions/upload-artifact@v4
         with:
-          name: zenith-probe
+          name: zenith-phase0
           path: |
             publish/zenith-probe.exe
+            publish/zenith-service.exe
+            publish/*.ps1
             publish/zenith-relatorio-ci.json

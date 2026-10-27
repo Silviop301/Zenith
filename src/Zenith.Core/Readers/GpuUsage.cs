@@ -43,8 +43,24 @@ public static partial class GpuUsage
         "TextInputHost", "LockApp", "Widgets", "ApplicationFrameHost", "SystemSettings",
     };
 
+    /// <summary>Like <see cref="Sample3DUsage"/>, with each executable's full path, for the fix. Not for reports: paths can contain the user name.</summary>
+    public sealed record ProcessGpuPath(string ExecutablePath, long AdapterLuid);
+
+    public static IReadOnlyList<ProcessGpuPath> Sample3DUsagePaths(TimeSpan window, double minPercent = 1.0) =>
+        Sample(window, minPercent)
+            .Select(u => ExecutablePath(u.Pid) is { } path ? new ProcessGpuPath(path, u.Luid) : null)
+            .OfType<ProcessGpuPath>()
+            .ToList();
+
     /// <summary>Samples the "GPU Engine" performance counters twice and returns processes doing 3D work.</summary>
-    public static IReadOnlyList<ProcessGpuUse> Sample3DUsage(TimeSpan window, double minPercent = 1.0)
+    public static IReadOnlyList<ProcessGpuUse> Sample3DUsage(TimeSpan window, double minPercent = 1.0) =>
+        Sample(window, minPercent)
+            .Select(u => ProcessName(u.Pid) is { } name ? new ProcessGpuUse(name, u.Luid, Math.Round(u.Percent, 1)) : null)
+            .OfType<ProcessGpuUse>()
+            .OrderByDescending(p => p.Utilization3DPercent)
+            .ToList();
+
+    private static List<(int Pid, long Luid, double Percent)> Sample(TimeSpan window, double minPercent)
     {
         var category = new PerformanceCounterCategory("GPU Engine");
         var first = category.ReadCategory()["Utilization Percentage"];
@@ -63,15 +79,10 @@ public static partial class GpuUsage
             usage[key] = usage.GetValueOrDefault(key) + percent;
         }
 
-        var result = new List<ProcessGpuUse>();
-        foreach (var ((pid, luid), percent) in usage)
-        {
-            if (percent < minPercent) continue;
-            var name = ProcessName(pid);
-            if (name is null || ShellProcesses.Contains(name)) continue;
-            result.Add(new ProcessGpuUse(name, luid, Math.Round(percent, 1)));
-        }
-        return result.OrderByDescending(p => p.Utilization3DPercent).ToList();
+        return usage
+            .Where(kv => kv.Value >= minPercent && ProcessName(kv.Key.Pid) is { } name && !ShellProcesses.Contains(name))
+            .Select(kv => (kv.Key.Pid, kv.Key.Luid, kv.Value))
+            .ToList();
     }
 
     /// <summary>Per-app GPU choices. Only the executable name is kept; full paths can contain the user name.</summary>
@@ -88,6 +99,19 @@ public static partial class GpuUsage
             result.Add(new AppPreference(Path.GetFileName(valueName), pref));
         }
         return result;
+    }
+
+    private static string? ExecutablePath(int pid)
+    {
+        try
+        {
+            using var p = Process.GetProcessById(pid);
+            return p.MainModule?.FileName;
+        }
+        catch (Exception)
+        {
+            return null;
+        }
     }
 
     private static string? ProcessName(int pid)

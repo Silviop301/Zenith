@@ -1,70 +1,64 @@
 using System.Text;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using Zenith.Core.Findings;
+using Zenith.Core.Ipc;
+using Zenith.Probe;
 
 // Zenith Probe: Phase 0 test tool and read-only collector.
-// Runs every Resgate check, prints a summary and saves a JSON report. Changes nothing on the PC.
+// With no command it only reads (the collector). The other commands talk to the Zenith service and
+// change settings, always through the change journal.
 
 Console.OutputEncoding = Encoding.UTF8;
 
-var noWait = args.Contains("--no-wait");
-var outIndex = Array.IndexOf(args, "--out");
-var outPath = outIndex >= 0 && outIndex + 1 < args.Length
-    ? args[outIndex + 1]
-    : Path.Combine(AppContext.BaseDirectory, $"zenith-relatorio-{DateTime.Now:yyyyMMdd-HHmmss}.json");
+// The command, when given, comes first; options like "--out <file>" belong to it.
+var hasCommand = args.Length > 0 && !args[0].StartsWith("--");
+var command = hasCommand ? args[0].ToLowerInvariant() : "verificar";
+var rest = hasCommand ? args[1..] : args;
 
-Console.WriteLine("Zenith · verificação do Resgate (somente leitura)");
-Console.WriteLine("Nada no seu PC será alterado.");
-Console.WriteLine();
-
-var report = Scanner.Run();
-
-Console.WriteLine($"Processador: {report.Machine.CpuName ?? "?"}");
-foreach (var gpu in report.Machine.GpuAdapters)
-    Console.WriteLine($"Placa de vídeo: {gpu.Description} ({(gpu.Kind == Zenith.Core.GpuKind.Integrated ? "integrada" : "dedicada")})");
-foreach (var display in report.Machine.Displays)
-    Console.WriteLine($"Monitor: {display.MonitorName ?? display.GdiDeviceName}, {display.Width}x{display.Height}");
-Console.WriteLine();
-
-foreach (var finding in report.Findings)
+int exitCode;
+try
 {
-    Console.WriteLine($"[{Label(finding.Status)}] {finding.Title}");
-    Console.WriteLine($"    {finding.Summary}");
-    if (finding.Error is not null) Console.WriteLine($"    Erro: {finding.Error}");
+    exitCode = command switch
+    {
+        "verificar" => ScanCommand.Run(rest),
+        "servico" => ChangeCommands.Ping(),
+        "aplicar" => ChangeCommands.Apply(rest),
+        "diario" => ChangeCommands.Journal(),
+        "desfazer" => ChangeCommands.Undo(rest),
+        "desfazer-tudo" => ChangeCommands.UndoAll(),
+        _ => Usage(),
+    };
+}
+catch (ServiceUnavailableException ex)
+{
+    Console.WriteLine(ex.Message);
+    exitCode = 2;
+}
+catch (InvalidOperationException ex)
+{
+    Console.WriteLine($"Erro: {ex.Message}");
+    exitCode = 1;
 }
 
-foreach (var (section, error) in report.Machine.CaptureErrors)
-    Console.WriteLine($"Aviso: não foi possível ler \"{section}\": {error}");
-
-var json = JsonSerializer.Serialize(new { schemaVersion = 1, probeVersion = typeof(Scanner).Assembly.GetName().Version?.ToString(), report },
-    new JsonSerializerOptions
-    {
-        WriteIndented = true,
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        Converters = { new JsonStringEnumConverter() },
-        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-    });
-File.WriteAllText(outPath, json, Encoding.UTF8);
-
-Console.WriteLine();
-Console.WriteLine($"Relatório salvo em: {outPath}");
-Console.WriteLine("Você pode abrir o arquivo e conferir o que ele contém antes de enviar.");
-
-if (!noWait && !Console.IsInputRedirected)
+if (command == "verificar" && !rest.Contains("--no-wait") && !Console.IsInputRedirected)
 {
     Console.WriteLine();
     Console.WriteLine("Pressione Enter para sair.");
     Console.ReadLine();
 }
+return exitCode;
 
-static string Label(FindingStatus status) => status switch
+static int Usage()
 {
-    FindingStatus.Detected => "ACHADO",
-    FindingStatus.NotDetected => "ok",
-    FindingStatus.NotApplicable => "não se aplica",
-    FindingStatus.Inconclusive => "inconclusivo",
-    FindingStatus.Error => "erro",
-    _ => status.ToString(),
-};
+    Console.WriteLine("""
+        Uso: zenith-probe [comando]
+
+          verificar            Lê os 6 achados e salva um relatório (padrão; não altera nada)
+          servico              Confere se o serviço do Zenith está rodando
+          aplicar <achado>     Conserta um achado: taxa, hdr, energia ou placa
+          diario               Lista as alterações feitas pelo Zenith
+          desfazer <número>    Desfaz uma alteração do diário
+          desfazer-tudo        Desfaz todas as alterações ainda ativas
+
+        Opções de verificar: --out <arquivo>, --no-wait
+        """);
+    return 1;
+}

@@ -2,6 +2,7 @@
   <Folder Name="/src/">
     <Project Path="src/Zenith.Core/Zenith.Core.csproj" />
     <Project Path="src/Zenith.Probe/Zenith.Probe.csproj" />
+    <Project Path="src/Zenith.Service/Zenith.Service.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Zenith.Core.Tests/Zenith.Core.Tests.csproj" />

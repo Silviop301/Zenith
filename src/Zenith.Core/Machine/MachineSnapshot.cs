@@ -7,7 +7,7 @@ public sealed record GpuAdapterInfo(
     string Description, string VendorId, GpuKind Kind, ulong DedicatedVideoMemoryMiB, long Luid, IReadOnlyList<string> AttachedOutputs);
 
 public sealed record DisplayInfo(
-    string GdiDeviceName, string? MonitorName, long AdapterLuid, uint Width, uint Height,
+    string GdiDeviceName, string? MonitorName, [property: System.Text.Json.Serialization.JsonIgnore] string? MonitorDevicePath, long AdapterLuid, uint Width, uint Height,
     double CurrentRefreshHz, int MaxRefreshHzAtCurrentResolution, IReadOnlyList<int> RefreshRatesAtCurrentResolution,
     AdvancedColorState? AdvancedColor);
 
@@ -112,9 +112,11 @@ public sealed record MachineSnapshot(
             }
 
             var rates = SupportedRefreshRates(gdiName, width, height);
+            var targetName = DisplayConfig.GetTargetName(path.TargetInfo);
             result.Add(new DisplayInfo(
                 gdiName,
-                DisplayConfig.GetTargetName(path.TargetInfo)?.MonitorFriendlyDeviceName,
+                targetName?.MonitorFriendlyDeviceName,
+                targetName?.MonitorDevicePath,
                 path.SourceInfo.AdapterId.Value,
                 width, height,
                 Math.Round(path.TargetInfo.RefreshRate.Value, 2),
@@ -140,7 +142,7 @@ public sealed record MachineSnapshot(
         return rates.ToList();
     }
 
-    private static AdvancedColorState? ReadAdvancedColor(DisplayConfig.PathTargetInfo target)
+    internal static AdvancedColorState? ReadAdvancedColor(DisplayConfig.PathTargetInfo target)
     {
         var header = new DisplayConfig.DeviceInfoHeader { AdapterId = target.AdapterId, Id = target.Id };
 
