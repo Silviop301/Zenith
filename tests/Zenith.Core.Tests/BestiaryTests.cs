@@ -2,6 +2,8 @@ using System.Text.Json;
 using Zenith.Core.Bestiary;
 using Zenith.Core.Changes;
 using Zenith.Core.Ipc;
+using Zenith.Core.Presentation;
+using Zenith.Core.Resources;
 using Zenith.Core.Settings;
 
 namespace Zenith.Core.Tests;
@@ -321,4 +323,102 @@ public sealed class StartupCommandTests : IDisposable
     [Fact]
     public void The_agent_may_not_record_machine_startup_changes() =>
         Assert.DoesNotContain(StartupSetting.MachineKey, CommandHandler.UserSettingKeys);
+}
+
+public class BestiaryPresenterTests
+{
+    private static readonly Classifier Classifier = new(Catalog.Default, new ClassifierContext(@"C:\Windows\", @"C:\Users\"));
+
+    private static InhabitantCard Card(string path, SignatureInfo signature, long? memory, params StartupEntry[] startup)
+    {
+        var inhabitant = new Inhabitant(path, CommandLine.FileName(path), "Host Process for Windows Services", "Microsoft Corporation",
+            signature, memory is null ? [] : [1], memory, memory is null ? null : 0.5, memory is null ? null : 0, startup);
+        return BestiaryPresenter.Card(new Sighting(inhabitant, Classifier.Classify(inhabitant)));
+    }
+
+    private static StartupEntry Run(StartupLocation location, string name, string command, bool enabled = true) =>
+        new(location, name, command, CommandLine.Parse(command, s => s), enabled);
+
+    [Fact]
+    public void An_impostor_is_named_by_its_file_not_by_what_it_claims()
+    {
+        var path = @"C:\Users\ana\AppData\Roaming\svch0st.exe";
+        var card = Card(path, new SignatureInfo(SignatureStatus.Unsigned), 46L * 1024 * 1024, Run(StartupLocation.UserRun, "Windows Host", path));
+
+        Assert.Equal("svch0st.exe", card.Name);
+        Assert.Equal("?", card.Initials);
+        Assert.NotNull(card.ImpostorChip);
+        Assert.Equal(Strings.FicheWhy, card.ReasonsTitle);
+        Assert.Equal(["user-run|Windows Host"], card.StopTargets);
+        Assert.True(card.Matches(BestiaryFilter.Attention));
+        Assert.True(card.Matches(BestiaryFilter.Startup));
+    }
+
+    [Fact]
+    public void Windows_programs_cannot_be_stopped_from_starting()
+    {
+        var path = @"C:\Windows\System32\SecurityHealthSystray.exe";
+        var card = Card(path, new SignatureInfo(SignatureStatus.Valid, "Microsoft Windows"), 8L * 1024 * 1024,
+            Run(StartupLocation.MachineRun, "SecurityHealth", path));
+
+        Assert.Equal(ThreatLevel.Protector, card.Level);
+        Assert.False(card.CanStopStartup);
+        Assert.Equal(Strings.StartupProtected, card.StartupAdvice);
+    }
+
+    [Fact]
+    public void Only_enabled_entries_are_offered()
+    {
+        var path = @"C:\Program Files (x86)\Steam\steam.exe";
+        var card = Card(path, new SignatureInfo(SignatureStatus.Valid, "Valve Corp."), null,
+            Run(StartupLocation.UserRun, "Steam", $"\"{path}\" -silent", enabled: false));
+
+        Assert.False(card.CanStopStartup);
+        Assert.False(card.StartsWithWindows);
+        Assert.Equal(Strings.CardStartupOff, card.Cost);
+    }
+
+    [Fact]
+    public void Heavy_means_half_a_gigabyte_or_ten_percent()
+    {
+        Assert.True(Card(@"C:\Program Files\Google\Chrome\Application\chrome.exe", new SignatureInfo(SignatureStatus.Valid, "Google LLC"),
+            1460L * 1024 * 1024).IsHeavy);
+        Assert.False(Card(@"C:\Program Files\Google\Chrome\Application\chrome.exe", new SignatureInfo(SignatureStatus.Valid, "Google LLC"),
+            100L * 1024 * 1024).IsHeavy);
+    }
+
+    [Fact]
+    public void The_overview_counts_the_catalog()
+    {
+        var cards = new[]
+        {
+            Card(@"C:\Program Files (x86)\Steam\steam.exe", new SignatureInfo(SignatureStatus.Valid, "Valve Corp."), 10),
+            Card(@"C:\Windows\explorer.exe", new SignatureInfo(SignatureStatus.Valid, "Microsoft Windows"), 10),
+            Card(@"C:\Tools\thing.exe", new SignatureInfo(SignatureStatus.Valid, "Thing Ltda"), 10),
+        };
+        var overview = BestiaryPresenter.Overview(cards, hiddenProcesses: 0);
+
+        Assert.Equal((3, 2), (overview.Total, overview.Cataloged));
+        Assert.Equal(1, overview.Counts[BestiaryFilter.Unknown]);
+        Assert.Null(overview.HiddenNote);
+    }
+
+    [Theory]
+    [InlineData("Edge WebView2", "EW")]
+    [InlineData("Steam", "ST")]
+    [InlineData("svch0st.exe", "SV")]
+    [InlineData("(x)", "X")]
+    public void Initials(string name, string expected) => Assert.Equal(expected, BestiaryPresenter.Initials(name));
+
+    [Fact]
+    public void The_journal_names_startup_changes()
+    {
+        var entry = new JournalEntry(1, "bestiary-startup", StartupSetting.MachineKey, ChangeScope.System, null, "machine-folder|Updater.lnk",
+            StartupSetting.Enabled, StartupSetting.Disabled, DateTimeOffset.Now, JournalStatus.Applied, null, null);
+        var line = JournalPresenter.Line(entry);
+
+        Assert.Equal(string.Format(Strings.JournalSettingStartup, "Updater"), line.What);
+        Assert.Equal((Strings.ValueStartupOn, Strings.ValueStartupOff), (line.From, line.To));
+        Assert.Equal("startup", line.Icon);
+    }
 }

@@ -85,5 +85,5 @@ public static class CommandLine
     }
 
     // Windows paths; Path.GetFileName on Linux would not split on backslashes.
-    internal static string FileName(string path) => path[(path.LastIndexOfAny(['\\', '/']) + 1)..];
+    public static string FileName(string path) => path[(path.LastIndexOfAny(['\\', '/']) + 1)..];
 }

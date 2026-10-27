@@ -79,6 +79,16 @@ jobs:
       - name: Run probe
         run: ./publish/zenith-probe.exe --no-wait --out publish/zenith-relatorio-ci.json
 
+      # Bestiário on a real Windows: processes, startup entries, signatures (through catalogs too) and network.
+      # Windows' own programs must come out as protectors; that is what keeps rule 4.
+      - name: Bestiário (read only)
+        run: |
+          $out = ./publish/zenith-probe.exe bestiario
+          $out
+          if ($LASTEXITCODE -ne 0) { throw 'bestiario failed' }
+          if (-not ($out -match 'svchost.exe')) { throw 'svchost.exe was not read' }
+          if (-not ($out -match 'assinado pela Microsoft')) { throw 'no Microsoft signature was recognized' }
+
       # End to end on a real Windows, through the installer: install silently, provoke finding 3 with the
       # power saver plan, fix it through the service, undo everything, then uninstall and check nothing is left.
       - name: Installer and service end-to-end (power plan)
@@ -116,6 +126,23 @@ jobs:
           & $probe aplicar energia
           if ($LASTEXITCODE -ne 0) { throw 'apply failed' }
           if ((powercfg /getactivescheme) -notmatch '381b4222-f694-41f0-9685-ff5bb260df2e') { throw 'plan was not switched to Balanced' }
+          # Bestiário: "impedir de iniciar" for a machine-wide entry (through the service) and a user one (here),
+          # and Windows' own programs refused. An unsigned copy of the probe stands in for a third-party program.
+          $approved = 'Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run'
+          $run = 'Software\Microsoft\Windows\CurrentVersion\Run'
+          New-Item -ItemType Directory -Force C:\ZenithTeste | Out-Null
+          Copy-Item publish/zenith-probe.exe C:\ZenithTeste\teste-inicializacao.exe
+          New-ItemProperty -Path "HKLM:\$run" -Name ZenithTeste -Value '"C:\ZenithTeste\teste-inicializacao.exe" --x' -Force | Out-Null
+          New-ItemProperty -Path "HKCU:\$run" -Name ZenithTeste -Value '"C:\ZenithTeste\teste-inicializacao.exe" --y' -Force | Out-Null
+          New-ItemProperty -Path "HKLM:\$run" -Name ZenithTesteWindows -Value 'C:\Windows\System32\notepad.exe' -Force | Out-Null
+          & $probe impedir 'machine-run|ZenithTeste'
+          if ($LASTEXITCODE -ne 0) { throw 'machine startup entry was not stopped' }
+          & $probe impedir 'user-run|ZenithTeste'
+          if ($LASTEXITCODE -ne 0) { throw 'user startup entry was not stopped' }
+          if ((Get-ItemProperty "HKLM:\$approved").ZenithTeste[0] -ne 3) { throw 'machine entry is not off in StartupApproved' }
+          if ((Get-ItemProperty "HKCU:\$approved").ZenithTeste[0] -ne 3) { throw 'user entry is not off in StartupApproved' }
+          & $probe impedir 'machine-run|ZenithTesteWindows'
+          if ($LASTEXITCODE -eq 0) { throw 'a Windows program was stopped from starting' }
           & $probe diario
 
           # A silent uninstall undoes every active change before removing the service.
@@ -127,6 +154,12 @@ jobs:
           if (Test-Path HKLM:\Software\Zenith) { throw 'installer registry key was not removed' }
           if (Test-Path (Join-Path $env:ProgramData 'Zenith')) { throw 'journal was kept although everything was undone' }
           if ((powercfg /getactivescheme) -ne $saver) { throw 'uninstall did not undo the power plan change' }
+          if ((Get-ItemProperty "HKLM:\$approved").ZenithTeste[0] -ne 2) { throw 'uninstall did not turn the machine startup entry back on' }
+          if ((Get-ItemProperty "HKCU:\$approved").ZenithTeste[0] -ne 2) { throw 'uninstall did not turn the user startup entry back on' }
+          foreach ($hive in 'HKLM', 'HKCU') {
+            Remove-ItemProperty -Path "$($hive):\$run" -Name ZenithTeste, ZenithTesteWindows -ErrorAction SilentlyContinue
+            Remove-ItemProperty -Path "$($hive):\$approved" -Name ZenithTeste -ErrorAction SilentlyContinue
+          }
 
           powercfg /setactive ($original -replace '.*:\s*([0-9a-f-]{36}).*', '$1')
 

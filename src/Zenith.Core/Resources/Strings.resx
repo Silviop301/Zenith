@@ -16,6 +16,9 @@
   <data name="NavJournal" xml:space="preserve">
     <value>Resgatados</value>
   </data>
+  <data name="NavBestiary" xml:space="preserve">
+    <value>Bestiário</value>
+  </data>
   <data name="ServiceOn" xml:space="preserve">
     <value>Serviço ligado</value>
   </data>
@@ -343,6 +346,18 @@
   <data name="JournalSettingGpu" xml:space="preserve">
     <value>Placa de vídeo do {0}</value>
   </data>
+  <data name="JournalSettingStartup" xml:space="preserve">
+    <value>Iniciar com o Windows: {0}</value>
+  </data>
+  <data name="ValueStartupOn" xml:space="preserve">
+    <value>Sim</value>
+  </data>
+  <data name="ValueStartupOff" xml:space="preserve">
+    <value>Não</value>
+  </data>
+  <data name="ValueStartupAbsent" xml:space="preserve">
+    <value>Removido da inicialização</value>
+  </data>
   <data name="ValueHz" xml:space="preserve">
     <value>{0} Hz</value>
   </data>
@@ -468,5 +483,224 @@
   </data>
   <data name="TrayMenuUpdate" xml:space="preserve">
     <value>Instalar a versão {0}</value>
+  </data>
+  <data name="BestiaryEyebrow_One" xml:space="preserve">
+    <value>SEU PC TEM 1 HABITANTE</value>
+  </data>
+  <data name="BestiaryEyebrow_Other" xml:space="preserve">
+    <value>SEU PC TEM {0} HABITANTES</value>
+  </data>
+  <data name="BestiaryTitle" xml:space="preserve">
+    <value>Quem mora no seu PC.</value>
+  </data>
+  <data name="BestiaryLead" xml:space="preserve">
+    <value>Cada programa aberto ou que inicia com o Windows vira uma ficha: o que é, se merece atenção e quanto custa agora.</value>
+  </data>
+  <data name="BestiaryReadingEyebrow" xml:space="preserve">
+    <value>LENDO</value>
+  </data>
+  <data name="BestiaryReadingTitle" xml:space="preserve">
+    <value>Conhecendo os habitantes…</value>
+  </data>
+  <data name="BestiaryReadingLead" xml:space="preserve">
+    <value>Programas abertos, o que inicia com o Windows e as assinaturas digitais. Leva alguns segundos e não muda nada.</value>
+  </data>
+  <data name="BestiaryFailed" xml:space="preserve">
+    <value>Não deu para ler os programas: {0}</value>
+  </data>
+  <data name="BestiaryCataloged" xml:space="preserve">
+    <value>{0} de {1} catalogados</value>
+  </data>
+  <data name="BestiaryCatalogedPercent" xml:space="preserve">
+    <value>{0:0}%</value>
+  </data>
+  <data name="BestiarySearch" xml:space="preserve">
+    <value>Buscar habitante</value>
+  </data>
+  <data name="BestiarySearchHint" xml:space="preserve">
+    <value>Nome ou arquivo</value>
+  </data>
+  <data name="BestiaryFilterAll" xml:space="preserve">
+    <value>Todos · {0}</value>
+  </data>
+  <data name="BestiaryFilterStartup" xml:space="preserve">
+    <value>Iniciam com o Windows · {0}</value>
+  </data>
+  <data name="BestiaryFilterHeavy" xml:space="preserve">
+    <value>Pesados · {0}</value>
+  </data>
+  <data name="BestiaryFilterUnknown" xml:space="preserve">
+    <value>Desconhecidos · {0}</value>
+  </data>
+  <data name="BestiaryFilterAttention" xml:space="preserve">
+    <value>Merecem atenção · {0}</value>
+  </data>
+  <data name="BestiaryNoneInFilter" xml:space="preserve">
+    <value>Nenhum habitante aqui.</value>
+  </data>
+  <data name="BestiaryHidden_One" xml:space="preserve">
+    <value>1 processo protegido pelo Windows não aparece: só dá para ler com permissão de administrador.</value>
+  </data>
+  <data name="BestiaryHidden_Other" xml:space="preserve">
+    <value>{0} processos protegidos pelo Windows não aparecem: só dá para ler com permissão de administrador.</value>
+  </data>
+  <data name="BestiarySelectHint" xml:space="preserve">
+    <value>Escolha um habitante para ver a ficha.</value>
+  </data>
+  <data name="LevelProtector" xml:space="preserve">
+    <value>Protetor · não mexa</value>
+  </data>
+  <data name="LevelHarmless" xml:space="preserve">
+    <value>Inofensivo</value>
+  </data>
+  <data name="LevelDispensable" xml:space="preserve">
+    <value>Dispensável</value>
+  </data>
+  <data name="LevelUnknown" xml:space="preserve">
+    <value>Desconhecido</value>
+  </data>
+  <data name="LevelAttention" xml:space="preserve">
+    <value>Atenção</value>
+  </data>
+  <data name="LevelSuspicious" xml:space="preserve">
+    <value>Suspeito</value>
+  </data>
+  <data name="CategoryWindows" xml:space="preserve">
+    <value>Parte do Windows</value>
+  </data>
+  <data name="CategoryUnknown" xml:space="preserve">
+    <value>Desconhecido</value>
+  </data>
+  <data name="CardRunningStartup" xml:space="preserve">
+    <value>{0} · inicia com o Windows</value>
+  </data>
+  <data name="CardStartupOnly" xml:space="preserve">
+    <value>Inicia com o Windows</value>
+  </data>
+  <data name="CardStartupOff" xml:space="preserve">
+    <value>Não inicia mais com o Windows</value>
+  </data>
+  <data name="CardNotMeasured" xml:space="preserve">
+    <value>Aberto</value>
+  </data>
+  <data name="ImpostorChip" xml:space="preserve">
+    <value>Provável impostor</value>
+  </data>
+  <data name="FicheWho" xml:space="preserve">
+    <value>QUEM É</value>
+  </data>
+  <data name="FicheWhy" xml:space="preserve">
+    <value>POR QUE DESCONFIAMOS</value>
+  </data>
+  <data name="FicheSeen" xml:space="preserve">
+    <value>O QUE O ZENITH VIU</value>
+  </data>
+  <data name="FicheStartup" xml:space="preserve">
+    <value>INICIAR COM O WINDOWS</value>
+  </data>
+  <data name="FicheWhere" xml:space="preserve">
+    <value>ONDE FICA</value>
+  </data>
+  <data name="WhoWindows" xml:space="preserve">
+    <value>Uma parte do próprio Windows.</value>
+  </data>
+  <data name="WhoImitates" xml:space="preserve">
+    <value>O nome imita o {0}, um processo do Windows, mas este arquivo não é ele.</value>
+  </data>
+  <data name="WhoDescribed" xml:space="preserve">
+    <value>Diz ser "{0}". Ainda não está na base de fichas do Zenith.</value>
+  </data>
+  <data name="WhoDescribedBy" xml:space="preserve">
+    <value>Diz ser "{0}", de {1}. Ainda não está na base de fichas do Zenith.</value>
+  </data>
+  <data name="WhoNothing" xml:space="preserve">
+    <value>Não traz descrição e ainda não está na base de fichas do Zenith.</value>
+  </data>
+  <data name="ReasonWindowsComponent" xml:space="preserve">
+    <value>Fica na pasta do Windows e é assinado pela Microsoft.</value>
+  </data>
+  <data name="ReasonWindowsFolder" xml:space="preserve">
+    <value>Fica na pasta do Windows. O Zenith não mexe em nada de lá.</value>
+  </data>
+  <data name="ReasonSignedBy" xml:space="preserve">
+    <value>Assinatura digital válida de {0}.</value>
+  </data>
+  <data name="ReasonPublisherMismatch" xml:space="preserve">
+    <value>Tem o nome do {1}, mas é assinado por {0}, e não pela empresa que faz o {1}.</value>
+  </data>
+  <data name="ReasonUnsigned" xml:space="preserve">
+    <value>Não tem assinatura digital.</value>
+  </data>
+  <data name="ReasonUnsignedExpected" xml:space="preserve">
+    <value>Não tem assinatura digital, e o {0} verdadeiro tem.</value>
+  </data>
+  <data name="ReasonInvalidSignature" xml:space="preserve">
+    <value>A assinatura digital não confere: o arquivo mudou depois de assinado ou o certificado não é confiável.</value>
+  </data>
+  <data name="ReasonSignatureNotChecked" xml:space="preserve">
+    <value>Não deu para conferir a assinatura digital.</value>
+  </data>
+  <data name="ReasonImitates" xml:space="preserve">
+    <value>O nome imita o {0}, um processo do Windows.</value>
+  </data>
+  <data name="ReasonSystemNameOutsideWindows" xml:space="preserve">
+    <value>Tem o nome de um processo do Windows ({0}), mas fica fora da pasta do Windows, onde o original sempre fica.</value>
+  </data>
+  <data name="ReasonUserFolder" xml:space="preserve">
+    <value>Fica numa pasta de usuário, onde programas instalados raramente ficam.</value>
+  </data>
+  <data name="ReasonScriptAtStartup" xml:space="preserve">
+    <value>Um script inicia com o Windows pelo {0}.</value>
+  </data>
+  <data name="StatMemory" xml:space="preserve">
+    <value>Memória agora</value>
+  </data>
+  <data name="StatCpu" xml:space="preserve">
+    <value>Processador agora</value>
+  </data>
+  <data name="StatNetwork" xml:space="preserve">
+    <value>Servidores conectados agora</value>
+  </data>
+  <data name="StatStartup" xml:space="preserve">
+    <value>Inicia com o Windows</value>
+  </data>
+  <data name="StatYes" xml:space="preserve">
+    <value>Sim</value>
+  </data>
+  <data name="StatNo" xml:space="preserve">
+    <value>Não</value>
+  </data>
+  <data name="StatNone" xml:space="preserve">
+    <value>—</value>
+  </data>
+  <data name="StatLessThanOne" xml:space="preserve">
+    <value>&lt;1%</value>
+  </data>
+  <data name="StatPercent" xml:space="preserve">
+    <value>{0:0}%</value>
+  </data>
+  <data name="StatMegabytes" xml:space="preserve">
+    <value>{0:0} MB</value>
+  </data>
+  <data name="StatGigabytes" xml:space="preserve">
+    <value>{0:0.0} GB</value>
+  </data>
+  <data name="StartupProtected" xml:space="preserve">
+    <value>O Zenith nunca mexe em programas do Windows nem de proteção.</value>
+  </data>
+  <data name="StartupOffNote" xml:space="preserve">
+    <value>Não inicia com o Windows. Fica desligado na inicialização, e dá para religar em Resgatados.</value>
+  </data>
+  <data name="StartupNextSignIn" xml:space="preserve">
+    <value>Vale a partir do próximo login. O programa não é fechado nem desinstalado, e dá para desfazer em Resgatados.</value>
+  </data>
+  <data name="StopStartup" xml:space="preserve">
+    <value>Impedir de iniciar</value>
+  </data>
+  <data name="OpenLocation" xml:space="preserve">
+    <value>Abrir local</value>
+  </data>
+  <data name="MsgStartupStopped" xml:space="preserve">
+    <value>Pronto: não inicia mais com o Windows. Dá para desfazer em Resgatados.</value>
   </data>
 </root>

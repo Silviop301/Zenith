@@ -13,6 +13,7 @@
       <c:IconGeometry x:Key="Icon" />
       <c:BrushWhen x:Key="BrushWhen" />
       <c:FractionToWidth x:Key="FractionToWidth" />
+      <c:LevelBrush x:Key="LevelBrush" />
     </ResourceDictionary>
   </Application.Resources>
 </Application>

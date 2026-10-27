@@ -265,6 +265,19 @@ public partial class App : Application
         Save(view, folder, "04-teste-hdr.png");
         vm.CloseOverlays();
 
+        // Bestiário. Outside the demo this reads the real PC: on CI, the runner's processes, startup and signatures.
+        vm.Page = AppPage.Bestiary;
+        await vm.Bestiary.LoadAsync();
+        if (demo) vm.Bestiary.Select("svch0st.exe");
+        Save(view, folder, "09-bestiario.png");
+        if (vm.Bestiary.IsFailed) throw new InvalidOperationException(vm.Bestiary.Error);
+        if (demo)
+        {
+            vm.Bestiary.Select("steam.exe");
+            Save(view, folder, "10-bestiario-ficha.png");
+        }
+        vm.Page = AppPage.Findings;
+
         if (demo)
         {
             // After "Ativar" on the refresh rate and the power plan.
@@ -272,6 +285,14 @@ public partial class App : Application
             Save(view, folder, "05-depois-de-ativar.png");
             vm.Page = AppPage.Journal;
             Save(view, folder, "06-resgatados-depois.png");
+
+            // After "Impedir de iniciar" on Steam.
+            vm.Page = AppPage.Bestiary;
+            await vm.StopStartupForScreenshotAsync("steam.exe");
+            vm.Bestiary.Select("steam.exe");
+            Save(view, folder, "11-bestiario-depois.png");
+            vm.Page = AppPage.Journal;
+            Save(view, folder, "12-resgatados-inicializacao.png");
         }
     }
 

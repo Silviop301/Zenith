@@ -1,4 +1,5 @@
 using System.Globalization;
+using Zenith.Core.Bestiary;
 using Zenith.Core.Changes;
 using Zenith.Core.Interop;
 using Zenith.Core.Resources;
@@ -58,6 +59,7 @@ public static class JournalPresenter
         ActivePowerSchemeSetting.SettingKey => Strings.JournalSettingScheme,
         ProcessorMaxStateAcSetting.SettingKey => Strings.JournalSettingMaxState,
         GpuPreferenceSetting.SettingKey => F(Strings.JournalSettingGpu, FileName(e.Target)),
+        StartupSetting.UserKey or StartupSetting.MachineKey => F(Strings.JournalSettingStartup, StartupName(e.Target)),
         _ => e.SettingKey,
     };
 
@@ -74,8 +76,28 @@ public static class JournalPresenter
             GpuPreferenceSetting.HighPerformance => Strings.GpuHighPerformance,
             _ => Strings.GpuUnset,
         },
+        StartupSetting.UserKey or StartupSetting.MachineKey => value switch
+        {
+            StartupSetting.Enabled => Strings.ValueStartupOn,
+            StartupSetting.Disabled => Strings.ValueStartupOff,
+            _ => Strings.ValueStartupAbsent,
+        },
         _ => value,
     };
+
+    /// <summary>The Run value name, or the shortcut's name without ".lnk".</summary>
+    private static string StartupName(string target)
+    {
+        try
+        {
+            var name = StartupTarget.Parse(target).Name;
+            return name.EndsWith(".lnk", StringComparison.OrdinalIgnoreCase) ? name[..^4] : name;
+        }
+        catch (ArgumentException)
+        {
+            return target;
+        }
+    }
 
     private static string SchemeName(string value)
     {
@@ -92,6 +114,7 @@ public static class JournalPresenter
         RefreshRateSetting.SettingKey => "monitor",
         HdrSetting.SettingKey => "hdr",
         GpuPreferenceSetting.SettingKey => "gpu",
+        StartupSetting.UserKey or StartupSetting.MachineKey => "startup",
         _ => "power",
     };
 

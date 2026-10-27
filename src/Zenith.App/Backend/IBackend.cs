@@ -1,3 +1,4 @@
+using Zenith.Core.Bestiary;
 using Zenith.Core.Changes;
 using Zenith.Core.Findings;
 using Zenith.Core.Sensors;
@@ -25,4 +26,8 @@ public interface IBackend
     IReadOnlyList<UndoResult> UndoAll();
     /// <summary>The newest reading of each sensor the service collects (for the tray's critical alerts).</summary>
     IReadOnlyList<SensorSample> LatestSensors();
+    /// <summary>Bestiário: who lives in the PC. Reads only; works without the service.</summary>
+    BestiaryScan Bestiary();
+    /// <summary>Stops one startup entry from starting with Windows, through the journal. Null when it was already off.</summary>
+    JournalEntry? DisableStartup(string target);
 }

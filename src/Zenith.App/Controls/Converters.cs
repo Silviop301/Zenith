@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
+using Zenith.Core.Bestiary;
 
 namespace Zenith.App.Controls;
 
@@ -62,4 +63,41 @@ public sealed class Not : IValueConverter
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => value is not true;
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => value is not true;
+}
+
+/// <summary>
+/// A Bestiário level to its colors. Parameter: "chip" (background), "text", "tile", "tileText" or "border".
+/// Calm by default; only "Suspeito" turns red and "Atenção" amber.
+/// </summary>
+public sealed class LevelBrush : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        var level = value is ThreatLevel l ? l : ThreatLevel.Unknown;
+        var key = (parameter as string, level) switch
+        {
+            ("chip", ThreatLevel.Protector) => "ModulosBestiarioFundoBrush",
+            ("chip", ThreatLevel.Harmless) => "ModulosResgateFundoBrush",
+            ("chip", ThreatLevel.Dispensable or ThreatLevel.Attention) => "StatusAlertaFundoBrush",
+            ("chip", ThreatLevel.Suspicious) => "StatusPerigoFundoBrush",
+            ("chip", _) => "SuperficieFundoBrush",
+            ("text", ThreatLevel.Protector) => "ModulosBestiarioTextoBrush",
+            ("text", ThreatLevel.Harmless) => "ModulosResgateTextoBrush",
+            ("text", ThreatLevel.Dispensable or ThreatLevel.Attention) => "StatusAlertaTextoBrush",
+            ("text", ThreatLevel.Suspicious) => "StatusPerigoBrush",
+            ("text", _) => "TextoForteBrush",
+            ("tile", ThreatLevel.Suspicious) => "StatusPerigoFundoBrush",
+            ("tile", ThreatLevel.Dispensable or ThreatLevel.Attention) => "StatusAlertaFundoBrush",
+            ("tile", _) => "ModulosBestiarioFundoBrush",
+            ("tileText", ThreatLevel.Suspicious) => "StatusPerigoBrush",
+            ("tileText", ThreatLevel.Dispensable or ThreatLevel.Attention) => "StatusAlertaTextoBrush",
+            ("tileText", _) => "ModulosBestiarioTextoBrush",
+            ("border", ThreatLevel.Suspicious) => "StatusPerigoBordaBrush",
+            ("border", ThreatLevel.Attention) => "StatusAlertaBrush",
+            _ => "SuperficieBordaBrush",
+        };
+        return Application.Current.TryFindResource(key);
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotSupportedException();
 }
