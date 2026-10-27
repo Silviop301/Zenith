@@ -18,12 +18,20 @@ public sealed partial class TrayIcon : IDisposable
     private readonly Forms.NotifyIcon _icon = new();
     private readonly ContextMenu _menu;
     private readonly MenuItem _startup;
+    private readonly MenuItem _update;
+    private readonly Separator _updateSeparator;
+    private Action? _installUpdate;
     private System.Drawing.Icon? _current;
     private TrayStatus _status = TrayStatus.Rest;
 
     public TrayIcon(Action open, Action scan, Action exit)
     {
         _menu = new ContextMenu { Style = Style("TrayMenu"), Placement = System.Windows.Controls.Primitives.PlacementMode.MousePoint };
+        _update = Item("", () => _installUpdate?.Invoke());
+        _updateSeparator = new Separator { Style = Style("TrayMenuSeparator") };
+        _menu.Items.Add(_update);
+        _menu.Items.Add(_updateSeparator);
+        SetUpdate(null, null);
         _menu.Items.Add(Item(Strings.TrayMenuOpen, open));
         _menu.Items.Add(Item(Strings.TrayMenuScan, scan));
         _menu.Items.Add(new Separator { Style = Style("TrayMenuSeparator") });
@@ -61,6 +69,14 @@ public sealed partial class TrayIcon : IDisposable
         if (state.Status == _status) return;
         _status = state.Status;
         Render();
+    }
+
+    /// <summary>Shows "Instalar a versão x" at the top of the menu while an update is ready.</summary>
+    public void SetUpdate(string? version, Action? install)
+    {
+        _installUpdate = install;
+        _update.Header = version is null ? "" : string.Format(System.Globalization.CultureInfo.CurrentCulture, Strings.TrayMenuUpdate, version);
+        _update.Visibility = _updateSeparator.Visibility = version is null ? Visibility.Collapsed : Visibility.Visible;
     }
 
     /// <summary>A Windows notification from the tray icon. Clicking it opens the app.</summary>

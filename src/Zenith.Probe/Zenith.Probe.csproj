@@ -10,6 +10,11 @@
     <DebugType>embedded</DebugType>
     <InvariantGlobalization>false</InvariantGlobalization>
   </PropertyGroup>
+  <ItemGroup Condition="'$(SharedInstall)' == 'true'">
+    <!-- The installer puts the three exes in one folder over one runtime, so they must all carry the same
+         framework files as the app (WPF and WinForms included). See installer/zenith.iss. -->
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zenith.Core\Zenith.Core.csproj" />
   </ItemGroup>

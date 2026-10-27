@@ -1,6 +1,8 @@
 ﻿; Zenith installer (Inno Setup 6). Installs the app, the probe and the service in one go, and removes
-; them cleanly. Build from the repository root after "dotnet publish" into publish\:
+; them cleanly. The three are published into one folder over one shared .NET runtime (publish\instalacao,
+; with -p:PublishSingleFile=false -p:SharedInstall=true, the service last); see .github/workflows/build.yml.
 ;   iscc /DAppVersion=0.1.0 installer\zenith.iss
+; Updates run this same installer with /SILENT /RELAUNCH=1 (see src/Zenith.App/Updates/Updater.cs).
 ; Output: publish\installer\zenith-setup-<version>.exe
 
 #ifndef AppVersion
@@ -60,25 +62,33 @@ Name: "desktopicon"; Description: "{cm:DesktopIcon}"; Flags: unchecked
 ; The installer's choice; each user's app applies it on its first run and keeps the user's own choice after that.
 Root: HKLM; Subkey: "Software\Zenith"; ValueType: dword; ValueName: "StartWithWindows"; ValueData: 1; Tasks: startup; Flags: uninsdeletekey
 Root: HKLM; Subkey: "Software\Zenith"; ValueType: dword; ValueName: "StartWithWindows"; ValueData: 0; Tasks: not startup; Flags: uninsdeletekey
+; Only the installed copy updates itself.
+Root: HKLM; Subkey: "Software\Zenith"; ValueType: string; ValueName: "InstallDir"; ValueData: "{app}"; Flags: uninsdeletekey
 ; Written by the app, removed here for the user who uninstalls.
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: none; ValueName: "Zenith"; Flags: uninsdeletevalue
 Root: HKCU; Subkey: "Software\Zenith"; ValueType: none; Flags: uninsdeletekey
 
 [Files]
-Source: "{#PublishDir}\zenith.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#PublishDir}\zenith-probe.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#PublishDir}\zenith-service.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#PublishDir}\instalacao\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{autoprograms}\Zenith"; Filename: "{app}\zenith.exe"
 Name: "{autodesktop}\Zenith"; Filename: "{app}\zenith.exe"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\zenith.exe"; Description: "{cm:LaunchApp}"; Flags: nowait postinstall skipifsilent runasoriginaluser
+Filename: "{app}\zenith.exe"; Description: "{cm:LaunchApp}"; Flags: nowait postinstall skipifsilent runasoriginaluser; Check: not Relaunch
+; After an update from the app, open it again.
+Filename: "{app}\zenith.exe"; Flags: nowait postinstall runasoriginaluser; Check: Relaunch
 
 [Code]
 const
   DataDirName = 'Zenith';
+
+{ /RELAUNCH=1: started by the app's "Instalar agora". }
+function Relaunch(): Boolean;
+begin
+  Result := ExpandConstant('{param:RELAUNCH|0}') = '1';
+end;
 
 function Sc(const Params: String): Integer;
 var
