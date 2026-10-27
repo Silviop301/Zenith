@@ -37,7 +37,9 @@ public static class Sticky
     private static void Update(FrameworkElement element, ScrollViewer? page)
     {
         var shift = (TranslateTransform)element.RenderTransform;
-        if (page is null || !element.IsVisible || VisualTreeHelper.GetParent(element) is not FrameworkElement parent || !parent.IsVisible)
+        // Sizes, not IsVisible: IsVisible stays false when the page is drawn off screen (screenshots), and a hidden page has no size.
+        if (page is null || page.ActualHeight <= 0 || element.ActualHeight <= 0 ||
+            VisualTreeHelper.GetParent(element) is not FrameworkElement parent || parent.ActualHeight <= 0)
         {
             shift.Y = 0;
             return;
