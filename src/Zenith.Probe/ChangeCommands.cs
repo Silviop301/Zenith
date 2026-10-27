@@ -38,12 +38,13 @@ internal static class ChangeCommands
     public static int Apply(string[] args)
     {
         using var client = ServiceClient.Connect();
+        if (args.FirstOrDefault() == "hdr") return ApplyHdrWithTrial(AgentEngine(client));
+
         var applied = args.FirstOrDefault() switch
         {
             "energia" => client.Call<List<JournalEntry>>(Protocol.Commands.PowerFix),
             "taxa" => UserFixes.RefreshRate(AgentEngine(client), MachineSnapshot.Capture(), UserSid),
             "placa" => UserFixes.GpuPreference(AgentEngine(client), MachineSnapshot.Capture(), UserSid),
-            "hdr" => ApplyHdrWithTrial(AgentEngine(client)),
             _ => throw new InvalidOperationException("Diga qual achado aplicar: taxa, hdr, energia ou placa."),
         };
 
@@ -97,10 +98,14 @@ internal static class ChangeCommands
     /// Achado 2: turns HDR on and keeps it only if the user confirms within 15 seconds, so a black or
     /// washed-out screen fixes itself.
     /// </summary>
-    private static IReadOnlyList<JournalEntry> ApplyHdrWithTrial(ChangeEngine engine)
+    private static int ApplyHdrWithTrial(ChangeEngine engine)
     {
         var applied = UserFixes.Hdr(engine, MachineSnapshot.Capture(), UserSid);
-        if (applied.Count == 0) return applied;
+        if (applied.Count == 0)
+        {
+            Console.WriteLine("Nada a mudar: nenhum monitor com HDR desligado.");
+            return 0;
+        }
 
         Console.WriteLine($"HDR ligado. Se a imagem ficou boa, pressione S nos próximos {HdrTrial.TotalSeconds:0} segundos.");
         Console.WriteLine("Se não fizer nada, o HDR volta a ficar desligado sozinho.");
@@ -108,12 +113,19 @@ internal static class ChangeCommands
         if (WaitForYes(HdrTrial))
         {
             Console.WriteLine("Mantido.");
-            return applied;
+            foreach (var entry in applied) Print(entry);
+            return 0;
         }
 
+        Console.WriteLine("Sem confirmação: o HDR voltou a ficar desligado.");
+        var ok = true;
         foreach (var entry in applied)
-            Console.WriteLine($"#{entry.Id}: {engine.Undo(entry.Id).Message}");
-        return [];
+        {
+            var result = engine.Undo(entry.Id);
+            ok &= result.Status == JournalStatus.Undone;
+            Console.WriteLine($"#{entry.Id}: {result.Message}");
+        }
+        return ok ? 0 : 1;
     }
 
     private static bool WaitForYes(TimeSpan timeout)
