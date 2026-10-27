@@ -8,4 +8,14 @@
     <EmbeddedResource Include="KnowledgeBase\*.json" LogicalName="Zenith.Core.KnowledgeBase.%(Filename)%(Extension)" />
     <InternalsVisibleTo Include="Zenith.Core.Tests" />
   </ItemGroup>
+  <!-- User-facing texts of the app, ready for translation (Strings.en.resx later). The class is generated at build time. -->
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings.resx">
+      <StronglyTypedLanguage>CSharp</StronglyTypedLanguage>
+      <StronglyTypedNamespace>Zenith.Core.Resources</StronglyTypedNamespace>
+      <StronglyTypedClassName>Strings</StronglyTypedClassName>
+      <StronglyTypedFileName>$(IntermediateOutputPath)Strings.Designer.cs</StronglyTypedFileName>
+      <PublicClass>true</PublicClass>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

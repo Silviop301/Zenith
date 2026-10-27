@@ -26,7 +26,25 @@ public sealed record FindingResult(
     string Summary,
     string Source,
     IReadOnlyDictionary<string, object?> Evidence,
-    string? Error = null);
+    string? Error = null,
+    FindingChange? Change = null);
+
+/// <summary>
+/// What a fix would change, in user-facing words (e.g. "60 Hz" → "165 Hz"). Set only on detected
+/// findings, and only for what Zenith would actually change or guide the user to change.
+/// </summary>
+public sealed record FindingChange(string From, string To);
+
+/// <summary>Stable ids of the Resgate findings; they are also stored in the change journal.</summary>
+public static class FindingIds
+{
+    public const string RefreshRate = "display-refresh-rate";
+    public const string Hdr = "hdr-off";
+    public const string PowerPlan = "power-plan";
+    public const string GameOnIntegratedGpu = "game-on-integrated-gpu";
+    public const string MonitorOnMotherboard = "monitor-on-motherboard";
+    public const string MemorySpeed = "memory-below-rated-speed";
+}
 
 public interface IFindingReader
 {

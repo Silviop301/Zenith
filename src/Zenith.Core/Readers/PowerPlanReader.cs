@@ -6,7 +6,7 @@ namespace Zenith.Core.Readers;
 /// <summary>Achado 3: the active power plan caps the processor.</summary>
 public sealed class PowerPlanReader : FindingReaderBase
 {
-    public override string Id => "power-plan";
+    public override string Id => FindingIds.PowerPlan;
     public override string Title => "Plano de energia limitando o processador";
     protected override string Source => "API de energia do Windows (powrprof)";
 
@@ -43,7 +43,11 @@ public sealed class PowerPlanReader : FindingReaderBase
             return Result(FindingStatus.NotDetected,
                 $"O plano de energia ({name ?? "desconhecido"}) não limita o processador.", evidence);
 
-        return Result(FindingStatus.Detected, "O processador não está rendendo tudo: " + string.Join("; ", reasons) + ".", evidence);
+        // Only what PowerPlanFix changes; the power mode overlay is left to the user (see the guide).
+        FindingChange? change = scheme == PowerProfile.SchemePowerSaver ? new FindingChange("Economia de energia", "Equilibrado")
+            : maxAc is < 100 ? new FindingChange($"{maxAc}%", "100%")
+            : null;
+        return Result(FindingStatus.Detected, "O processador não está rendendo tudo: " + string.Join("; ", reasons) + ".", evidence, change);
     }
 
     private static string SchemeKind(Guid g) =>

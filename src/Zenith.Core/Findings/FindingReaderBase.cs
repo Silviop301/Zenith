@@ -22,6 +22,6 @@ public abstract class FindingReaderBase : IFindingReader
 
     protected abstract FindingResult ReadCore(MachineSnapshot machine);
 
-    protected FindingResult Result(FindingStatus status, string summary, Dictionary<string, object?> evidence) =>
-        new(Id, Title, status, summary, Source, evidence);
+    protected FindingResult Result(FindingStatus status, string summary, Dictionary<string, object?> evidence, FindingChange? change = null) =>
+        new(Id, Title, status, summary, Source, evidence, Change: change);
 }
