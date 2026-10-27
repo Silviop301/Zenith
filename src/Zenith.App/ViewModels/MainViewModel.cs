@@ -10,11 +10,11 @@ using Zenith.Core.Resources;
 
 namespace Zenith.App.ViewModels;
 
-public enum AppPage { Findings, Journal }
+public enum AppPage { Findings, Journal, Bestiary }
 
 public enum ScanState { Scanning, Ready, Failed }
 
-/// <summary>The whole app: the Resgate findings, the journal (Resgatados), the HDR test and the guides.</summary>
+/// <summary>The whole app: the Resgate findings, the journal (Resgatados), the Bestiário, the HDR test and the guides.</summary>
 public sealed class MainViewModel : ObservableObject
 {
     private readonly IBackend _backend;
@@ -37,8 +37,10 @@ public sealed class MainViewModel : ObservableObject
     public MainViewModel(IBackend backend)
     {
         _backend = backend;
+        Bestiary = new BestiaryViewModel(backend, StopStartupAsync, () => CanChange);
         ShowFindingsCommand = new RelayCommand(() => Page = AppPage.Findings);
         ShowJournalCommand = new RelayCommand(() => Page = AppPage.Journal);
+        ShowBestiaryCommand = new RelayCommand(() => { Page = AppPage.Bestiary; _ = Bestiary.EnsureLoadedAsync(); });
         RescanCommand = new RelayCommand(() => _ = RescanAsync(showScanning: true), () => !IsBusy && ScanState != ScanState.Scanning);
         ApplyAllCommand = new RelayCommand(() => _ = ApplyAllAsync(), () => CanChange && ScanState == ScanState.Ready);
         UndoAllCommand = new RelayCommand(() => _ = UndoAllAsync(), () => CanChange && ActiveChanges > 0);
@@ -52,11 +54,12 @@ public sealed class MainViewModel : ObservableObject
     public AppPage Page
     {
         get => _page;
-        set { if (Set(ref _page, value)) { Raise(nameof(IsFindingsPage)); Raise(nameof(IsJournalPage)); } }
+        set { if (Set(ref _page, value)) { Raise(nameof(IsFindingsPage)); Raise(nameof(IsJournalPage)); Raise(nameof(IsBestiaryPage)); } }
     }
 
     public bool IsFindingsPage => Page == AppPage.Findings;
     public bool IsJournalPage => Page == AppPage.Journal;
+    public bool IsBestiaryPage => Page == AppPage.Bestiary;
 
     public ServiceState Service
     {
@@ -116,6 +119,7 @@ public sealed class MainViewModel : ObservableObject
 
     public ICommand ShowFindingsCommand { get; }
     public ICommand ShowJournalCommand { get; }
+    public ICommand ShowBestiaryCommand { get; }
     public ICommand DismissToastCommand { get; }
 
     // Findings
@@ -179,6 +183,42 @@ public sealed class MainViewModel : ObservableObject
     public bool IsJournalEmpty => JournalLines.Count == 0;
 
     public ICommand UndoAllCommand { get; }
+
+    // Bestiário
+
+    public BestiaryViewModel Bestiary { get; }
+
+    /// <summary>"Impedir de iniciar": turns off every startup entry of this program, each one journaled.</summary>
+    private async Task StopStartupAsync(InhabitantViewModel item)
+    {
+        if (IsBusy || !await EnsureServiceAsync()) return;
+        IsBusy = true;
+        item.IsBusy = true;
+        try
+        {
+            foreach (var target in item.Card.StopTargets)
+                await Task.Run(() => _backend.DisableStartup(target));
+            Toast = Strings.MsgStartupStopped;
+        }
+        catch (Exception ex)
+        {
+            Toast = string.Format(Strings.MsgError, ex.Message);
+        }
+        finally
+        {
+            item.IsBusy = false;
+            IsBusy = false;
+        }
+        await RefreshJournalAsync();
+        await Bestiary.LoadAsync(showReading: false);
+    }
+
+    /// <summary>Stops a program from starting, without the busy and toast flow, for screenshots.</summary>
+    internal async Task StopStartupForScreenshotAsync(string fileName)
+    {
+        Bestiary.Select(fileName);
+        if (Bestiary.Selected is { } item) await StopStartupAsync(item);
+    }
 
     // Tray
 
@@ -461,6 +501,8 @@ public sealed class MainViewModel : ObservableObject
     {
         await RefreshJournalAsync();
         await RescanAsync(showScanning: false);
+        // An undo may have put a program back in the startup.
+        if (Bestiary.IsReady) await Bestiary.LoadAsync(showReading: false);
     }
 
     private async Task RefreshJournalAsync()

@@ -2,7 +2,7 @@
 
 App para Windows que explica o PC de qualquer pessoa em linguagem simples e conserta o que é seguro consertar. Frase-guia: **seu PC, explicado**. Plano completo em `docs/plano-do-produto.md`.
 
-**Estado atual:** Fase 0 (provas técnicas) concluída em 27/10/2026; próximo passo é a Fase 1 (Resgate grátis). Já existem os leitores dos 6 achados, o diário de alterações, o serviço do Windows e os aplicadores dos achados 1 a 4. O `zenith-probe` lê (coletor) e também aplica e desfaz pelo serviço. Leitores, aplicar e desfazer foram validados no desktop do Silvio (achados 1, 2, 3 e 6). Plano da Fase 0: [Claude Doc](https://claude.ai/artifact/CVLR3mJZzGYEfzpjZPJcHX).
+**Estado atual:** Fase 0 concluída e Fase 1 (Resgate) entregue em 27/10/2026, com instalador e atualização automática (v0.1.25). Fase 2 começou pelo Bestiário: ler quem mora no PC e impedir de iniciar com o Windows; "Isolar suspeito" e a Sentinela ficam para depois. Já existem os leitores dos 6 achados, o diário de alterações, o serviço do Windows e os aplicadores dos achados 1 a 4. O `zenith-probe` lê (coletor) e também aplica e desfaz pelo serviço. Leitores, aplicar e desfazer foram validados no desktop do Silvio (achados 1, 2, 3 e 6). Plano da Fase 0: [Claude Doc](https://claude.ai/artifact/CVLR3mJZzGYEfzpjZPJcHX).
 
 ## Como trabalhar neste projeto
 
@@ -32,7 +32,7 @@ Varredura em 1 clique, achados explicados, aplicar, desfazer e guias. Achados da
 
 Também na v1: diário de alterações com "desfazer tudo" e coleta silenciosa de sensores (só o que dá sem driver próprio).
 
-Fora da v1: Bestiário, Revisão, modo gamer, detecção de cabo e de G-Sync/FreeSync.
+Fora da v1 (vieram ou vêm nas fases seguintes): Bestiário, Revisão, modo gamer, detecção de cabo e de G-Sync/FreeSync.
 
 ## Tecnologia (aprovada em 24/10/2026)
 
@@ -65,6 +65,7 @@ Diagrama: `docs/diagramas/arquitetura.svg`.
 - O serviço é dono do diário e aplica só o que é do sistema (plano de energia). O que é da sessão ou do perfil do usuário (taxa do monitor, HDR, placa por jogo) é aplicado por um agente sem privilégio na sessão do usuário (o probe agora, o app depois), que registra tudo no diário do serviço. Motivo: o serviço roda na sessão 0 e não alcança a tela nem o perfil de quem está logado. (27/10/2026)
 - Fase 0 encerrada sem o teste do coletor em PCs de terceiros: o Silvio não tem testadores. Os achados 4 e 5 e a classificação de placa integrada/dedicada nunca rodaram em hardware real com duas placas, então são o maior risco de achado errado. (27/10/2026)
 - Coleta de sensores da v1: saúde do disco (SMART), desgaste da bateria, temperatura e uso da placa de vídeo, uso de CPU e memória. Amostra a cada 5 min (disco e bateria uma vez por dia), só no PC, histórico de 1 ano. Temperatura do processador fica de fora sem driver. (27/10/2026)
+- Bestiário começa por ler e impedir de iniciar (fichas, custos, detector de impostores); "Isolar suspeito" e Sentinela ficam para uma decisão separada. Começado sem o teste em PCs de terceiros da Fase 1. (27/10/2026)
 - Pro cobrado de dois jeitos: assinatura mensal ou licença vitalícia (mais cara). Valores ainda em aberto. (24/10/2026)
 
 ## Decisões em aberto
@@ -82,8 +83,10 @@ Desktop do Silvio: Ryzen 5 5600 (sem vídeo integrado, então os achados 4 e 5 n
 - `src/Zenith.Core/Changes`: diário de alterações (SQLite) e `ChangeEngine`, que aplica, confere e desfaz. O desfazer nunca sobrescreve um valor que outra pessoa mudou depois.
 - `src/Zenith.Core/Settings` e `Fixes`: cada configuração que o Zenith sabe ler e escrever, e os consertos de cada achado.
 - `src/Zenith.Core/Ipc`: protocolo do pipe `Zenith.Core.v1` (uma linha JSON por mensagem), cliente e `CommandHandler` do serviço.
-- `src/Zenith.App`: `zenith.exe`, o app WPF (sem privilégio). Telas Achados e Resgatados, teste do HDR e guias. `--demo` abre com um PC de exemplo; `--screenshot <pasta>` salva um PNG de cada tela (o CI publica os prints no artefato `zenith-telas`). Textos da interface em `src/Zenith.Core/Resources/Strings.resx`; regras de cada cartão em `src/Zenith.Core/Presentation`. Fonte Manrope embutida (OFL).
+- `src/Zenith.App`: `zenith.exe`, o app WPF (sem privilégio). Telas Achados, Resgatados e Bestiário, teste do HDR e guias. `--demo` abre com um PC de exemplo; `--screenshot <pasta>` salva um PNG de cada tela (o CI publica os prints no artefato `zenith-telas`). Textos da interface em `src/Zenith.Core/Resources/Strings.resx`; regras de cada cartão em `src/Zenith.Core/Presentation`. Fonte Manrope embutida (OFL).
 - `src/Zenith.App/Tray`: ícone na bandeja (desenhado na hora, a partir de `design/marca/zenith-bandeja-16*.svg`, claro ou escuro conforme a barra de tarefas), menu, uma instância só e preferências em `HKCU\Software\Zenith`. `zenith.exe --bandeja` inicia só na bandeja, que é o que o Windows roda no login. Fechar a janela deixa o app na bandeja. O ponto do topo fica roxo enquanto aplica, âmbar quando há achado para ativar, serviço desligado ou alerta crítico; regras em `Presentation/TrayPresenter.cs`. Alerta crítico hoje: disco com erros de leitura não corrigidos, avisado uma vez por valor.
+- `src/Zenith.Core/Bestiary`: Bestiário (Fase 2, primeiro bloco). `BestiaryScanner` lê os programas abertos (agrupados por arquivo, com memória, CPU em 1 s e servidores TCP conectados) e o que inicia com o Windows (`StartupReader`: chaves Run do usuário e do PC, Run 32 bits e pastas Inicializar, com o liga/desliga do `StartupApproved` igual ao Gerenciador de Tarefas; tarefas agendadas e serviços ainda não). Assinatura digital por `Interop/WinTrust.cs`, com catálogo do Windows e sem rede. `Classifier` decide o nível (Protetor, Inofensivo, Dispensável, Desconhecido, Atenção, Suspeito) só com evidência e guarda os motivos; `ImpostorDetector` pega nomes que imitam processos do Windows. Fichas em `KnowledgeBase/bestiario.json` (gerado por script; `publishers` só quando houver certeza, porque assinatura de outra empresa vira suspeita).
+- "Impedir de iniciar": `Settings/StartupSetting.cs` (`startup.user` pelo agente, `startup.machine` pelo serviço com o comando `startup.disable`) e `Fixes/StartupFix.cs`, que recalcula o veredito e recusa Windows e antivírus. Só desliga a chave de inicialização; o programa não é fechado nem removido. `zenith-probe bestiario` lista; `zenith-probe impedir "user-run|Nome"` desliga.
 - `src/Zenith.Core/Agent/SessionAgent.cs`: aplicar, reverter e desfazer pelo lado do usuário; usado pelo probe e pelo app.
 - `src/Zenith.Core/Sensors`: coleta silenciosa (`SensorCollector`, `SensorStore` em `%ProgramData%\Zenith\sensors.db`, 1 ano) e as fontes: CPU e memória, NVIDIA (NVML), disco (`MSFT_StorageReliabilityCounter`) e bateria. Roda no serviço (`SensorWorker`); `zenith-probe sensores` mostra a última leitura de cada sensor.
 - `src/Zenith.Service`: `zenith-service.exe`, o serviço do Windows (LocalSystem). Guarda o diário em `%ProgramData%\Zenith\journal.db` e aplica só o plano de energia.

@@ -47,11 +47,21 @@
             </DockPanel>
           </RadioButton>
           <RadioButton Style="{StaticResource NavButton}" GroupName="nav" IsChecked="{Binding IsJournalPage, Mode=OneWay}"
-                       Command="{Binding ShowJournalCommand}">
+                       Command="{Binding ShowJournalCommand}" Margin="0,0,0,4">
             <DockPanel>
               <TextBlock DockPanel.Dock="Right" Text="{Binding JournalBadge}" FontSize="12" FontWeight="SemiBold"
                          Foreground="{StaticResource TextoSecundarioBrush}" VerticalAlignment="Center" />
               <TextBlock Text="{x:Static r:Strings.NavJournal}" VerticalAlignment="Center" />
+            </DockPanel>
+          </RadioButton>
+          <RadioButton Style="{StaticResource NavButton}" GroupName="nav" IsChecked="{Binding IsBestiaryPage, Mode=OneWay}"
+                       Command="{Binding ShowBestiaryCommand}">
+            <DockPanel>
+              <Border DockPanel.Dock="Right" CornerRadius="999" Padding="9,3" Background="{StaticResource StatusAlertaBrush}"
+                      Visibility="{Binding Bestiary.AttentionBadge, Converter={StaticResource Visible}}">
+                <TextBlock Text="{Binding Bestiary.AttentionBadge}" FontSize="12" FontWeight="Bold" Foreground="{StaticResource SuperficieCartaoBrush}" />
+              </Border>
+              <TextBlock Text="{x:Static r:Strings.NavBestiary}" VerticalAlignment="Center" />
             </DockPanel>
           </RadioButton>
         </StackPanel>
@@ -86,6 +96,7 @@
     <!-- Pages -->
     <v:FindingsPage Grid.Column="1" Visibility="{Binding IsFindingsPage, Converter={StaticResource Visible}}" />
     <v:JournalPage Grid.Column="1" Visibility="{Binding IsJournalPage, Converter={StaticResource Visible}}" />
+    <v:BestiaryPage Grid.Column="1" Visibility="{Binding IsBestiaryPage, Converter={StaticResource Visible}}" />
 
     <!-- Toast -->
     <Border Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="24,0,24,28" MaxWidth="640"

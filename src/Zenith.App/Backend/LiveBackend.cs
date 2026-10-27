@@ -1,5 +1,6 @@
 using Zenith.Core;
 using Zenith.Core.Agent;
+using Zenith.Core.Bestiary;
 using Zenith.Core.Changes;
 using Zenith.Core.Findings;
 using Zenith.Core.Ipc;
@@ -59,6 +60,14 @@ public sealed class LiveBackend : IBackend
     {
         using var agent = SessionAgent.Connect();
         return agent.UndoAll();
+    }
+
+    public BestiaryScan Bestiary() => BestiaryScanner.Scan();
+
+    public JournalEntry? DisableStartup(string target)
+    {
+        using var agent = SessionAgent.Connect();
+        return agent.DisableStartup(target);
     }
 
     public IReadOnlyList<SensorSample> LatestSensors()

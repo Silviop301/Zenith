@@ -25,6 +25,8 @@ try
         "desfazer" => ChangeCommands.Undo(rest),
         "desfazer-tudo" => ChangeCommands.UndoAll(),
         "sensores" => ChangeCommands.Sensors(),
+        "bestiario" => BestiaryCommand.List(),
+        "impedir" => BestiaryCommand.StopStartup(rest),
         _ => Usage(),
     };
 }
@@ -59,6 +61,8 @@ static int Usage()
           desfazer <número>    Desfaz uma alteração do diário
           desfazer-tudo        Desfaz todas as alterações ainda ativas
           sensores             Mostra a leitura mais recente de cada sensor coletado pelo serviço
+          bestiario            Lista quem mora no PC: programas abertos e o que inicia com o Windows (não altera nada)
+          impedir <alvo>       Impede um programa de iniciar com o Windows (alvo como aparece em bestiario)
 
         Opções de verificar: --out <arquivo>, --no-wait
         """);
