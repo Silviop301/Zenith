@@ -1,6 +1,7 @@
 using Zenith.Core.Changes;
 using Zenith.Core.Fixes;
 using Zenith.Core.Ipc;
+using Zenith.Core.Sensors;
 using Zenith.Core.Settings;
 using Zenith.Service;
 
@@ -14,13 +15,16 @@ var dataDir = DataDirectory.Create();
 var journalPath = Path.Combine(dataDir, "journal.db");
 
 builder.Services.AddSingleton(_ => ChangeJournal.Open(journalPath));
+builder.Services.AddSingleton(_ => SensorStore.Open(Path.Combine(dataDir, "sensors.db")));
 builder.Services.AddSingleton(sp => new ChangeEngine(
     sp.GetRequiredService<ChangeJournal>(), [new ActivePowerSchemeSetting(), new ProcessorMaxStateAcSetting()]));
 builder.Services.AddSingleton(sp =>
 {
     var engine = sp.GetRequiredService<ChangeEngine>();
-    return new CommandHandler(sp.GetRequiredService<ChangeJournal>(), engine, () => PowerPlanFix.Apply(engine), journalPath);
+    var sensors = sp.GetRequiredService<SensorStore>();
+    return new CommandHandler(sp.GetRequiredService<ChangeJournal>(), engine, () => PowerPlanFix.Apply(engine), journalPath, sensors.Latest);
 });
 builder.Services.AddHostedService<PipeServer>();
+builder.Services.AddHostedService<SensorWorker>();
 
 builder.Build().Run();

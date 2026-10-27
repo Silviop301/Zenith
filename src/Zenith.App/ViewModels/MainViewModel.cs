@@ -37,8 +37,8 @@ public sealed class MainViewModel : ObservableObject
         ShowFindingsCommand = new RelayCommand(() => Page = AppPage.Findings);
         ShowJournalCommand = new RelayCommand(() => Page = AppPage.Journal);
         RescanCommand = new RelayCommand(() => _ = RescanAsync(showScanning: true), () => !IsBusy && ScanState != ScanState.Scanning);
-        ApplyAllCommand = new RelayCommand(() => _ = ApplyAllAsync(), () => !IsBusy && ScanState == ScanState.Ready);
-        UndoAllCommand = new RelayCommand(() => _ = UndoAllAsync(), () => !IsBusy && ActiveChanges > 0);
+        ApplyAllCommand = new RelayCommand(() => _ = ApplyAllAsync(), () => CanChange && ScanState == ScanState.Ready);
+        UndoAllCommand = new RelayCommand(() => _ = UndoAllAsync(), () => CanChange && ActiveChanges > 0);
         DismissToastCommand = new RelayCommand(() => Toast = null);
         _toastTimer.Tick += (_, _) => Toast = null;
     }
@@ -64,8 +64,12 @@ public sealed class MainViewModel : ObservableObject
             Raise(nameof(ServiceDetail));
             Raise(nameof(IsServiceReady));
             Raise(nameof(ShowServiceBanner));
+            CommandManager.InvalidateRequerySuggested();
         }
     }
+
+    /// <summary>Changes need the service; with it off the buttons stay disabled instead of failing after the click. Guides always open.</summary>
+    private bool CanChange => IsServiceReady && !IsBusy;
 
     /// <summary>The service was checked and cannot take changes: findings still show, buttons explain why nothing happens.</summary>
     public bool ShowServiceBanner => Service is ServiceState.NotRunning or ServiceState.WrongUser;
@@ -241,7 +245,7 @@ public sealed class MainViewModel : ObservableObject
     {
         target.Clear();
         foreach (var card in cards.Where(c => c.Group == group))
-            target.Add(new FindingCardViewModel(card, index++, c => _ = ActAsync(c)));
+            target.Add(new FindingCardViewModel(card, index++, c => _ = ActAsync(c), c => c.Card.Action == FindingAction.Guide || CanChange));
     }
 
     private async Task ActAsync(FindingCardViewModel card)
@@ -399,7 +403,7 @@ public sealed class MainViewModel : ObservableObject
             var entries = await Task.Run(_backend.Journal);
             var lines = JournalPresenter.Lines(entries, _backend.UserSid);
             JournalLines.Clear();
-            for (var i = 0; i < lines.Count; i++) JournalLines.Add(new JournalLineViewModel(lines[i], i, l => _ = UndoAsync(l)));
+            for (var i = 0; i < lines.Count; i++) JournalLines.Add(new JournalLineViewModel(lines[i], i, l => _ = UndoAsync(l), () => CanChange));
             ActiveChanges = lines.Count(l => l.CanUndo);
         }
         catch (Exception)

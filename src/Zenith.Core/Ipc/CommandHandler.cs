@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using Zenith.Core.Changes;
+using Zenith.Core.Sensors;
 using Zenith.Core.Settings;
 
 namespace Zenith.Core.Ipc;
@@ -14,7 +15,8 @@ public sealed class CommandHandler(
     IChangeJournal journal,
     ChangeEngine systemEngine,
     Func<IReadOnlyList<JournalEntry>> powerFix,
-    string journalPath)
+    string journalPath,
+    Func<IReadOnlyList<SensorSample>>? latestSensors = null)
 {
     /// <summary>User-scope settings the agent may record. Anything else is refused.</summary>
     public static readonly IReadOnlySet<string> UserSettingKeys = new HashSet<string>
@@ -48,6 +50,8 @@ public sealed class CommandHandler(
         Protocol.Commands.SystemUndoAll => Node(systemEngine.UndoAll(e => e.Scope == ChangeScope.System)),
         Protocol.Commands.UserRecord => Node(UserRecord(Required<UserRecordArgs>(request), RequireSid(callerSid))),
         Protocol.Commands.UserClose => UserClose(Required<UserCloseArgs>(request), RequireSid(callerSid)),
+        // Read-only and the same for every user: hardware readings, nothing personal.
+        Protocol.Commands.SensorsLatest => Node(latestSensors?.Invoke() ?? []),
         _ => throw new ArgumentException($"Comando desconhecido: {request.Command}."),
     };
 

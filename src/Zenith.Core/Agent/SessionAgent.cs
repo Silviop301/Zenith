@@ -3,6 +3,7 @@ using Zenith.Core.Changes;
 using Zenith.Core.Findings;
 using Zenith.Core.Fixes;
 using Zenith.Core.Ipc;
+using Zenith.Core.Sensors;
 using Zenith.Core.Settings;
 
 namespace Zenith.Core.Agent;
@@ -53,6 +54,9 @@ public sealed class SessionAgent : IDisposable
         applied.OrderByDescending(e => e.Id).Select(e => Undo(e)).ToList();
 
     public IReadOnlyList<JournalEntry> Journal() => new RemoteJournal(_client).List();
+
+    /// <summary>The newest reading of each sensor the service collects.</summary>
+    public IReadOnlyList<SensorSample> LatestSensors() => _client.Call<List<SensorSample>>(Protocol.Commands.SensorsLatest);
 
     public UndoResult Undo(long id)
     {

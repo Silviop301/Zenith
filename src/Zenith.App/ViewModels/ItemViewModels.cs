@@ -11,11 +11,11 @@ public sealed class FindingCardViewModel : ObservableObject
     private bool _isDetailOpen;
     private bool _isBusy;
 
-    public FindingCardViewModel(FindingCard card, int index, Action<FindingCardViewModel> act)
+    public FindingCardViewModel(FindingCard card, int index, Action<FindingCardViewModel> act, Func<FindingCardViewModel, bool> canAct)
     {
         Card = card;
         Index = index;
-        ActCommand = new RelayCommand(() => act(this));
+        ActCommand = new RelayCommand(() => act(this), () => canAct(this));
         ToggleDetailCommand = new RelayCommand(() => IsDetailOpen = !IsDetailOpen);
     }
 
@@ -47,11 +47,11 @@ public sealed class FindingCardViewModel : ObservableObject
 
 public sealed class JournalLineViewModel : ObservableObject
 {
-    public JournalLineViewModel(JournalLine line, int index, Action<JournalLineViewModel> undo)
+    public JournalLineViewModel(JournalLine line, int index, Action<JournalLineViewModel> undo, Func<bool> canUndo)
     {
         Line = line;
         Index = index;
-        UndoCommand = new RelayCommand(() => undo(this));
+        UndoCommand = new RelayCommand(() => undo(this), canUndo);
     }
 
     public JournalLine Line { get; }

@@ -60,6 +60,12 @@ jobs:
           ./publish/zenith-probe.exe servico
           if ($LASTEXITCODE -ne 0) { throw 'service not reachable' }
 
+          # The service reads the sensors as soon as it starts; memory use is there on any PC.
+          Start-Sleep -Seconds 5
+          $sensors = ./publish/zenith-probe.exe sensores
+          $sensors
+          if (-not ($sensors -match 'memory.usage')) { throw 'sensor collection wrote nothing' }
+
           $original = (powercfg /getactivescheme)
           powercfg /setactive a1841308-3541-4fab-bc81-f71556f20b4a
           $saver = (powercfg /getactivescheme)

@@ -81,6 +81,7 @@ Desktop do Silvio: Ryzen 5 5600 (sem vídeo integrado, então os achados 4 e 5 n
 - `src/Zenith.Core/Ipc`: protocolo do pipe `Zenith.Core.v1` (uma linha JSON por mensagem), cliente e `CommandHandler` do serviço.
 - `src/Zenith.App`: `zenith.exe`, o app WPF (sem privilégio). Telas Achados e Resgatados, teste do HDR e guias. `--demo` abre com um PC de exemplo; `--screenshot <pasta>` salva um PNG de cada tela (o CI publica os prints no artefato `zenith-telas`). Textos da interface em `src/Zenith.Core/Resources/Strings.resx`; regras de cada cartão em `src/Zenith.Core/Presentation`. Fonte Manrope embutida (OFL).
 - `src/Zenith.Core/Agent/SessionAgent.cs`: aplicar, reverter e desfazer pelo lado do usuário; usado pelo probe e pelo app.
+- `src/Zenith.Core/Sensors`: coleta silenciosa (`SensorCollector`, `SensorStore` em `%ProgramData%\Zenith\sensors.db`, 1 ano) e as fontes: CPU e memória, NVIDIA (NVML), disco (`MSFT_StorageReliabilityCounter`) e bateria. Roda no serviço (`SensorWorker`); `zenith-probe sensores` mostra a última leitura de cada sensor.
 - `src/Zenith.Service`: `zenith-service.exe`, o serviço do Windows (LocalSystem). Guarda o diário em `%ProgramData%\Zenith\journal.db` e aplica só o plano de energia.
 - `src/Zenith.Probe`: `zenith-probe.exe`. Sem comando, só lê e salva um relatório (coletor). Com `aplicar`, `diario`, `desfazer` e `desfazer-tudo`, age como o agente na sessão do usuário.
 - `scripts/`: instalar e remover o serviço (PowerShell como administrador).
