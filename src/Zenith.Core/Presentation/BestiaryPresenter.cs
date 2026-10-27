@@ -97,8 +97,11 @@ public static class BestiaryPresenter
 
         // A suspicious file is named by its file name: its self-description is exactly what an impostor would fake.
         var name = suspicious ? inhabitant.FileName : fiche?.Title ?? inhabitant.Description ?? inhabitant.FileName;
+        // Without a fiche, who signed it is the one fact worth showing under the name (it cannot be faked).
         var category = fiche?.Category
-            ?? (verdict.Level == ThreatLevel.Protector ? Strings.CategoryWindows : Strings.CategoryUnknown);
+            ?? (verdict.Level == ThreatLevel.Protector ? Strings.CategoryWindows
+                : inhabitant.Signature is { IsValid: true, Signer: { } signer } ? signer
+                : Strings.CategoryUnknown);
 
         var heavy = inhabitant.MemoryBytes >= HeavyMemoryBytes || inhabitant.CpuPercent >= HeavyCpuPercent;
         var stopTargets = verdict.CanStopStartup

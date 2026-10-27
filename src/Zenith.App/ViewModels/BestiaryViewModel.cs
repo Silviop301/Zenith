@@ -222,6 +222,8 @@ public sealed class InhabitantViewModel : ObservableObject
     public string ReasonsTitle => Card.ReasonsTitle;
     public IReadOnlyList<string> Reasons => Card.Reasons;
     public bool IsWorrying => Card.Level == ThreatLevel.Suspicious;
+    /// <summary>An alert mark only where there is something to worry about; plain evidence gets a check.</summary>
+    public string ReasonIcon => Card.Level >= ThreatLevel.Attention ? "alert" : "check";
     public IReadOnlyList<FicheStat> Stats => Card.Stats;
     public string? StartupAdvice => Card.StartupAdvice;
     public bool CanStopStartup => Card.CanStopStartup;
