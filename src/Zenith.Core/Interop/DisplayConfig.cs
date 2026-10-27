@@ -14,8 +14,20 @@ internal static partial class DisplayConfig
         GetSourceName = 1,
         GetTargetName = 2,
         GetAdvancedColorInfo = 9,
+        SetAdvancedColorState = 10,
         GetAdvancedColorInfo2 = 15, // Windows 11 24H2+
+        SetHdrState = 16, // Windows 11 24H2+
     }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct SetEnableState
+    {
+        public DeviceInfoHeader Header;
+        public uint Value; // bit 0: enable
+    }
+
+    [DllImport("user32.dll", EntryPoint = "DisplayConfigSetDeviceInfo")]
+    public static extern int SetDeviceInfo(ref SetEnableState request);
 
     [StructLayout(LayoutKind.Sequential)]
     public struct Luid
@@ -190,6 +202,15 @@ internal static partial class DisplayConfig
     }
 
     public const uint DmInterlaced = 0x2;
+    public const int EnumCurrentSettings = -1;
+    public const uint DmPelsWidth = 0x80000;
+    public const uint DmPelsHeight = 0x100000;
+    public const uint DmDisplayFrequency = 0x400000;
+    public const uint CdsUpdateRegistry = 0x1;
+    public const int DispChangeSuccessful = 0;
+
+    [DllImport("user32.dll", CharSet = CharSet.Unicode, EntryPoint = "ChangeDisplaySettingsExW")]
+    public static extern int ChangeDisplaySettingsEx(string deviceName, ref DevMode devMode, IntPtr hwnd, uint flags, IntPtr lParam);
 
     [DllImport("user32.dll", CharSet = CharSet.Unicode, EntryPoint = "EnumDisplaySettingsW")]
     [return: MarshalAs(UnmanagedType.Bool)]
