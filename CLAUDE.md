@@ -61,6 +61,7 @@ Diagrama: `docs/diagramas/arquitetura.svg`.
 - Fase 0 já usa o serviço do Windows (com privilégio e named pipes) para aplicar, desfazer e guardar o diário; não fica tudo no probe. (27/10/2026)
 - O serviço é dono do diário e aplica só o que é do sistema (plano de energia). O que é da sessão ou do perfil do usuário (taxa do monitor, HDR, placa por jogo) é aplicado por um agente sem privilégio na sessão do usuário (o probe agora, o app depois), que registra tudo no diário do serviço. Motivo: o serviço roda na sessão 0 e não alcança a tela nem o perfil de quem está logado. (27/10/2026)
 - Fase 0 encerrada sem o teste do coletor em PCs de terceiros: o Silvio não tem testadores. Os achados 4 e 5 e a classificação de placa integrada/dedicada nunca rodaram em hardware real com duas placas, então são o maior risco de achado errado. (27/10/2026)
+- Coleta de sensores da v1: saúde do disco (SMART), desgaste da bateria, temperatura e uso da placa de vídeo, uso de CPU e memória. Amostra a cada 5 min (disco e bateria uma vez por dia), só no PC, histórico de 1 ano. Temperatura do processador fica de fora sem driver. (27/10/2026)
 - Pro cobrado de dois jeitos: assinatura mensal ou licença vitalícia (mais cara). Valores ainda em aberto. (24/10/2026)
 
 ## Decisões em aberto
@@ -78,6 +79,8 @@ Desktop do Silvio: Ryzen 5 5600 (sem vídeo integrado, então os achados 4 e 5 n
 - `src/Zenith.Core/Changes`: diário de alterações (SQLite) e `ChangeEngine`, que aplica, confere e desfaz. O desfazer nunca sobrescreve um valor que outra pessoa mudou depois.
 - `src/Zenith.Core/Settings` e `Fixes`: cada configuração que o Zenith sabe ler e escrever, e os consertos de cada achado.
 - `src/Zenith.Core/Ipc`: protocolo do pipe `Zenith.Core.v1` (uma linha JSON por mensagem), cliente e `CommandHandler` do serviço.
+- `src/Zenith.App`: `zenith.exe`, o app WPF (sem privilégio). Telas Achados e Resgatados, teste do HDR e guias. `--demo` abre com um PC de exemplo; `--screenshot <pasta>` salva um PNG de cada tela (o CI publica os prints no artefato `zenith-telas`). Textos da interface em `src/Zenith.Core/Resources/Strings.resx`; regras de cada cartão em `src/Zenith.Core/Presentation`. Fonte Manrope embutida (OFL).
+- `src/Zenith.Core/Agent/SessionAgent.cs`: aplicar, reverter e desfazer pelo lado do usuário; usado pelo probe e pelo app.
 - `src/Zenith.Service`: `zenith-service.exe`, o serviço do Windows (LocalSystem). Guarda o diário em `%ProgramData%\Zenith\journal.db` e aplica só o plano de energia.
 - `src/Zenith.Probe`: `zenith-probe.exe`. Sem comando, só lê e salva um relatório (coletor). Com `aplicar`, `diario`, `desfazer` e `desfazer-tudo`, age como o agente na sessão do usuário.
 - `scripts/`: instalar e remover o serviço (PowerShell como administrador).

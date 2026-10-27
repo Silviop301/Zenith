@@ -1,0 +1,211 @@
+<UserControl x:Class="Zenith.App.Views.FindingsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:Zenith.App.Controls"
+             xmlns:r="clr-namespace:Zenith.Core.Resources;assembly=Zenith.Core">
+  <UserControl.Resources>
+    <!-- A finding Zenith can fix, or one that needs the user. -->
+    <DataTemplate x:Key="FindingCard">
+      <Border Style="{StaticResource Card}" Margin="0,0,0,12" c:Motion.Rise="True" c:Motion.Index="{Binding Index}">
+        <StackPanel>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="48" />
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Border Style="{StaticResource IconTile}" VerticalAlignment="Top"
+                    Background="{Binding IsFix, Converter={StaticResource BrushWhen}, ConverterParameter=ResgateSuaveBrush|SuperficieFundoBrush}">
+              <Path Style="{StaticResource IconPath}" Data="{Binding Icon, Converter={StaticResource Icon}}"
+                    Stroke="{Binding IsFix, Converter={StaticResource BrushWhen}, ConverterParameter=ModulosResgateBrush|TextoForteBrush}" />
+            </Border>
+            <StackPanel Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center">
+              <TextBlock Style="{StaticResource CardTitle}" Text="{Binding Headline}" />
+              <TextBlock Style="{StaticResource Body}" Text="{Binding Explanation}" Margin="0,4,0,0" />
+              <Button Style="{StaticResource LinkButton}" Command="{Binding ToggleDetailCommand}" HorizontalAlignment="Left" Margin="0,6,0,0">
+                <StackPanel Orientation="Horizontal">
+                  <TextBlock Text="{x:Static r:Strings.WhereFrom}" />
+                  <Path Data="{StaticResource Icon.chevron}" Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                        StrokeThickness="1.8" Width="10" Height="10" Stretch="Uniform" Margin="6,1,0,0" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                        RenderTransformOrigin="0.5,0.5">
+                    <Path.Style>
+                      <Style TargetType="Path">
+                        <Style.Triggers>
+                          <DataTrigger Binding="{Binding IsDetailOpen}" Value="True">
+                            <Setter Property="RenderTransform"><Setter.Value><RotateTransform Angle="90" /></Setter.Value></Setter>
+                          </DataTrigger>
+                        </Style.Triggers>
+                      </Style>
+                    </Path.Style>
+                  </Path>
+                </StackPanel>
+              </Button>
+            </StackPanel>
+            <!-- From → to over the chip, right-aligned, so long values do not squeeze the explanation. -->
+            <StackPanel Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0,0,20,0" MaxWidth="260">
+              <TextBlock FontSize="15" FontWeight="ExtraBold" HorizontalAlignment="Right" TextAlignment="Right" TextWrapping="Wrap"
+                         Visibility="{Binding HasChange, Converter={StaticResource Visible}}"
+                         Foreground="{Binding IsFix, Converter={StaticResource BrushWhen}, ConverterParameter=ModulosResgateBrush|TextoForteBrush}">
+                <TextBlock.Text>
+                  <MultiBinding StringFormat="{}{0} → {1}">
+                    <Binding Path="From" />
+                    <Binding Path="To" />
+                  </MultiBinding>
+                </TextBlock.Text>
+              </TextBlock>
+              <Border Style="{StaticResource Chip}" HorizontalAlignment="Right" Margin="0,8,0,0" Visibility="{Binding Chip, Converter={StaticResource Visible}}">
+                <TextBlock Style="{StaticResource ChipText}" Text="{Binding Chip}" />
+              </Border>
+            </StackPanel>
+            <Button Grid.Column="4" Style="{StaticResource SecondaryButton}" Padding="16,0" VerticalAlignment="Center"
+                    Command="{Binding ActCommand}" Visibility="{Binding HasAction, Converter={StaticResource Visible}}"
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource Not}}">
+              <TextBlock Text="{Binding ActionLabel}" />
+            </Button>
+          </Grid>
+          <!-- Rule 3: every finding shows where it came from. -->
+          <Border BorderBrush="{StaticResource SuperficieDivisoriaBrush}" BorderThickness="0,1,0,0" Margin="68,14,0,0" Padding="0,14,0,0"
+                  Visibility="{Binding IsDetailOpen, Converter={StaticResource Visible}}">
+            <StackPanel>
+              <TextBlock Style="{StaticResource Small}" Foreground="{StaticResource TextoForteBrush}" Text="{Binding Detail}" />
+              <TextBlock Style="{StaticResource Small}" Text="{Binding SourceLabel}" Margin="0,6,0,0" />
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </Border>
+    </DataTemplate>
+
+    <!-- Checked and fine, or no clear answer: one quiet row each. -->
+    <DataTemplate x:Key="QuietRow">
+      <Grid Margin="0,0,0,16">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="28" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Border Width="28" Height="28" CornerRadius="999" VerticalAlignment="Top"
+                Background="{Binding IsAllGood, Converter={StaticResource BrushWhen}, ConverterParameter=ModulosResgateFundoBrush|SuperficieFundoBrush}">
+          <Path Style="{StaticResource IconPath}" Width="14" Height="14" StrokeThickness="2.2" Data="{Binding QuietIcon, Converter={StaticResource Icon}}"
+                Stroke="{Binding IsAllGood, Converter={StaticResource BrushWhen}, ConverterParameter=ModulosResgateBrush|TextoForteBrush}" />
+        </Border>
+        <StackPanel Grid.Column="1" Margin="14,3,0,0">
+          <TextBlock FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}" Text="{Binding Headline}" TextWrapping="Wrap" />
+          <TextBlock Style="{StaticResource Small}" Text="{Binding Explanation}" Margin="0,2,0,0"
+                     Visibility="{Binding Explanation, Converter={StaticResource Visible}}" />
+          <TextBlock Style="{StaticResource Small}" FontSize="12" Opacity="0.85" Text="{Binding SourceLabel}" Margin="0,2,0,0" />
+        </StackPanel>
+      </Grid>
+    </DataTemplate>
+  </UserControl.Resources>
+
+  <ScrollViewer Style="{StaticResource Scroll}">
+    <Grid MaxWidth="1000" Margin="48,44,48,56">
+      <!-- Scanning -->
+      <StackPanel Visibility="{Binding IsScanning, Converter={StaticResource Visible}}" MaxWidth="620" HorizontalAlignment="Left">
+        <TextBlock Style="{StaticResource Eyebrow}" Text="{x:Static r:Strings.ScanningEyebrow}" />
+        <TextBlock Style="{StaticResource Title}" Text="{x:Static r:Strings.ScanningTitle}" Margin="0,12,0,0" />
+        <TextBlock Style="{StaticResource Lead}" Text="{x:Static r:Strings.ScanningLead}" Margin="0,12,0,0" />
+        <c:AscensionPulse Margin="0,32,0,0" HorizontalAlignment="Left" />
+      </StackPanel>
+
+      <!-- Scan failed -->
+      <StackPanel Visibility="{Binding IsScanFailed, Converter={StaticResource Visible}}" MaxWidth="620" HorizontalAlignment="Left">
+        <TextBlock Style="{StaticResource Title}" Text="{x:Static r:Strings.ScanFailedTitle}" />
+        <TextBlock Style="{StaticResource Lead}" Text="{Binding ScanError}" Margin="0,12,0,0" />
+        <Button Style="{StaticResource PrimaryButton}" Command="{Binding RescanCommand}" HorizontalAlignment="Left" Margin="0,24,0,0">
+          <TextBlock Text="{x:Static r:Strings.ButtonRescan}" />
+        </Button>
+      </StackPanel>
+
+      <!-- Results -->
+      <StackPanel Visibility="{Binding IsScanReady, Converter={StaticResource Visible}}">
+        <Grid c:Motion.Rise="True">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+          </Grid.ColumnDefinitions>
+          <StackPanel MaxWidth="620" HorizontalAlignment="Left" Margin="0,0,24,0">
+            <TextBlock Style="{StaticResource Eyebrow}" Text="{Binding Overview.Eyebrow}" />
+            <TextBlock Style="{StaticResource Title}" Text="{Binding Overview.Headline}" Margin="0,12,0,0" />
+            <TextBlock Style="{StaticResource Lead}" Text="{Binding Overview.Lead}" Margin="0,12,0,0" />
+          </StackPanel>
+          <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+            <Button Style="{StaticResource SecondaryButton}" Command="{Binding RescanCommand}">
+              <TextBlock Text="{x:Static r:Strings.ButtonRescan}" />
+            </Button>
+            <Button Style="{StaticResource PrimaryButton}" Command="{Binding ApplyAllCommand}" Margin="12,0,0,0"
+                    Visibility="{Binding Overview.ApplyAllLabel, Converter={StaticResource Visible}}">
+              <TextBlock Text="{Binding Overview.ApplyAllLabel}" />
+            </Button>
+          </StackPanel>
+        </Grid>
+
+        <!-- The service is off: say so before anyone presses a button. -->
+        <Border Margin="0,28,0,0" CornerRadius="{StaticResource RaioCartao}" Padding="22,16" Background="{StaticResource StatusAlertaFundoBrush}"
+                Visibility="{Binding ShowServiceBanner, Converter={StaticResource Visible}}">
+          <StackPanel>
+            <TextBlock FontSize="14" FontWeight="Bold" Foreground="{StaticResource StatusAlertaTextoBrush}" Text="{Binding ServiceTitle}" />
+            <TextBlock Style="{StaticResource Body}" Foreground="{StaticResource StatusAlertaTextoBrush}" Text="{Binding ServiceDetail}" Margin="0,4,0,0" />
+          </StackPanel>
+        </Border>
+
+        <!-- Summary -->
+        <Grid Margin="0,32,0,0" Visibility="{Binding HasFindings, Converter={StaticResource Visible}}">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="16" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="16" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Border Style="{StaticResource Panel}" c:Motion.Rise="True" c:Motion.Index="1">
+            <StackPanel Orientation="Horizontal">
+              <c:Ring Width="64" Height="64" Value="{Binding RingFraction}" Track="{StaticResource SuperficieDivisoriaBrush}" Fill="{StaticResource ModulosResgateBrush}" />
+              <StackPanel Margin="18,0,0,0" VerticalAlignment="Center">
+                <TextBlock Style="{StaticResource BigNumber}" Text="{Binding Overview.ApplyNowValue}" />
+                <TextBlock Style="{StaticResource Small}" Text="{x:Static r:Strings.SummaryApplyNowLabel}" Margin="0,2,0,0" />
+              </StackPanel>
+            </StackPanel>
+          </Border>
+          <Border Grid.Column="2" Style="{StaticResource Panel}" c:Motion.Rise="True" c:Motion.Index="2">
+            <StackPanel VerticalAlignment="Center">
+              <TextBlock Style="{StaticResource BigNumber}" Text="{Binding Overview.NeedsYouTitle}" TextWrapping="Wrap" />
+              <TextBlock Style="{StaticResource Small}" Text="{Binding Overview.NeedsYouDetail}" Margin="0,4,0,0" />
+            </StackPanel>
+          </Border>
+          <Border Grid.Column="4" Style="{StaticResource Panel}" c:Motion.Rise="True" c:Motion.Index="3">
+            <StackPanel VerticalAlignment="Center">
+              <TextBlock Style="{StaticResource BigNumber}" Text="{x:Static r:Strings.SummaryReversible}" />
+              <TextBlock Style="{StaticResource Small}" Text="{x:Static r:Strings.SummaryReversibleDetail}" Margin="0,4,0,0" />
+            </StackPanel>
+          </Border>
+        </Grid>
+
+        <StackPanel Margin="0,32,0,0" Visibility="{Binding ApplyNow.Count, Converter={StaticResource Visible}}">
+          <TextBlock Style="{StaticResource SectionTitle}" Text="{x:Static r:Strings.SectionApplyNow}" />
+          <ItemsControl ItemsSource="{Binding ApplyNow}" ItemTemplate="{StaticResource FindingCard}" Focusable="False" />
+        </StackPanel>
+
+        <StackPanel Margin="0,20,0,0" Visibility="{Binding NeedsYou.Count, Converter={StaticResource Visible}}">
+          <TextBlock Style="{StaticResource SectionTitle}" Text="{x:Static r:Strings.SectionNeedsYou}" />
+          <ItemsControl ItemsSource="{Binding NeedsYou}" ItemTemplate="{StaticResource FindingCard}" Focusable="False" />
+        </StackPanel>
+
+        <StackPanel Margin="0,20,0,0" Visibility="{Binding AllGood.Count, Converter={StaticResource Visible}}">
+          <TextBlock Style="{StaticResource SectionTitle}" Text="{x:Static r:Strings.SectionAllGood}" />
+          <Border Style="{StaticResource Card}" Padding="22,20,22,4" c:Motion.Rise="True" c:Motion.Index="8">
+            <ItemsControl ItemsSource="{Binding AllGood}" ItemTemplate="{StaticResource QuietRow}" Focusable="False" />
+          </Border>
+        </StackPanel>
+
+        <StackPanel Margin="0,32,0,0" Visibility="{Binding CouldNotCheck.Count, Converter={StaticResource Visible}}">
+          <TextBlock Style="{StaticResource SectionTitle}" Text="{x:Static r:Strings.SectionCouldNotCheck}" />
+          <Border Style="{StaticResource Card}" Padding="22,20,22,4" c:Motion.Rise="True" c:Motion.Index="9">
+            <ItemsControl ItemsSource="{Binding CouldNotCheck}" ItemTemplate="{StaticResource QuietRow}" Focusable="False" />
+          </Border>
+        </StackPanel>
+      </StackPanel>
+    </Grid>
+  </ScrollViewer>
+</UserControl>

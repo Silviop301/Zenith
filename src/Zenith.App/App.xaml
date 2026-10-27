@@ -1,0 +1,18 @@
+<Application x:Class="Zenith.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:Zenith.App.Controls"
+             ShutdownMode="OnMainWindowClose">
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Theme/Theme.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+      <c:VisibleWhen x:Key="Visible" />
+      <c:Not x:Key="Not" />
+      <c:IconGeometry x:Key="Icon" />
+      <c:BrushWhen x:Key="BrushWhen" />
+      <c:FractionToWidth x:Key="FractionToWidth" />
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

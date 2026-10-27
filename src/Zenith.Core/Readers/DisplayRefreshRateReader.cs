@@ -8,7 +8,7 @@ public sealed class DisplayRefreshRateReader : FindingReaderBase
     // 164.99 Hz and 165 Hz are the same mode; anything closer than this is not a finding.
     private const double ToleranceHz = 1.0;
 
-    public override string Id => "display-refresh-rate";
+    public override string Id => FindingIds.RefreshRate;
     public override string Title => "Monitor abaixo da taxa máxima";
     protected override string Source => "API de configuração de tela do Windows (QueryDisplayConfig, EnumDisplaySettings)";
 
@@ -45,7 +45,9 @@ public sealed class DisplayRefreshRateReader : FindingReaderBase
 
         var summary = string.Join(" ", below.Select(d =>
             $"{d.MonitorName ?? "Seu monitor"} está em {Hz(d.CurrentRefreshHz)} Hz, mas aceita até {d.MaxRefreshHzAtCurrentResolution} Hz nesta resolução."));
-        return Result(FindingStatus.Detected, summary, evidence);
+        var first = below[0];
+        return Result(FindingStatus.Detected, summary, evidence,
+            new FindingChange($"{Hz(first.CurrentRefreshHz)} Hz", $"{first.MaxRefreshHzAtCurrentResolution} Hz"));
     }
 
     private static string Hz(double value) => Math.Round(value).ToString("0");

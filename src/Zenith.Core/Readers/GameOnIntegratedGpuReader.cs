@@ -11,7 +11,7 @@ public sealed class GameOnIntegratedGpuReader(TimeSpan? sampleWindow = null) : F
 {
     private readonly TimeSpan _sampleWindow = sampleWindow ?? TimeSpan.FromSeconds(1);
 
-    public override string Id => "game-on-integrated-gpu";
+    public override string Id => FindingIds.GameOnIntegratedGpu;
     public override string Title => "Jogo rodando na placa de vídeo integrada";
     protected override string Source => "Contadores \"GPU Engine\" do Windows e preferências gráficas por app (UserGpuPreferences)";
 
@@ -41,6 +41,6 @@ public sealed class GameOnIntegratedGpuReader(TimeSpan? sampleWindow = null) : F
             parts.Add("Usando a placa integrada agora: " + string.Join(", ", onIntegrated.Select(p => p.ProcessName)) + ".");
         if (powerSaving.Count > 0)
             parts.Add("Configurados para \"Economia de energia\": " + string.Join(", ", powerSaving.Select(p => p.ExecutableName)) + ".");
-        return Result(FindingStatus.Detected, string.Join(" ", parts), evidence);
+        return Result(FindingStatus.Detected, string.Join(" ", parts), evidence, new FindingChange("Integrada", "Dedicada"));
     }
 }

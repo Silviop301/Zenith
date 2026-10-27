@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="AppName" xml:space="preserve">
+    <value>Zenith</value>
+  </data>
+  <data name="AppTagline" xml:space="preserve">
+    <value>seu PC, explicado</value>
+  </data>
+  <data name="NavFindings" xml:space="preserve">
+    <value>Achados</value>
+  </data>
+  <data name="NavJournal" xml:space="preserve">
+    <value>Resgatados</value>
+  </data>
+  <data name="ServiceOn" xml:space="preserve">
+    <value>Serviço ligado</value>
+  </data>
+  <data name="ServiceOnDetail" xml:space="preserve">
+    <value>Pronto para aplicar e desfazer.</value>
+  </data>
+  <data name="ServiceOff" xml:space="preserve">
+    <value>Serviço desligado</value>
+  </data>
+  <data name="ServiceOffDetail" xml:space="preserve">
+    <value>Dá para ver os achados, mas não para aplicar. Inicie o serviço "Zenith" ou reinstale o Zenith.</value>
+  </data>
+  <data name="ServiceWrongUser" xml:space="preserve">
+    <value>Serviço sem acesso</value>
+  </data>
+  <data name="ServiceWrongUserDetail" xml:space="preserve">
+    <value>O serviço está rodando, mas não reconheceu este usuário, então não aceita alterações.</value>
+  </data>
+  <data name="ServiceChecking" xml:space="preserve">
+    <value>Procurando o serviço…</value>
+  </data>
+  <data name="ScanningEyebrow" xml:space="preserve">
+    <value>VARRENDO</value>
+  </data>
+  <data name="ScanningTitle" xml:space="preserve">
+    <value>Lendo o seu PC…</value>
+  </data>
+  <data name="ScanningLead" xml:space="preserve">
+    <value>Monitor, placa de vídeo, energia e memória. Leva alguns segundos e não muda nada.</value>
+  </data>
+  <data name="ScanDoneEyebrow" xml:space="preserve">
+    <value>VARREDURA CONCLUÍDA · {0}</value>
+  </data>
+  <data name="TimeToday" xml:space="preserve">
+    <value>HOJE, {0:HH:mm}</value>
+  </data>
+  <data name="TimeOtherDay" xml:space="preserve">
+    <value>{0:dd/MM}, {0:HH:mm}</value>
+  </data>
+  <data name="ScanFailedTitle" xml:space="preserve">
+    <value>Não deu para ler o seu PC.</value>
+  </data>
+  <data name="HeadlineFound" xml:space="preserve">
+    <value>Você pagou por mais do que está usando.</value>
+  </data>
+  <data name="HeadlineNone" xml:space="preserve">
+    <value>Seu PC está usando o que tem.</value>
+  </data>
+  <data name="LeadFound_One" xml:space="preserve">
+    <value>Encontramos 1 recurso do seu hardware desligado ou limitado.</value>
+  </data>
+  <data name="LeadFound_Other" xml:space="preserve">
+    <value>Encontramos {0} recursos do seu hardware desligados ou limitados.</value>
+  </data>
+  <data name="LeadApplyNow_One" xml:space="preserve">
+    <value>Dá para ativar 1 agora, com desfazer.</value>
+  </data>
+  <data name="LeadApplyNow_Other" xml:space="preserve">
+    <value>Dá para ativar {0} agora, todos com desfazer.</value>
+  </data>
+  <data name="LeadNone" xml:space="preserve">
+    <value>Nada do que o Zenith verifica precisa de ajuste agora.</value>
+  </data>
+  <data name="LeadCouldNotCheck_One" xml:space="preserve">
+    <value>Em 1 ponto não deu para ter certeza; veja abaixo.</value>
+  </data>
+  <data name="LeadCouldNotCheck_Other" xml:space="preserve">
+    <value>Em {0} pontos não deu para ter certeza; veja abaixo.</value>
+  </data>
+  <data name="ButtonRescan" xml:space="preserve">
+    <value>Varrer de novo</value>
+  </data>
+  <data name="ButtonApplyAll_One" xml:space="preserve">
+    <value>Resgatar o seguro</value>
+  </data>
+  <data name="ButtonApplyAll_Other" xml:space="preserve">
+    <value>Resgatar os {0} seguros</value>
+  </data>
+  <data name="SummaryApplyNowValue" xml:space="preserve">
+    <value>{0} de {1}</value>
+  </data>
+  <data name="SummaryApplyNowLabel" xml:space="preserve">
+    <value>resolvíveis em 1 clique</value>
+  </data>
+  <data name="SummaryNeedsYou_None" xml:space="preserve">
+    <value>Nada precisa de você</value>
+  </data>
+  <data name="SummaryNeedsYou_One" xml:space="preserve">
+    <value>1 precisa de você</value>
+  </data>
+  <data name="SummaryNeedsYou_Other" xml:space="preserve">
+    <value>{0} precisam de você</value>
+  </data>
+  <data name="SummaryNeedsYouDetail" xml:space="preserve">
+    <value>Com guia, passo a passo.</value>
+  </data>
+  <data name="SummaryNeedsYouNoneDetail" xml:space="preserve">
+    <value>Tudo o que foi achado o Zenith resolve sozinho.</value>
+  </data>
+  <data name="SummaryReversible" xml:space="preserve">
+    <value>Tudo reversível</value>
+  </data>
+  <data name="SummaryReversibleDetail" xml:space="preserve">
+    <value>Cada alteração fica no histórico e tem desfazer.</value>
+  </data>
+  <data name="SectionApplyNow" xml:space="preserve">
+    <value>Ativáveis agora</value>
+  </data>
+  <data name="SectionNeedsYou" xml:space="preserve">
+    <value>Precisam de você</value>
+  </data>
+  <data name="SectionAllGood" xml:space="preserve">
+    <value>Já está certo</value>
+  </data>
+  <data name="SectionCouldNotCheck" xml:space="preserve">
+    <value>Não deu para ter certeza</value>
+  </data>
+  <data name="WhereFrom" xml:space="preserve">
+    <value>De onde veio isso</value>
+  </data>
+  <data name="SourceLabel" xml:space="preserve">
+    <value>Fonte: {0}</value>
+  </data>
+  <data name="RefreshRate_Headline" xml:space="preserve">
+    <value>Seu monitor aceita {1}, mas está em {0}</value>
+  </data>
+  <data name="RefreshRate_Explanation" xml:space="preserve">
+    <value>Tudo na tela fica mais fluido: jogos, mouse e rolagem.</value>
+  </data>
+  <data name="Hdr_Headline" xml:space="preserve">
+    <value>Seu monitor tem HDR, e ele está desligado</value>
+  </data>
+  <data name="Hdr_Explanation" xml:space="preserve">
+    <value>Cores mais vivas em jogos e vídeos compatíveis. Só fica ligado se você confirmar em 15 segundos.</value>
+  </data>
+  <data name="PowerPlan_Headline" xml:space="preserve">
+    <value>O plano de energia está segurando o processador</value>
+  </data>
+  <data name="PowerPlan_ExplanationScheme" xml:space="preserve">
+    <value>O Windows está no modo Economia de energia. O Equilibrado usa o processador inteiro quando precisa e economiza quando o PC está parado.</value>
+  </data>
+  <data name="PowerPlan_ExplanationCap" xml:space="preserve">
+    <value>O processador está limitado a {0} quando o PC está na tomada.</value>
+  </data>
+  <data name="PowerMode_Headline" xml:space="preserve">
+    <value>O modo de energia está em Melhor eficiência</value>
+  </data>
+  <data name="PowerMode_Explanation" xml:space="preserve">
+    <value>O Windows segura o processador para economizar. Dá para mudar em Configurações, em 1 minuto.</value>
+  </data>
+  <data name="Gpu_Headline" xml:space="preserve">
+    <value>Um programa está usando a placa de vídeo integrada</value>
+  </data>
+  <data name="Gpu_Explanation" xml:space="preserve">
+    <value>O Zenith define a placa dedicada para ele nas configurações gráficas do Windows.</value>
+  </data>
+  <data name="Cable_Headline" xml:space="preserve">
+    <value>O monitor está ligado na placa-mãe, não na placa de vídeo</value>
+  </data>
+  <data name="Cable_Explanation" xml:space="preserve">
+    <value>Seus jogos estão usando o vídeo mais fraco do PC. Mostramos onde ligar o cabo.</value>
+  </data>
+  <data name="Memory_Headline" xml:space="preserve">
+    <value>Sua memória roda abaixo da velocidade de fábrica</value>
+  </data>
+  <data name="Memory_Explanation" xml:space="preserve">
+    <value>Precisa ativar um perfil na BIOS. Mostramos cada passo, na ordem.</value>
+  </data>
+  <data name="ChipOneClick" xml:space="preserve">
+    <value>1 clique · reversível</value>
+  </data>
+  <data name="ChipTrial" xml:space="preserve">
+    <value>1 clique · com teste</value>
+  </data>
+  <data name="ChipWindowsSetting" xml:space="preserve">
+    <value>Ajuste no Windows · 1 min</value>
+  </data>
+  <data name="ChipCable" xml:space="preserve">
+    <value>Trocar o cabo · 1 min</value>
+  </data>
+  <data name="ChipBios" xml:space="preserve">
+    <value>Guia na BIOS · 5 min</value>
+  </data>
+  <data name="ActionApply" xml:space="preserve">
+    <value>Ativar</value>
+  </data>
+  <data name="ActionTrial" xml:space="preserve">
+    <value>Testar</value>
+  </data>
+  <data name="ActionGuide" xml:space="preserve">
+    <value>Ver como</value>
+  </data>
+  <data name="ActionCable" xml:space="preserve">
+    <value>Ver onde ligar</value>
+  </data>
+  <data name="ActionBios" xml:space="preserve">
+    <value>Abrir guia</value>
+  </data>
+  <data name="HdrTrialTitle" xml:space="preserve">
+    <value>O HDR está ligado</value>
+  </data>
+  <data name="HdrTrialBody" xml:space="preserve">
+    <value>A imagem ficou boa? Se você não responder, o HDR volta a ficar desligado sozinho.</value>
+  </data>
+  <data name="HdrTrialCountdown" xml:space="preserve">
+    <value>Voltando em {0} s</value>
+  </data>
+  <data name="HdrTrialKeep" xml:space="preserve">
+    <value>Manter ligado</value>
+  </data>
+  <data name="HdrTrialRevert" xml:space="preserve">
+    <value>Voltar agora</value>
+  </data>
+  <data name="HdrTrialKept" xml:space="preserve">
+    <value>HDR mantido ligado. Ele está em Resgatados, com desfazer.</value>
+  </data>
+  <data name="HdrTrialReverted" xml:space="preserve">
+    <value>O HDR voltou a ficar desligado.</value>
+  </data>
+  <data name="GuideClose" xml:space="preserve">
+    <value>Entendi</value>
+  </data>
+  <data name="GuideCableTitle" xml:space="preserve">
+    <value>Ligue o monitor na placa de vídeo</value>
+  </data>
+  <data name="GuideCableIntro" xml:space="preserve">
+    <value>O PC tem duas saídas de vídeo: a da placa-mãe, que usa o vídeo do processador, e a da placa de vídeo, que é a mais forte.</value>
+  </data>
+  <data name="GuideCableStep1" xml:space="preserve">
+    <value>Desligue o PC e olhe a parte de trás do gabinete.</value>
+  </data>
+  <data name="GuideCableStep2" xml:space="preserve">
+    <value>As saídas da placa-mãe ficam no alto, perto das portas USB. As da placa de vídeo ficam mais abaixo, numa fileira deitada.</value>
+  </data>
+  <data name="GuideCableStep3" xml:space="preserve">
+    <value>Tire o cabo do monitor da saída da placa-mãe e ligue numa saída igual da placa de vídeo (HDMI ou DisplayPort).</value>
+  </data>
+  <data name="GuideCableStep4" xml:space="preserve">
+    <value>Ligue o PC e clique em Varrer de novo para conferir.</value>
+  </data>
+  <data name="GuideBiosTitle" xml:space="preserve">
+    <value>Ative o perfil de fábrica da memória</value>
+  </data>
+  <data name="GuideBiosIntro" xml:space="preserve">
+    <value>A memória vem com um perfil de velocidade (XMP, EXPO ou DOCP) que a placa-mãe não liga sozinha. O Zenith não mexe na BIOS: este guia mostra o caminho.</value>
+  </data>
+  <data name="GuideBiosStep1" xml:space="preserve">
+    <value>Reinicie o PC e aperte Delete (ou F2) várias vezes assim que a tela acender.</value>
+  </data>
+  <data name="GuideBiosStep2" xml:space="preserve">
+    <value>Procure a opção XMP, EXPO ou DOCP. Em placas Gigabyte ela se chama Extreme Memory Profile (X.M.P.) e fica na aba Tweaker; em outras marcas, em Overclocking ou AI Tweaker.</value>
+  </data>
+  <data name="GuideBiosStep3" xml:space="preserve">
+    <value>Escolha o Perfil 1.</value>
+  </data>
+  <data name="GuideBiosStep4" xml:space="preserve">
+    <value>Salve e saia (em geral, F10). Depois, clique em Varrer de novo para conferir.</value>
+  </data>
+  <data name="GuideBiosSafety" xml:space="preserve">
+    <value>Se o PC não ligar depois disso, desligue e ligue de novo: muitas placas voltam sozinhas à configuração anterior depois de algumas tentativas. Se não voltar, o manual da placa mostra como limpar a CMOS.</value>
+  </data>
+  <data name="GuidePowerTitle" xml:space="preserve">
+    <value>Mude o modo de energia</value>
+  </data>
+  <data name="GuidePowerIntro" xml:space="preserve">
+    <value>O modo de energia fica nas Configurações do Windows, e o Zenith deixa essa escolha com você.</value>
+  </data>
+  <data name="GuidePowerStep1" xml:space="preserve">
+    <value>Abra as Configurações do Windows (tecla Windows + I).</value>
+  </data>
+  <data name="GuidePowerStep2" xml:space="preserve">
+    <value>Vá em Sistema e depois em Energia (ou Energia e bateria).</value>
+  </data>
+  <data name="GuidePowerStep3" xml:space="preserve">
+    <value>Em Modo de energia, escolha Equilibrado ou Melhor desempenho.</value>
+  </data>
+  <data name="GuidePowerStep4" xml:space="preserve">
+    <value>Volte aqui e clique em Varrer de novo para conferir.</value>
+  </data>
+  <data name="JournalEyebrow" xml:space="preserve">
+    <value>HISTÓRICO</value>
+  </data>
+  <data name="JournalTitle" xml:space="preserve">
+    <value>Tudo o que o Zenith mudou</value>
+  </data>
+  <data name="JournalLead" xml:space="preserve">
+    <value>Cada alteração guarda o valor de antes. Desfazer volta exatamente para ele e nunca passa por cima do que você ou outro programa mudou depois.</value>
+  </data>
+  <data name="JournalEmpty" xml:space="preserve">
+    <value>O Zenith ainda não mudou nada neste PC.</value>
+  </data>
+  <data name="JournalUndo" xml:space="preserve">
+    <value>Desfazer</value>
+  </data>
+  <data name="JournalUndoAll" xml:space="preserve">
+    <value>Desfazer tudo</value>
+  </data>
+  <data name="JournalWhen" xml:space="preserve">
+    <value>{0:dd/MM} às {0:HH:mm}</value>
+  </data>
+  <data name="JournalStatusApplied" xml:space="preserve">
+    <value>Ativa</value>
+  </data>
+  <data name="JournalStatusUndone" xml:space="preserve">
+    <value>Desfeita</value>
+  </data>
+  <data name="JournalStatusSuperseded" xml:space="preserve">
+    <value>Mudada depois</value>
+  </data>
+  <data name="JournalStatusUndoFailed" xml:space="preserve">
+    <value>Falhou ao desfazer</value>
+  </data>
+  <data name="JournalSettingRefresh" xml:space="preserve">
+    <value>Taxa do monitor</value>
+  </data>
+  <data name="JournalSettingHdr" xml:space="preserve">
+    <value>HDR do monitor</value>
+  </data>
+  <data name="JournalSettingScheme" xml:space="preserve">
+    <value>Plano de energia</value>
+  </data>
+  <data name="JournalSettingMaxState" xml:space="preserve">
+    <value>Limite do processador na tomada</value>
+  </data>
+  <data name="JournalSettingGpu" xml:space="preserve">
+    <value>Placa de vídeo do {0}</value>
+  </data>
+  <data name="ValueHz" xml:space="preserve">
+    <value>{0} Hz</value>
+  </data>
+  <data name="ValueOn" xml:space="preserve">
+    <value>Ligado</value>
+  </data>
+  <data name="ValueOff" xml:space="preserve">
+    <value>Desligado</value>
+  </data>
+  <data name="ValuePercent" xml:space="preserve">
+    <value>{0}%</value>
+  </data>
+  <data name="SchemePowerSaver" xml:space="preserve">
+    <value>Economia de energia</value>
+  </data>
+  <data name="SchemeBalanced" xml:space="preserve">
+    <value>Equilibrado</value>
+  </data>
+  <data name="SchemeHighPerformance" xml:space="preserve">
+    <value>Alto desempenho</value>
+  </data>
+  <data name="SchemeUltimatePerformance" xml:space="preserve">
+    <value>Desempenho máximo</value>
+  </data>
+  <data name="SchemeCustom" xml:space="preserve">
+    <value>Plano personalizado</value>
+  </data>
+  <data name="GpuWindowsDecides" xml:space="preserve">
+    <value>Windows decide</value>
+  </data>
+  <data name="GpuPowerSaving" xml:space="preserve">
+    <value>Economia de energia</value>
+  </data>
+  <data name="GpuHighPerformance" xml:space="preserve">
+    <value>Alto desempenho</value>
+  </data>
+  <data name="GpuUnset" xml:space="preserve">
+    <value>Padrão do Windows</value>
+  </data>
+  <data name="MsgApplied_One" xml:space="preserve">
+    <value>Pronto: 1 alteração feita. Ela está em Resgatados, com desfazer.</value>
+  </data>
+  <data name="MsgApplied_Other" xml:space="preserve">
+    <value>Pronto: {0} alterações feitas. Elas estão em Resgatados, com desfazer.</value>
+  </data>
+  <data name="MsgNothingToChange" xml:space="preserve">
+    <value>Nada a mudar: isto já estava certo.</value>
+  </data>
+  <data name="MsgUndone_One" xml:space="preserve">
+    <value>1 alteração desfeita.</value>
+  </data>
+  <data name="MsgUndone_Other" xml:space="preserve">
+    <value>{0} alterações desfeitas.</value>
+  </data>
+  <data name="MsgNothingToUndo" xml:space="preserve">
+    <value>Não há alterações ativas para desfazer.</value>
+  </data>
+  <data name="MsgError" xml:space="preserve">
+    <value>Não deu certo: {0}</value>
+  </data>
+  <data name="MsgServiceOff" xml:space="preserve">
+    <value>O serviço do Zenith não está rodando, então nada foi alterado.</value>
+  </data>
+</root>

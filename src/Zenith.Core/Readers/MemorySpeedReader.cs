@@ -8,7 +8,7 @@ public sealed class MemorySpeedReader : FindingReaderBase
     // Firmware often reports 3600 as 3598 or similar.
     private const uint ToleranceMTs = 50;
 
-    public override string Id => "memory-below-rated-speed";
+    public override string Id => FindingIds.MemorySpeed;
     public override string Title => "Memória abaixo da velocidade de fábrica";
     protected override string Source => "WMI (Win32_PhysicalMemory) e base de modelos de memória do Zenith";
 
@@ -57,6 +57,7 @@ public sealed class MemorySpeedReader : FindingReaderBase
         var estimate = s.rated.Source == RatedSpeedSource.PartNumber ? " (velocidade de fábrica estimada pelo código da peça)" : "";
         return Result(FindingStatus.Detected,
             $"A memória está rodando a {s.configuredMTs} MHz, mas foi feita para {s.rated.MTs} MHz{estimate}. " +
-            "Dá para ativar o perfil XMP/EXPO na BIOS.", evidence);
+            "Dá para ativar o perfil XMP/EXPO na BIOS.", evidence,
+            new FindingChange($"{s.configuredMTs} MHz", $"{s.rated.MTs} MHz"));
     }
 }

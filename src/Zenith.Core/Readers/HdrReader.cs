@@ -5,7 +5,7 @@ namespace Zenith.Core.Readers;
 /// <summary>Achado 2: a monitor supports HDR but it is turned off.</summary>
 public sealed class HdrReader : FindingReaderBase
 {
-    public override string Id => "hdr-off";
+    public override string Id => FindingIds.Hdr;
     public override string Title => "HDR disponível e desligado";
     protected override string Source => "Informações de cor avançada da API de tela do Windows (DisplayConfigGetDeviceInfo)";
 
@@ -39,6 +39,6 @@ public sealed class HdrReader : FindingReaderBase
         var summary = string.Join(" ", off.Select(d =>
             $"{d.MonitorName ?? "Seu monitor"} tem HDR, mas ele está desligado" +
             (d.AdvancedColor!.LimitedByPolicy ? " (bloqueado por uma política do sistema)." : ".")));
-        return Result(FindingStatus.Detected, summary, evidence);
+        return Result(FindingStatus.Detected, summary, evidence, new FindingChange("Desligado", "Ligado"));
     }
 }

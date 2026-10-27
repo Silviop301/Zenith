@@ -5,7 +5,7 @@ namespace Zenith.Core.Readers;
 /// <summary>Achado 5: on a desktop with a discrete GPU, a monitor is plugged into the motherboard video output.</summary>
 public sealed class MonitorOnMotherboardReader : FindingReaderBase
 {
-    public override string Id => "monitor-on-motherboard";
+    public override string Id => FindingIds.MonitorOnMotherboard;
     public override string Title => "Monitor ligado no vídeo da placa-mãe";
     protected override string Source => "Lista de adaptadores de vídeo e saídas (DXGI) e tipo de gabinete (WMI)";
 
@@ -34,6 +34,7 @@ public sealed class MonitorOnMotherboardReader : FindingReaderBase
         var who = names.Count > 0 ? string.Join(", ", names) : $"{wrong.Count} monitor(es)";
         var caveat = machine.Chassis == ChassisKind.Unknown ? " (não deu para confirmar que é um PC de mesa)" : "";
         return Result(FindingStatus.Detected,
-            $"{who} está ligado na saída de vídeo da placa-mãe, e não na placa de vídeo dedicada{caveat}.", evidence);
+            $"{who} está ligado na saída de vídeo da placa-mãe, e não na placa de vídeo dedicada{caveat}.", evidence,
+            new FindingChange("Placa-mãe", "Placa de vídeo"));
     }
 }

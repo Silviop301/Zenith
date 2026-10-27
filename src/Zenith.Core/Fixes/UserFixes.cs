@@ -1,5 +1,6 @@
 using Microsoft.Win32;
 using Zenith.Core.Changes;
+using Zenith.Core.Findings;
 using Zenith.Core.Readers;
 using Zenith.Core.Settings;
 
@@ -11,7 +12,7 @@ public static class UserFixes
     /// <summary>Achado 1: each monitor to its highest refresh rate at the current resolution.</summary>
     public static IReadOnlyList<JournalEntry> RefreshRate(ChangeEngine engine, MachineSnapshot machine, string userSid)
     {
-        var findingId = new DisplayRefreshRateReader().Id;
+        var findingId = FindingIds.RefreshRate;
         var applied = new List<JournalEntry>();
         foreach (var display in machine.Displays)
         {
@@ -26,7 +27,7 @@ public static class UserFixes
     /// <summary>Achado 2: turns HDR on for monitors that support it. The caller runs the 15-second keep-or-revert test.</summary>
     public static IReadOnlyList<JournalEntry> Hdr(ChangeEngine engine, MachineSnapshot machine, string userSid)
     {
-        var findingId = new HdrReader().Id;
+        var findingId = FindingIds.Hdr;
         var applied = new List<JournalEntry>();
         foreach (var display in machine.Displays)
         {
@@ -52,7 +53,7 @@ public static class UserFixes
             .Concat(PowerSavingApps())
             .Distinct(StringComparer.OrdinalIgnoreCase);
 
-        var findingId = new GameOnIntegratedGpuReader().Id;
+        var findingId = FindingIds.GameOnIntegratedGpu;
         var applied = new List<JournalEntry>();
         foreach (var path in paths)
         {

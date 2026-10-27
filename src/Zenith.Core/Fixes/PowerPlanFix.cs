@@ -1,5 +1,6 @@
 using Zenith.Core.Changes;
 using Zenith.Core.Interop;
+using Zenith.Core.Findings;
 using Zenith.Core.Readers;
 using Zenith.Core.Settings;
 
@@ -21,7 +22,7 @@ public static class PowerPlanFix
     public static IReadOnlyList<JournalEntry> Apply(ChangeEngine engine)
     {
         var applied = new List<JournalEntry>();
-        var findingId = new PowerPlanReader().Id;
+        var findingId = FindingIds.PowerPlan;
 
         if (NeedsSchemeChange(PowerProfile.GetActiveScheme()) &&
             engine.Apply(findingId, ActivePowerSchemeSetting.SettingKey, ActivePowerSchemeSetting.MachineTarget,

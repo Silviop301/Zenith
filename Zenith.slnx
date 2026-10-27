@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/Zenith.App/Zenith.App.csproj" />
     <Project Path="src/Zenith.Core/Zenith.Core.csproj" />
     <Project Path="src/Zenith.Probe/Zenith.Probe.csproj" />
     <Project Path="src/Zenith.Service/Zenith.Service.csproj" />
