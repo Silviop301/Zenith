@@ -54,10 +54,21 @@ public partial class App : Application
             return;
         }
 
+        // Opening: the symbol plays while the first scan runs. The main window shows when both are done,
+        // or after a few seconds at most; a longer scan goes on inside the main window.
+        ShutdownMode = ShutdownMode.OnExplicitShutdown;
+        var splash = new SplashWindow();
+        splash.Show();
+        var start = _vm.StartAsync();
+        await Task.WhenAll(Task.Delay(Motion.Enabled ? SplashWindow.Duration : TimeSpan.FromMilliseconds(600)),
+            Task.WhenAny(start, Task.Delay(TimeSpan.FromSeconds(4))));
+
         var window = new MainWindow { DataContext = _vm };
         MainWindow = window;
+        ShutdownMode = ShutdownMode.OnMainWindowClose;
         window.Show();
-        await _vm.StartAsync();
+        await splash.CloseAsync();
+        await start;
     }
 
     /// <summary>Renders the main states off screen, without animations, so CI can show what the screens look like.</summary>
@@ -66,6 +77,18 @@ public partial class App : Application
         Directory.CreateDirectory(folder);
         Motion.Enabled = false;
         var view = new ShellView { DataContext = vm };
+
+        try
+        {
+            // The last frame of the opening.
+            var splash = new SplashWindow();
+            Save((FrameworkElement)splash.Content, folder, "00-abertura.png", 480, 300);
+            splash.Close();
+        }
+        catch (Exception ex)
+        {
+            await File.WriteAllTextAsync(Path.Combine(folder, "abertura-erro.txt"), ex.ToString());
+        }
 
         Save(view, folder, "00-varrendo.png");
         await vm.StartAsync();
@@ -93,9 +116,8 @@ public partial class App : Application
         }
     }
 
-    private static void Save(FrameworkElement view, string folder, string name)
+    private static void Save(FrameworkElement view, string folder, string name, int width = 1280, int height = 1240)
     {
-        const int width = 1280, height = 1240;
         view.Measure(new Size(width, height));
         view.Arrange(new Rect(0, 0, width, height));
         view.UpdateLayout();

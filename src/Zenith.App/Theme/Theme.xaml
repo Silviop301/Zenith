@@ -77,16 +77,24 @@
     <Setter Property="CornerRadius" Value="{StaticResource RaioPainel}" />
     <Setter Property="Padding" Value="22,20" />
   </Style>
+  <!-- Capsule: fixed height with a radius of exactly half, a hairline edge, and the text centered on the
+       cap height (Manrope sits a little low in its line box, hence the 1 px lift). -->
   <Style x:Key="Chip" TargetType="Border">
     <Setter Property="Background" Value="{StaticResource SuperficieFundoBrush}" />
-    <Setter Property="CornerRadius" Value="999" />
-    <Setter Property="Padding" Value="10,6" />
+    <Setter Property="BorderBrush" Value="{StaticResource SuperficieBordaBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="13" />
+    <Setter Property="Height" Value="26" />
+    <Setter Property="Padding" Value="12,0" />
     <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="SnapsToDevicePixels" Value="True" />
   </Style>
   <Style x:Key="ChipText" TargetType="TextBlock">
     <Setter Property="FontSize" Value="12" />
     <Setter Property="FontWeight" Value="SemiBold" />
     <Setter Property="Foreground" Value="{StaticResource TextoForteBrush}" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Margin" Value="0,0,0,1" />
   </Style>
   <Style x:Key="IconTile" TargetType="Border">
     <Setter Property="Width" Value="48" />
