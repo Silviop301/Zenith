@@ -61,6 +61,7 @@ Diagrama: `docs/diagramas/arquitetura.svg`.
 - Fase 0 já usa o serviço do Windows (com privilégio e named pipes) para aplicar, desfazer e guardar o diário; não fica tudo no probe. (27/10/2026)
 - O serviço é dono do diário e aplica só o que é do sistema (plano de energia). O que é da sessão ou do perfil do usuário (taxa do monitor, HDR, placa por jogo) é aplicado por um agente sem privilégio na sessão do usuário (o probe agora, o app depois), que registra tudo no diário do serviço. Motivo: o serviço roda na sessão 0 e não alcança a tela nem o perfil de quem está logado. (27/10/2026)
 - Fase 0 encerrada sem o teste do coletor em PCs de terceiros: o Silvio não tem testadores. Os achados 4 e 5 e a classificação de placa integrada/dedicada nunca rodaram em hardware real com duas placas, então são o maior risco de achado errado. (27/10/2026)
+- Coleta de sensores da v1: saúde do disco (SMART), desgaste da bateria, temperatura e uso da placa de vídeo, uso de CPU e memória. Amostra a cada 5 min (disco e bateria uma vez por dia), só no PC, histórico de 1 ano. Temperatura do processador fica de fora sem driver. (27/10/2026)
 - Pro cobrado de dois jeitos: assinatura mensal ou licença vitalícia (mais cara). Valores ainda em aberto. (24/10/2026)
 
 ## Decisões em aberto
