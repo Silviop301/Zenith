@@ -92,7 +92,7 @@
   </UserControl.Resources>
 
   <!-- The page's own DataContext stays the shell's, so the shell's Visibility binding on this page keeps working. -->
-  <ScrollViewer Style="{StaticResource Scroll}" DataContext="{Binding Bestiary}">
+  <ScrollViewer x:Name="PageScroll" Style="{StaticResource Scroll}" DataContext="{Binding Bestiary}">
     <Grid MaxWidth="1180" Margin="48,44,48,56">
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto" />
@@ -238,92 +238,98 @@
                      Visibility="{Binding Overview.HiddenNote, Converter={StaticResource Visible}}" />
         </StackPanel>
 
-        <!-- The fiche -->
-        <Border Grid.Column="1" Style="{StaticResource Panel}" VerticalAlignment="Top" Padding="24,24"
+        <!-- The fiche: follows the scroll so a card picked low in the list shows its fiche right away. Its actions stay
+             pinned at the bottom; on short windows the rest scrolls inside it. -->
+        <Border Grid.Column="1" Style="{StaticResource Panel}" VerticalAlignment="Top" Padding="24,24" c:Sticky.Gap="24"
                 DataContext="{Binding Selected}" Visibility="{Binding Converter={StaticResource Visible}}">
-          <StackPanel>
-            <DockPanel>
-              <Border Width="52" Height="52" CornerRadius="{StaticResource RaioControle}"
-                      Background="{Binding Level, Converter={StaticResource LevelBrush}, ConverterParameter=tile}">
-                <TextBlock Text="{Binding Initials}" FontSize="17" FontWeight="ExtraBold" HorizontalAlignment="Center" VerticalAlignment="Center"
-                           Foreground="{Binding Level, Converter={StaticResource LevelBrush}, ConverterParameter=tileText}" />
-              </Border>
-              <StackPanel Margin="14,0,0,0" VerticalAlignment="Center">
-                <TextBlock Text="{Binding Name}" FontSize="19" FontWeight="ExtraBold" Foreground="{StaticResource TextoPrincipalBrush}" TextWrapping="Wrap" />
-                <TextBlock Text="{Binding FileName}" Style="{StaticResource Small}" Margin="0,2,0,0" />
-              </StackPanel>
-            </DockPanel>
-
-            <WrapPanel Margin="0,16,0,0">
-              <Border Style="{StaticResource Chip}" BorderThickness="0" Margin="0,0,8,0"
-                      Background="{Binding Level, Converter={StaticResource LevelBrush}, ConverterParameter=chip}">
-                <TextBlock Style="{StaticResource ChipText}" Text="{Binding LevelLabel}"
-                           Foreground="{Binding Level, Converter={StaticResource LevelBrush}, ConverterParameter=text}" />
-              </Border>
-              <Border Style="{StaticResource Chip}" BorderThickness="0" Background="{StaticResource StatusPerigoFundoBrush}"
-                      Visibility="{Binding ImpostorChip, Converter={StaticResource Visible}}">
-                <TextBlock Style="{StaticResource ChipText}" Text="{Binding ImpostorChip}" Foreground="{StaticResource StatusPerigoBrush}" />
-              </Border>
-            </WrapPanel>
-
-            <TextBlock Style="{StaticResource FicheLabel}" Text="{x:Static r:Strings.FicheWho}" />
-            <TextBlock Style="{StaticResource Body}" Text="{Binding Who}" Foreground="{StaticResource TextoForteBrush}" />
-
-            <TextBlock Style="{StaticResource FicheLabel}" Text="{Binding ReasonsTitle}" Visibility="{Binding Reasons, Converter={StaticResource Visible}}" />
-            <ItemsControl ItemsSource="{Binding Reasons}" Focusable="False">
-              <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                  <DockPanel Margin="0,0,0,8">
-                    <Path DockPanel.Dock="Left" Width="15" Height="15" Stretch="Uniform" StrokeThickness="1.8" Margin="0,2,10,0" VerticalAlignment="Top"
-                          StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
-                          Data="{Binding DataContext.ReasonIcon, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource Icon}}"
-                          Stroke="{Binding DataContext.Level, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource LevelBrush}, ConverterParameter=text}" />
-                    <TextBlock Style="{StaticResource Body}" FontSize="13" Text="{Binding}" />
-                  </DockPanel>
-                </DataTemplate>
-              </ItemsControl.ItemTemplate>
-            </ItemsControl>
-
-            <ItemsControl ItemsSource="{Binding Stats}" Margin="0,12,0,0" Focusable="False">
-              <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                  <UniformGrid Columns="2" />
-                </ItemsPanelTemplate>
-              </ItemsControl.ItemsPanel>
-              <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                  <Border CornerRadius="{StaticResource RaioControle}" Background="{StaticResource SuperficieFundoBrush}" Padding="12,10" Margin="0,0,8,8">
-                    <StackPanel>
-                      <TextBlock Text="{Binding Value}" FontSize="17" FontWeight="ExtraBold" Foreground="{StaticResource TextoPrincipalBrush}" />
-                      <TextBlock Text="{Binding Label}" Style="{StaticResource Small}" FontSize="11.5" Margin="0,2,0,0" />
-                    </StackPanel>
-                  </Border>
-                </DataTemplate>
-              </ItemsControl.ItemTemplate>
-            </ItemsControl>
-
-            <StackPanel Visibility="{Binding StartupAdvice, Converter={StaticResource Visible}}">
-              <TextBlock Style="{StaticResource FicheLabel}" Text="{x:Static r:Strings.FicheStartup}" Margin="0,12,0,8" />
-              <TextBlock Style="{StaticResource Body}" FontSize="13" Text="{Binding StartupAdvice}" />
+          <DockPanel>
+            <StackPanel DockPanel.Dock="Bottom" Margin="0,4,0,0">
+              <Button Style="{StaticResource BestiaryButton}" Margin="0,16,0,0" HorizontalAlignment="Stretch"
+                      Command="{Binding DataContext.StopStartupCommand, ElementName=PageScroll}"
+                      Visibility="{Binding CanStopStartup, Converter={StaticResource Visible}}">
+                <TextBlock Text="{x:Static r:Strings.StopStartup}" />
+              </Button>
+              <Button Style="{StaticResource SecondaryButton}" Margin="0,10,0,0" HorizontalAlignment="Stretch"
+                      Command="{Binding DataContext.OpenLocationCommand, ElementName=PageScroll}">
+                <StackPanel Orientation="Horizontal">
+                  <Path Data="{StaticResource Icon.folder}" Stroke="{StaticResource TextoForteBrush}" StrokeThickness="1.8" Width="16" Height="16"
+                        Stretch="Uniform" Margin="0,0,8,0" StrokeLineJoin="Round" />
+                  <TextBlock Text="{x:Static r:Strings.OpenLocation}" />
+                </StackPanel>
+              </Button>
             </StackPanel>
-
-            <TextBlock Style="{StaticResource FicheLabel}" Text="{x:Static r:Strings.FicheWhere}" />
-            <TextBlock Style="{StaticResource Small}" Text="{Binding Path}" TextWrapping="Wrap" />
-
-            <Button Style="{StaticResource BestiaryButton}" Margin="0,20,0,0" HorizontalAlignment="Stretch"
-                    Command="{Binding DataContext.StopStartupCommand, RelativeSource={RelativeSource AncestorType=ScrollViewer}}"
-                    Visibility="{Binding CanStopStartup, Converter={StaticResource Visible}}">
-              <TextBlock Text="{x:Static r:Strings.StopStartup}" />
-            </Button>
-            <Button Style="{StaticResource SecondaryButton}" Margin="0,10,0,0" HorizontalAlignment="Stretch"
-                    Command="{Binding DataContext.OpenLocationCommand, RelativeSource={RelativeSource AncestorType=ScrollViewer}}">
-              <StackPanel Orientation="Horizontal">
-                <Path Data="{StaticResource Icon.folder}" Stroke="{StaticResource TextoForteBrush}" StrokeThickness="1.8" Width="16" Height="16"
-                      Stretch="Uniform" Margin="0,0,8,0" StrokeLineJoin="Round" />
-                <TextBlock Text="{x:Static r:Strings.OpenLocation}" />
+            <ScrollViewer Style="{StaticResource Scroll}" c:NestedScroll.Enabled="True">
+              <StackPanel>
+                <DockPanel>
+                  <Border Width="52" Height="52" CornerRadius="{StaticResource RaioControle}"
+                          Background="{Binding Level, Converter={StaticResource LevelBrush}, ConverterParameter=tile}">
+                    <TextBlock Text="{Binding Initials}" FontSize="17" FontWeight="ExtraBold" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Foreground="{Binding Level, Converter={StaticResource LevelBrush}, ConverterParameter=tileText}" />
+                  </Border>
+                  <StackPanel Margin="14,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Name}" FontSize="19" FontWeight="ExtraBold" Foreground="{StaticResource TextoPrincipalBrush}" TextWrapping="Wrap" />
+                    <TextBlock Text="{Binding FileName}" Style="{StaticResource Small}" Margin="0,2,0,0" />
+                  </StackPanel>
+                </DockPanel>
+    
+                <WrapPanel Margin="0,16,0,0">
+                  <Border Style="{StaticResource Chip}" BorderThickness="0" Margin="0,0,8,0"
+                          Background="{Binding Level, Converter={StaticResource LevelBrush}, ConverterParameter=chip}">
+                    <TextBlock Style="{StaticResource ChipText}" Text="{Binding LevelLabel}"
+                               Foreground="{Binding Level, Converter={StaticResource LevelBrush}, ConverterParameter=text}" />
+                  </Border>
+                  <Border Style="{StaticResource Chip}" BorderThickness="0" Background="{StaticResource StatusPerigoFundoBrush}"
+                          Visibility="{Binding ImpostorChip, Converter={StaticResource Visible}}">
+                    <TextBlock Style="{StaticResource ChipText}" Text="{Binding ImpostorChip}" Foreground="{StaticResource StatusPerigoBrush}" />
+                  </Border>
+                </WrapPanel>
+    
+                <TextBlock Style="{StaticResource FicheLabel}" Text="{x:Static r:Strings.FicheWho}" />
+                <TextBlock Style="{StaticResource Body}" Text="{Binding Who}" Foreground="{StaticResource TextoForteBrush}" />
+    
+                <TextBlock Style="{StaticResource FicheLabel}" Text="{Binding ReasonsTitle}" Visibility="{Binding Reasons, Converter={StaticResource Visible}}" />
+                <ItemsControl ItemsSource="{Binding Reasons}" Focusable="False">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <DockPanel Margin="0,0,0,8">
+                        <Path DockPanel.Dock="Left" Width="15" Height="15" Stretch="Uniform" StrokeThickness="1.8" Margin="0,2,10,0" VerticalAlignment="Top"
+                              StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
+                              Data="{Binding DataContext.ReasonIcon, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource Icon}}"
+                              Stroke="{Binding DataContext.Level, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource LevelBrush}, ConverterParameter=text}" />
+                        <TextBlock Style="{StaticResource Body}" FontSize="13" Text="{Binding}" />
+                      </DockPanel>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+    
+                <ItemsControl ItemsSource="{Binding Stats}" Margin="0,12,0,0" Focusable="False">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <UniformGrid Columns="2" />
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <Border CornerRadius="{StaticResource RaioControle}" Background="{StaticResource SuperficieFundoBrush}" Padding="12,10" Margin="0,0,8,8">
+                        <StackPanel>
+                          <TextBlock Text="{Binding Value}" FontSize="17" FontWeight="ExtraBold" Foreground="{StaticResource TextoPrincipalBrush}" />
+                          <TextBlock Text="{Binding Label}" Style="{StaticResource Small}" FontSize="11.5" Margin="0,2,0,0" />
+                        </StackPanel>
+                      </Border>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+    
+                <StackPanel Visibility="{Binding StartupAdvice, Converter={StaticResource Visible}}">
+                  <TextBlock Style="{StaticResource FicheLabel}" Text="{x:Static r:Strings.FicheStartup}" Margin="0,12,0,8" />
+                  <TextBlock Style="{StaticResource Body}" FontSize="13" Text="{Binding StartupAdvice}" />
+                </StackPanel>
+    
+                <TextBlock Style="{StaticResource FicheLabel}" Text="{x:Static r:Strings.FicheWhere}" />
+                <TextBlock Style="{StaticResource Small}" Text="{Binding Path}" TextWrapping="Wrap" />
               </StackPanel>
-            </Button>
-          </StackPanel>
+            </ScrollViewer>
+          </DockPanel>
         </Border>
       </Grid>
     </Grid>
