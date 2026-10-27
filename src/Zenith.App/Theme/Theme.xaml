@@ -258,4 +258,62 @@
     <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
   </Style>
+  <!-- Tray menu: a small card, like the dialogs. -->
+  <Style x:Key="TrayMenu" TargetType="ContextMenu">
+    <Setter Property="FontFamily" Value="{StaticResource Fonte}" />
+    <Setter Property="FontSize" Value="13" />
+    <Setter Property="HasDropShadow" Value="False" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ContextMenu">
+          <Border Margin="10" Padding="6" MinWidth="220" Background="{StaticResource SuperficieCartaoBrush}"
+                  BorderBrush="{StaticResource SuperficieBordaBrush}" BorderThickness="1" CornerRadius="{StaticResource RaioCartao}">
+            <Border.Effect>
+              <DropShadowEffect BlurRadius="20" ShadowDepth="4" Direction="270" Opacity="0.16" Color="#172036" />
+            </Border.Effect>
+            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="TrayMenuItem" TargetType="MenuItem">
+    <Setter Property="Foreground" Value="{StaticResource TextoPrincipalBrush}" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="MenuItem">
+          <Border x:Name="Bg" Padding="12,9" CornerRadius="{StaticResource RaioControle}" Background="Transparent">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+              </Grid.ColumnDefinitions>
+              <ContentPresenter ContentSource="Header" VerticalAlignment="Center" RecognizesAccessKey="False" />
+              <Path x:Name="Check" Grid.Column="1" Margin="16,0,0,0" Width="12" Height="9" Stretch="Uniform" Visibility="Collapsed"
+                    Data="M1,5 L4.5,8.5 L11,1" Stroke="{StaticResource ModulosResgateBrush}" StrokeThickness="2"
+                    StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" />
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsHighlighted" Value="True">
+              <Setter TargetName="Bg" Property="Background" Value="{StaticResource SuperficieFundoBrush}" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+              <Setter TargetName="Check" Property="Visibility" Value="Visible" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="TrayMenuSeparator" TargetType="Separator">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Separator">
+          <Border Height="1" Margin="8,4" Background="{StaticResource SuperficieDivisoriaBrush}" />
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 </ResourceDictionary>

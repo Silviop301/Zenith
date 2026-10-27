@@ -3,6 +3,7 @@ using Zenith.Core.Agent;
 using Zenith.Core.Changes;
 using Zenith.Core.Findings;
 using Zenith.Core.Ipc;
+using Zenith.Core.Sensors;
 
 namespace Zenith.App.Backend;
 
@@ -58,5 +59,11 @@ public sealed class LiveBackend : IBackend
     {
         using var agent = SessionAgent.Connect();
         return agent.UndoAll();
+    }
+
+    public IReadOnlyList<SensorSample> LatestSensors()
+    {
+        using var agent = SessionAgent.Connect(TimeSpan.FromSeconds(2));
+        return agent.LatestSensors();
     }
 }

@@ -30,6 +30,7 @@ public sealed class MainViewModel : ObservableObject
     private HdrTrialViewModel? _hdrTrial;
     private GuideViewModel? _guide;
     private string? _toast;
+    private IReadOnlyList<TrayAlert> _alerts = [];
 
     public MainViewModel(IBackend backend)
     {
@@ -64,6 +65,7 @@ public sealed class MainViewModel : ObservableObject
             Raise(nameof(ServiceDetail));
             Raise(nameof(IsServiceReady));
             Raise(nameof(ShowServiceBanner));
+            Raise(nameof(Tray));
             CommandManager.InvalidateRequerySuggested();
         }
     }
@@ -95,7 +97,7 @@ public sealed class MainViewModel : ObservableObject
     public bool IsBusy
     {
         get => _isBusy;
-        private set { if (Set(ref _isBusy, value)) CommandManager.InvalidateRequerySuggested(); }
+        private set { if (Set(ref _isBusy, value)) { Raise(nameof(Tray)); CommandManager.InvalidateRequerySuggested(); } }
     }
 
     public string? Toast
@@ -124,6 +126,7 @@ public sealed class MainViewModel : ObservableObject
             Raise(nameof(IsScanning));
             Raise(nameof(IsScanReady));
             Raise(nameof(IsScanFailed));
+            Raise(nameof(Tray));
             CommandManager.InvalidateRequerySuggested();
         }
     }
@@ -141,6 +144,7 @@ public sealed class MainViewModel : ObservableObject
             Raise(nameof(HasFindings));
             Raise(nameof(FindingsBadge));
             Raise(nameof(RingFraction));
+            Raise(nameof(Tray));
         }
     }
 
@@ -173,6 +177,42 @@ public sealed class MainViewModel : ObservableObject
 
     public ICommand UndoAllCommand { get; }
 
+    // Tray
+
+    /// <summary>What the tray icon shows now.</summary>
+    public TrayState Tray => TrayPresenter.State(
+        Service == ServiceState.Checking ? null : Service == ServiceState.Ready, IsBusy, IsScanning, Overview, Alerts.Count);
+
+    /// <summary>Critical alerts from the service's sensors (a disk with read errors).</summary>
+    public IReadOnlyList<TrayAlert> Alerts
+    {
+        get => _alerts;
+        private set { _alerts = value; Raise(nameof(Tray)); }
+    }
+
+    public async Task RefreshAlertsAsync()
+    {
+        if (Service != ServiceState.Ready) return;
+        try
+        {
+            Alerts = TrayPresenter.Alerts(await Task.Run(_backend.LatestSensors));
+        }
+        catch (Exception)
+        {
+            // The service went away; the next check shows it.
+        }
+    }
+
+    /// <summary>A background check while the app sits in the tray: the service, the findings and the alerts, without the scanning screen.</summary>
+    public async Task BackgroundCheckAsync()
+    {
+        if (IsBusy) return;
+        Service = await Task.Run(_backend.CheckService);
+        await RescanAsync(showScanning: false);
+        await RefreshJournalAsync();
+        await RefreshAlertsAsync();
+    }
+
     // Overlays
 
     public HdrTrialViewModel? HdrTrial
@@ -197,6 +237,7 @@ public sealed class MainViewModel : ObservableObject
         await RescanAsync(showScanning: true);
         Service = await service;
         await RefreshJournalAsync();
+        await RefreshAlertsAsync();
     }
 
     public async Task RescanAsync(bool showScanning)

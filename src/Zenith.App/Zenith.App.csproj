@@ -2,6 +2,8 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
+    <!-- Only for the tray icon (NotifyIcon); the screens are all WPF. -->
+    <UseWindowsForms>true</UseWindowsForms>
     <AssemblyName>zenith</AssemblyName>
     <RootNamespace>Zenith.App</RootNamespace>
     <ApplicationIcon>zenith.ico</ApplicationIcon>
@@ -12,6 +14,11 @@
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
     <DebugType>embedded</DebugType>
   </PropertyGroup>
+  <ItemGroup>
+    <!-- Keep WPF's Application, Brush, Point... unambiguous; WinForms and System.Drawing are used by full name. -->
+    <Using Remove="System.Windows.Forms" />
+    <Using Remove="System.Drawing" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zenith.Core\Zenith.Core.csproj" />
   </ItemGroup>
