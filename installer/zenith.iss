@@ -38,19 +38,31 @@ Compression=lzma2/max
 SolidCompression=yes
 CloseApplications=yes
 RestartApplications=no
+; The only per-user entries are removed on uninstall (the Run value and the app's preferences).
+UsedUserAreasWarning=no
 
 [Languages]
 Name: "ptbr"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
 
 [CustomMessages]
 ptbr.DesktopIcon=Criar um atalho na área de trabalho
+ptbr.StartupIcon=Iniciar o Zenith com o Windows, discreto na bandeja (dá para desligar depois no ícone)
 ptbr.LaunchApp=Abrir o Zenith agora
 ptbr.ServiceFailed=O serviço do Zenith não pôde ser iniciado (código %1). O app abre, mas não vai conseguir aplicar nada até o serviço ligar.
 ptbr.UndoQuestion=Antes de remover, quer desfazer todas as alterações que o Zenith fez neste PC?%n%nSim: tudo volta como estava e o diário de alterações é apagado.%nNão: as alterações ficam, e o diário é guardado para você poder desfazer se instalar o Zenith de novo.
 ptbr.UndoFailed=Algumas alterações não puderam ser desfeitas (código %1). O diário foi guardado em %2 para você tentar de novo depois.
 
 [Tasks]
+Name: "startup"; Description: "{cm:StartupIcon}"
 Name: "desktopicon"; Description: "{cm:DesktopIcon}"; Flags: unchecked
+
+[Registry]
+; The installer's choice; each user's app applies it on its first run and keeps the user's own choice after that.
+Root: HKLM; Subkey: "Software\Zenith"; ValueType: dword; ValueName: "StartWithWindows"; ValueData: 1; Tasks: startup; Flags: uninsdeletekey
+Root: HKLM; Subkey: "Software\Zenith"; ValueType: dword; ValueName: "StartWithWindows"; ValueData: 0; Tasks: not startup; Flags: uninsdeletekey
+; Written by the app, removed here for the user who uninstalls.
+Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: none; ValueName: "Zenith"; Flags: uninsdeletevalue
+Root: HKCU; Subkey: "Software\Zenith"; ValueType: none; Flags: uninsdeletekey
 
 [Files]
 Source: "{#PublishDir}\zenith.exe"; DestDir: "{app}"; Flags: ignoreversion
@@ -97,9 +109,18 @@ begin
   end;
 end;
 
+{ The app may be sitting in the tray; closing its window only hides it, so end it. }
+procedure CloseApp();
+var
+  Code: Integer;
+begin
+  Exec(ExpandConstant('{sys}\taskkill.exe'), '/f /im zenith.exe', '', SW_HIDE, ewWaitUntilTerminated, Code);
+end;
+
 function PrepareToInstall(var NeedsRestart: Boolean): String;
 begin
-  { Updating: the old service must let go of its exe first. }
+  { Updating: the old app and service must let go of their exes first. }
+  CloseApp();
   StopService();
   Result := '';
 end;
@@ -137,6 +158,7 @@ var
   Code: Integer;
 begin
   if CurUninstallStep <> usUninstall then Exit;
+  CloseApp();
   DataDir := ExpandConstant('{commonappdata}\') + DataDirName;
 
   Undo := UninstallSilent() or

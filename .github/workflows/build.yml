@@ -71,6 +71,8 @@ jobs:
           $probe = Join-Path $app 'zenith-probe.exe'
           Get-ChildItem $app
           Get-Service Zenith
+          # "Start with Windows" is on by default; the app reads this on its first run for each user.
+          if ((Get-ItemProperty HKLM:\Software\Zenith).StartWithWindows -ne 1) { throw 'start-with-Windows default not written' }
 
           & $probe servico
           if ($LASTEXITCODE -ne 0) { throw 'service not reachable' }
@@ -96,6 +98,7 @@ jobs:
           for ($i = 0; $i -lt 60 -and (Test-Path $app); $i++) { Start-Sleep -Seconds 1 }
           if (Test-Path $app) { Get-ChildItem $app; throw 'install folder was not removed' }
           if (Get-Service Zenith -ErrorAction SilentlyContinue) { throw 'service was not removed' }
+          if (Test-Path HKLM:\Software\Zenith) { throw 'installer registry key was not removed' }
           if (Test-Path (Join-Path $env:ProgramData 'Zenith')) { throw 'journal was kept although everything was undone' }
           if ((powercfg /getactivescheme) -ne $saver) { throw 'uninstall did not undo the power plan change' }
 

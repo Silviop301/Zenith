@@ -1,5 +1,6 @@
 using Zenith.Core.Changes;
 using Zenith.Core.Findings;
+using Zenith.Core.Sensors;
 using Zenith.Core.Settings;
 
 namespace Zenith.App.Backend;
@@ -105,6 +106,12 @@ public sealed class DemoBackend : IBackend
         lock (_lock) active = _journal.Where(e => e.Status == JournalStatus.Applied).OrderByDescending(e => e.Id).Select(e => e.Id).ToList();
         return active.Select(Undo).ToList();
     }
+
+    public IReadOnlyList<SensorSample> LatestSensors() =>
+    [
+        new(SensorKeys.GpuTemperature, "NVIDIA GeForce RTX 3060", 54, DateTimeOffset.Now),
+        new(SensorKeys.DiskReadErrors, "Samsung SSD 980 1TB (disco 0)", 0, DateTimeOffset.Now),
+    ];
 
     private JournalEntry Record(string findingId, string key, ChangeScope scope, string target, string previous, string next, DateTimeOffset? at = null)
     {

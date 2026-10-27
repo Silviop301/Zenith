@@ -1,5 +1,6 @@
 using Zenith.Core.Changes;
 using Zenith.Core.Findings;
+using Zenith.Core.Sensors;
 
 namespace Zenith.App.Backend;
 
@@ -22,4 +23,6 @@ public interface IBackend
     IReadOnlyList<JournalEntry> Journal();
     UndoResult Undo(long id);
     IReadOnlyList<UndoResult> UndoAll();
+    /// <summary>The newest reading of each sensor the service collects (for the tray's critical alerts).</summary>
+    IReadOnlyList<SensorSample> LatestSensors();
 }

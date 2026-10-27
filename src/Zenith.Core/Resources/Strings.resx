@@ -406,4 +406,52 @@
   <data name="MsgServiceOff" xml:space="preserve">
     <value>O serviço do Zenith não está rodando, então nada foi alterado.</value>
   </data>
+  <data name="TrayRest" xml:space="preserve">
+    <value>Zenith: tudo em ordem</value>
+  </data>
+  <data name="TrayScanning" xml:space="preserve">
+    <value>Zenith: lendo o seu PC…</value>
+  </data>
+  <data name="TrayBusy" xml:space="preserve">
+    <value>Zenith: aplicando alterações…</value>
+  </data>
+  <data name="TrayPending_One" xml:space="preserve">
+    <value>Zenith: 1 achado para ver</value>
+  </data>
+  <data name="TrayPending_Other" xml:space="preserve">
+    <value>Zenith: {0} achados para ver</value>
+  </data>
+  <data name="TrayServiceOff" xml:space="preserve">
+    <value>Zenith: serviço desligado</value>
+  </data>
+  <data name="TrayDiskAlert" xml:space="preserve">
+    <value>Zenith: alerta no disco</value>
+  </data>
+  <data name="TrayMenuOpen" xml:space="preserve">
+    <value>Abrir o Zenith</value>
+  </data>
+  <data name="TrayMenuScan" xml:space="preserve">
+    <value>Verificar agora</value>
+  </data>
+  <data name="TrayMenuStartup" xml:space="preserve">
+    <value>Iniciar com o Windows</value>
+  </data>
+  <data name="TrayMenuExit" xml:space="preserve">
+    <value>Sair do Zenith</value>
+  </data>
+  <data name="TrayStillRunningTitle" xml:space="preserve">
+    <value>O Zenith continua na bandeja</value>
+  </data>
+  <data name="TrayStillRunning" xml:space="preserve">
+    <value>Para fechar de vez, clique com o botão direito no ícone e escolha "Sair do Zenith".</value>
+  </data>
+  <data name="DiskAlertTitle" xml:space="preserve">
+    <value>Disco com erros de leitura</value>
+  </data>
+  <data name="DiskAlertText_One" xml:space="preserve">
+    <value>O disco {0} registrou 1 erro de leitura que não pôde ser corrigido. Faça uma cópia dos seus arquivos importantes. Fonte: contadores SMART do disco.</value>
+  </data>
+  <data name="DiskAlertText_Other" xml:space="preserve">
+    <value>O disco {0} registrou {1} erros de leitura que não puderam ser corrigidos. Faça uma cópia dos seus arquivos importantes. Fonte: contadores SMART do disco.</value>
+  </data>
 </root>
