@@ -80,6 +80,7 @@ public sealed partial class CpuMemorySource : ISensorSource
 public sealed class DiskHealthSource : ISensorSource
 {
     private const string Scope = @"root\Microsoft\Windows\Storage";
+    private const double HardDiskMediaType = 3; // MSFT_PhysicalDisk.MediaType: 3 HDD, 4 SSD, 0 unknown.
 
     public string Name => "disk-health";
     public TimeSpan Interval => TimeSpan.FromDays(1);
@@ -93,13 +94,15 @@ public sealed class DiskHealthSource : ISensorSource
             using (disk)
             {
                 var target = DiskTarget(disk["DeviceId"]?.ToString() ?? "?", disk["FriendlyName"]?.ToString());
+                // Wear only means something on SSDs; hard disks report 0 %, which would read as "like new".
+                var hardDisk = Number(disk["MediaType"]) == HardDiskMediaType;
                 // The counters can only be reached from their disk (what Get-StorageReliabilityCounter does);
                 // listing the class directly returns nothing.
                 foreach (var counter in disk.GetRelated("MSFT_StorageReliabilityCounter").Cast<ManagementBaseObject>())
                 {
                     using (counter)
                     {
-                        Add(samples, SensorKeys.DiskWear, target, counter["Wear"], now);
+                        if (!hardDisk) Add(samples, SensorKeys.DiskWear, target, counter["Wear"], now);
                         // 0 °C means "not reported" on many drives.
                         if (Number(counter["Temperature"]) is double t and > 0) samples.Add(new SensorSample(SensorKeys.DiskTemperature, target, t, now));
                         Add(samples, SensorKeys.DiskPowerOnHours, target, counter["PowerOnHours"], now);
