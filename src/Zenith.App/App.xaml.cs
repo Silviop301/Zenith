@@ -6,6 +6,7 @@ using System.Windows.Threading;
 using Zenith.App.Backend;
 using Zenith.App.Controls;
 using Zenith.App.Tray;
+using Zenith.App.Updates;
 using Zenith.App.ViewModels;
 using Zenith.App.Views;
 using Zenith.Core.Presentation;
@@ -26,6 +27,8 @@ public partial class App : Application
     private SingleInstance? _instance;
     private MainWindow? _window;
     private bool _exiting;
+    private readonly Updater _updater = new();
+    private bool _checkingUpdate;
     private readonly DispatcherTimer _checkTimer = new() { Interval = TimeSpan.FromHours(1) };
 
     protected override async void OnStartup(StartupEventArgs e)
@@ -112,6 +115,7 @@ public partial class App : Application
     {
         _checkTimer.Start();
         NotifyAlerts();
+        await CheckForUpdateAsync();
         // At sign-in the app can start before the service; look again in a minute instead of staying amber for an hour.
         if (_vm is { IsServiceReady: false })
         {
@@ -176,6 +180,38 @@ public partial class App : Application
         if (_window is { IsVisible: true }) await _vm.RefreshAlertsAsync();
         else await _vm.BackgroundCheckAsync();
         NotifyAlerts();
+        await CheckForUpdateAsync();
+    }
+
+    /// <summary>Once a day at most (the updater keeps the date). A ready update shows in the sidebar and the tray menu, never as a notification.</summary>
+    private async Task CheckForUpdateAsync()
+    {
+        if (_vm is null || _tray is null || _checkingUpdate) return;
+        _checkingUpdate = true;
+        (string Version, string Setup)? ready;
+        try
+        {
+            ready = await _updater.CheckAsync();
+        }
+        finally
+        {
+            _checkingUpdate = false;
+        }
+        _vm.OfferUpdate(ready?.Version, ready is { } r ? () => InstallUpdate(r.Setup) : null);
+        _tray.SetUpdate(ready?.Version, ready is { } t ? () => InstallUpdate(t.Setup) : null);
+    }
+
+    private void InstallUpdate(string setup)
+    {
+        if (_vm is null || _vm.IsBusy) return;
+        if (!Updater.Install(setup))
+        {
+            _vm.Toast = Strings.UpdateCancelled;
+            ShowWindow();
+            return;
+        }
+        // The installer closes Zenith anyway; leaving now keeps the tray icon from lingering.
+        Quit();
     }
 
     /// <summary>Shows a critical alert once per value: the same disk with the same error count is not repeated.</summary>
@@ -220,6 +256,10 @@ public partial class App : Application
         vm.CloseOverlays();
 
         SaveTrayIcons(folder);
+
+        vm.OfferUpdate("0.1.42", () => { });
+        Save(view, folder, "08-atualizacao.png");
+        vm.OfferUpdate(null, null);
 
         vm.ShowHdrTrialPreview();
         Save(view, folder, "04-teste-hdr.png");

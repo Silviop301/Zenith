@@ -31,6 +31,8 @@ public sealed class MainViewModel : ObservableObject
     private GuideViewModel? _guide;
     private string? _toast;
     private IReadOnlyList<TrayAlert> _alerts = [];
+    private string? _updateVersion;
+    private Action? _installUpdate;
 
     public MainViewModel(IBackend backend)
     {
@@ -41,6 +43,7 @@ public sealed class MainViewModel : ObservableObject
         ApplyAllCommand = new RelayCommand(() => _ = ApplyAllAsync(), () => CanChange && ScanState == ScanState.Ready);
         UndoAllCommand = new RelayCommand(() => _ = UndoAllAsync(), () => CanChange && ActiveChanges > 0);
         DismissToastCommand = new RelayCommand(() => Toast = null);
+        InstallUpdateCommand = new RelayCommand(() => _installUpdate?.Invoke(), () => UpdateVersion is not null && !IsBusy);
         _toastTimer.Tick += (_, _) => Toast = null;
     }
 
@@ -211,6 +214,30 @@ public sealed class MainViewModel : ObservableObject
         await RescanAsync(showScanning: false);
         await RefreshJournalAsync();
         await RefreshAlertsAsync();
+    }
+
+    // Updates
+
+    /// <summary>A newer version, downloaded and checked, waiting for the user's click.</summary>
+    public string? UpdateVersion
+    {
+        get => _updateVersion;
+        private set
+        {
+            if (!Set(ref _updateVersion, value)) return;
+            Raise(nameof(UpdateTitle));
+            CommandManager.InvalidateRequerySuggested();
+        }
+    }
+
+    public string? UpdateTitle => UpdateVersion is null ? null : string.Format(CultureInfo.CurrentCulture, Strings.UpdateReadyTitle, UpdateVersion);
+
+    public ICommand InstallUpdateCommand { get; }
+
+    public void OfferUpdate(string? version, Action? install)
+    {
+        _installUpdate = install;
+        UpdateVersion = version;
     }
 
     // Overlays

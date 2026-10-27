@@ -8,6 +8,8 @@
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!-- The CI passes -p:Version=0.1.<run number>; local builds are 0.1.0 and never offered updates (see Updater). -->
+    <Version>0.1.0</Version>
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 </Project>

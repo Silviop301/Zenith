@@ -4,10 +4,20 @@ on:
   push:
     branches: [main]
   pull_request:
+  # "Publicar versão": the same build and tests, then the installer goes to the public releases repository,
+  # where installed copies of Zenith find it (src/Zenith.App/Updates/Updater.cs). Only from main.
+  workflow_dispatch:
+    inputs:
+      notas:
+        description: O que mudou nesta versão
+        required: false
+        default: ''
 
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      VERSION: 0.1.${{ github.run_number }}
     steps:
       - uses: actions/checkout@v4
 
@@ -16,17 +26,27 @@ jobs:
           dotnet-version: 10.0.x
 
       - name: Build
-        run: dotnet build -c Release
+        run: dotnet build -c Release -p:Version=${{ env.VERSION }}
 
       - name: Test
         run: dotnet test -c Release --no-build
 
       - name: Publish zenith.exe, zenith-probe.exe and zenith-service.exe
         run: |
-          dotnet publish src/Zenith.App -c Release -o publish
-          dotnet publish src/Zenith.Probe -c Release -o publish
-          dotnet publish src/Zenith.Service -c Release -o publish
+          dotnet publish src/Zenith.App -c Release -o publish -p:Version=$env:VERSION
+          dotnet publish src/Zenith.Probe -c Release -o publish -p:Version=$env:VERSION
+          dotnet publish src/Zenith.Service -c Release -o publish -p:Version=$env:VERSION
           Copy-Item scripts/*.ps1 publish/
+
+      # The installer's copy: the three in one folder over one runtime, instead of three single-file exes that
+      # each carry their own. The service goes last so its newer EventLog libraries win (same assembly version).
+      - name: Publish the installer's folder
+        run: |
+          foreach ($project in 'Zenith.App', 'Zenith.Probe', 'Zenith.Service') {
+            dotnet publish src/$project -c Release -o publish/instalacao -p:PublishSingleFile=false -p:SharedInstall=true -p:Version=$env:VERSION
+            if ($LASTEXITCODE -ne 0) { throw "publish $project failed" }
+          }
+          "{0:N0} MB in {1} files" -f ((Get-ChildItem publish/instalacao -Recurse -File | Measure-Object Length -Sum).Sum / 1MB), (Get-ChildItem publish/instalacao -Recurse -File).Count
 
       # Renders every screen to PNG: the made-up PC (--demo) and this CI machine as it is, with the
       # service not installed yet. Fails if the app throws while building a screen.
@@ -50,7 +70,7 @@ jobs:
         run: |
           $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
           if (-not (Test-Path $iscc)) { choco install innosetup --no-progress -y | Out-Null }
-          & $iscc /Q "/DAppVersion=0.1.$env:GITHUB_RUN_NUMBER" installer\zenith.iss
+          & $iscc /Q "/DAppVersion=$env:VERSION" installer\zenith.iss
           if ($LASTEXITCODE -ne 0) { throw 'installer build failed' }
           Get-ChildItem publish/installer
 
@@ -73,6 +93,12 @@ jobs:
           Get-Service Zenith
           # "Start with Windows" is on by default; the app reads this on its first run for each user.
           if ((Get-ItemProperty HKLM:\Software\Zenith).StartWithWindows -ne 1) { throw 'start-with-Windows default not written' }
+          if ((Get-ItemProperty HKLM:\Software\Zenith).InstallDir -ne $app) { throw 'install folder not recorded for updates' }
+
+          # The installed app (shared runtime, not single-file) starts and draws its screens.
+          $p = Start-Process -FilePath (Join-Path $app 'zenith.exe') -ArgumentList '--screenshot telas/instalado' -Wait -PassThru
+          if (Test-Path telas/instalado/erro.txt) { Get-Content telas/instalado/erro.txt }
+          if ($p.ExitCode -ne 0) { throw "installed zenith.exe failed ($($p.ExitCode))" }
 
           & $probe servico
           if ($LASTEXITCODE -ne 0) { throw 'service not reachable' }
@@ -121,3 +147,25 @@ jobs:
             publish/*.ps1
             publish/installer/*.exe
             publish/zenith-relatorio-ci.json
+
+      # Only on "Publicar versão" (Actions → build → Run workflow, on main).
+      - name: Publish the release
+        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ secrets.ZENITH_VERSOES_TOKEN }}
+          NOTAS: ${{ github.event.inputs.notas }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not $env:GH_TOKEN) { throw 'Secret ZENITH_VERSOES_TOKEN is missing.' }
+          $repo = 'Silviop301/zenith-versoes'
+          $setup = Get-Item publish/installer/zenith-setup-$env:VERSION.exe
+          $manifest = [ordered]@{
+            version = $env:VERSION
+            url = "https://github.com/$repo/releases/download/v$env:VERSION/$($setup.Name)"
+            sha256 = (Get-FileHash $setup -Algorithm SHA256).Hash.ToLowerInvariant()
+            size = $setup.Length
+          }
+          $manifest | ConvertTo-Json | Set-Content -Encoding utf8NoBOM versao.json
+          Get-Content versao.json
+          $notes = if ($env:NOTAS) { $env:NOTAS } else { "Zenith $env:VERSION" }
+          gh release create "v$env:VERSION" $setup.FullName versao.json --repo $repo --title "Zenith $env:VERSION" --notes $notes --latest

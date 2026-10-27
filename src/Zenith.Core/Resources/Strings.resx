@@ -454,4 +454,19 @@
   <data name="DiskAlertText_Other" xml:space="preserve">
     <value>O disco {0} registrou {1} erros de leitura que não puderam ser corrigidos. Faça uma cópia dos seus arquivos importantes. Fonte: contadores SMART do disco.</value>
   </data>
+  <data name="UpdateReadyTitle" xml:space="preserve">
+    <value>Versão {0} pronta</value>
+  </data>
+  <data name="UpdateReadyDetail" xml:space="preserve">
+    <value>Instala em poucos segundos e abre o Zenith de novo. O diário e as suas alterações continuam.</value>
+  </data>
+  <data name="UpdateInstall" xml:space="preserve">
+    <value>Instalar agora</value>
+  </data>
+  <data name="UpdateCancelled" xml:space="preserve">
+    <value>Atualização cancelada. Dá para instalar depois, por aqui ou pelo ícone na bandeja.</value>
+  </data>
+  <data name="TrayMenuUpdate" xml:space="preserve">
+    <value>Instalar a versão {0}</value>
+  </data>
 </root>

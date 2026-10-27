@@ -68,6 +68,18 @@
                        Visibility="{Binding ServiceDetail, Converter={StaticResource Visible}}" />
           </StackPanel>
         </Border>
+
+        <!-- A new version, downloaded and ready -->
+        <Border DockPanel.Dock="Bottom" CornerRadius="14" Padding="16" Margin="0,0,0,12" Background="{StaticResource ResgateSuaveBrush}"
+                Visibility="{Binding UpdateVersion, Converter={StaticResource Visible}}">
+          <StackPanel>
+            <TextBlock Text="{Binding UpdateTitle}" FontSize="13" FontWeight="Bold" Foreground="{StaticResource ModulosResgateTextoBrush}" />
+            <TextBlock Text="{x:Static r:Strings.UpdateReadyDetail}" Style="{StaticResource Small}" FontSize="12" LineHeight="18" Margin="0,6,0,12" />
+            <Button Style="{StaticResource PrimaryButton}" MinHeight="36" HorizontalAlignment="Left" Command="{Binding InstallUpdateCommand}">
+              <TextBlock Text="{x:Static r:Strings.UpdateInstall}" FontSize="13" />
+            </Button>
+          </StackPanel>
+        </Border>
       </DockPanel>
     </Border>
 
