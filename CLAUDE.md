@@ -2,7 +2,7 @@
 
 App para Windows que explica o PC de qualquer pessoa em linguagem simples e conserta o que é seguro consertar. Frase-guia: **seu PC, explicado**. Plano completo em `docs/plano-do-produto.md`.
 
-**Estado atual:** Fase 0 (provas técnicas) em andamento. Já existem os leitores dos 6 achados, o diário de alterações, o serviço do Windows e os aplicadores dos achados 1 a 4. O `zenith-probe` lê (coletor) e também aplica e desfaz pelo serviço. Os leitores já foram validados no desktop do Silvio; aplicar e desfazer ainda precisam ser testados lá. Plano da Fase 0: [Claude Doc](https://claude.ai/artifact/CVLR3mJZzGYEfzpjZPJcHX).
+**Estado atual:** Fase 0 (provas técnicas) concluída em 27/10/2026; próximo passo é a Fase 1 (Resgate grátis). Já existem os leitores dos 6 achados, o diário de alterações, o serviço do Windows e os aplicadores dos achados 1 a 4. O `zenith-probe` lê (coletor) e também aplica e desfaz pelo serviço. Leitores, aplicar e desfazer foram validados no desktop do Silvio (achados 1, 2, 3 e 6). Plano da Fase 0: [Claude Doc](https://claude.ai/artifact/CVLR3mJZzGYEfzpjZPJcHX).
 
 ## Como trabalhar neste projeto
 
@@ -60,6 +60,7 @@ Diagrama: `docs/diagramas/arquitetura.svg`.
 - Critério da Fase 0 adaptado a um único desktop de teste: os achados testáveis no desktop detectam, aplicam e desfazem sem sobras; os que não se aplicam não aparecem lá; e o coletor (só leitura) roda sem erro em pelo menos 5 PCs de terceiros, entre eles 1 notebook com duas placas e 1 PC com vídeo integrado. (25/10/2026)
 - Fase 0 já usa o serviço do Windows (com privilégio e named pipes) para aplicar, desfazer e guardar o diário; não fica tudo no probe. (27/10/2026)
 - O serviço é dono do diário e aplica só o que é do sistema (plano de energia). O que é da sessão ou do perfil do usuário (taxa do monitor, HDR, placa por jogo) é aplicado por um agente sem privilégio na sessão do usuário (o probe agora, o app depois), que registra tudo no diário do serviço. Motivo: o serviço roda na sessão 0 e não alcança a tela nem o perfil de quem está logado. (27/10/2026)
+- Fase 0 encerrada sem o teste do coletor em PCs de terceiros: o Silvio não tem testadores. Os achados 4 e 5 e a classificação de placa integrada/dedicada nunca rodaram em hardware real com duas placas, então são o maior risco de achado errado. (27/10/2026)
 - Pro cobrado de dois jeitos: assinatura mensal ou licença vitalícia (mais cara). Valores ainda em aberto. (24/10/2026)
 
 ## Decisões em aberto
