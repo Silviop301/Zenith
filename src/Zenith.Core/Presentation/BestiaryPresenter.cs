@@ -161,7 +161,7 @@ public static class BestiaryPresenter
         if (verdict.Level == ThreatLevel.Protector) return Strings.WhoWindows;
         return (inhabitant.Description, inhabitant.Company) switch
         {
-            ({ } d, { } c) => F(Strings.WhoDescribedBy, d, c),
+            ({ } d, { } c) => F(Strings.WhoDescribedBy, d, NoFinalPeriod(c)),
             ({ } d, null) => F(Strings.WhoDescribed, d),
             _ => Strings.WhoNothing,
         };
@@ -171,7 +171,7 @@ public static class BestiaryPresenter
     {
         ReasonKind.WindowsComponent => Strings.ReasonWindowsComponent,
         ReasonKind.WindowsFolder => Strings.ReasonWindowsFolder,
-        ReasonKind.SignedBy => F(Strings.ReasonSignedBy, reason.Detail ?? "?"),
+        ReasonKind.SignedBy => F(Strings.ReasonSignedBy, NoFinalPeriod(reason.Detail ?? "?")),
         ReasonKind.PublisherMismatch => F(Strings.ReasonPublisherMismatch, reason.Detail ?? "?", fiche?.Title ?? "?"),
         ReasonKind.Unsigned when fiche?.Publishers is { Count: > 0 } => F(Strings.ReasonUnsignedExpected, fiche.Title),
         ReasonKind.Unsigned => Strings.ReasonUnsigned,
@@ -189,6 +189,9 @@ public static class BestiaryPresenter
         if (inhabitant.StartsWithWindows) return verdict.Fiche?.Startup ?? Strings.StartupNextSignIn;
         return inhabitant.Startup.Count > 0 ? Strings.StartupOffNote : null;
     }
+
+    /// <summary>"HP Inc." inside a sentence that ends with a period would read "HP Inc..".</summary>
+    private static string NoFinalPeriod(string name) => name.TrimEnd('.');
 
     internal static string Initials(string name)
     {

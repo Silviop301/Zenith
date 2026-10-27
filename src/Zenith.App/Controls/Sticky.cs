@@ -22,20 +22,16 @@ public static class Sticky
     {
         if (d is not FrameworkElement element || e.OldValue is double old && !double.IsNaN(old)) return;
         element.RenderTransform = new TranslateTransform();
+        // Hooked on the first layout rather than on Loaded, which never comes when the page is drawn off screen (screenshots).
         ScrollViewer? page = null;
-        ScrollChangedEventHandler onScroll = (_, _) => Update(element, page);
-        element.Loaded += (_, _) =>
+        void Hook()
         {
+            if (page is not null) return;
             page = FindAncestor<ScrollViewer>(element);
-            if (page is not null) page.ScrollChanged += onScroll;
-            Update(element, page);
-        };
-        element.Unloaded += (_, _) =>
-        {
-            if (page is not null) page.ScrollChanged -= onScroll;
-        };
-        element.SizeChanged += (_, _) => Update(element, page);
-        element.IsVisibleChanged += (_, _) => Update(element, page);
+            if (page is not null) page.ScrollChanged += (_, _) => Update(element, page);
+        }
+        element.SizeChanged += (_, _) => { Hook(); Update(element, page); };
+        element.IsVisibleChanged += (_, _) => { Hook(); Update(element, page); };
     }
 
     private static void Update(FrameworkElement element, ScrollViewer? page)
