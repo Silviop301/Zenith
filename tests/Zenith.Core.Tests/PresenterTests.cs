@@ -77,8 +77,9 @@ public class FindingPresenterTests
         var card = FindingPresenter.Card(Result(FindingIds.MemorySpeed, status))!;
         Assert.Equal(group, card.Group);
         Assert.Equal(FindingAction.None, card.Action);
-        Assert.Equal($"Resumo {FindingIds.MemorySpeed}", card.Explanation);
+        Assert.Contains($"Resumo {FindingIds.MemorySpeed}", card.Headline + card.Explanation);
         Assert.Equal($"Fonte {FindingIds.MemorySpeed}", card.Source);
+        Assert.Equal($"Resumo {FindingIds.MemorySpeed}", card.Detail);
     }
 
     [Fact]

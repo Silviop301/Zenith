@@ -43,19 +43,22 @@
                 </StackPanel>
               </Button>
             </StackPanel>
-            <TextBlock Grid.Column="2" FontSize="15" FontWeight="ExtraBold" VerticalAlignment="Center" Margin="0,0,20,0"
-                       Visibility="{Binding HasChange, Converter={StaticResource Visible}}"
-                       Foreground="{Binding IsFix, Converter={StaticResource BrushWhen}, ConverterParameter=ModulosResgateBrush|TextoForteBrush}">
-              <TextBlock.Text>
-                <MultiBinding StringFormat="{}{0} → {1}">
-                  <Binding Path="From" />
-                  <Binding Path="To" />
-                </MultiBinding>
-              </TextBlock.Text>
-            </TextBlock>
-            <Border Grid.Column="3" Style="{StaticResource Chip}" Margin="0,0,20,0" Visibility="{Binding Chip, Converter={StaticResource Visible}}">
-              <TextBlock Style="{StaticResource ChipText}" Text="{Binding Chip}" />
-            </Border>
+            <!-- From → to over the chip, right-aligned, so long values do not squeeze the explanation. -->
+            <StackPanel Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="0,0,20,0" MaxWidth="260">
+              <TextBlock FontSize="15" FontWeight="ExtraBold" HorizontalAlignment="Right" TextAlignment="Right" TextWrapping="Wrap"
+                         Visibility="{Binding HasChange, Converter={StaticResource Visible}}"
+                         Foreground="{Binding IsFix, Converter={StaticResource BrushWhen}, ConverterParameter=ModulosResgateBrush|TextoForteBrush}">
+                <TextBlock.Text>
+                  <MultiBinding StringFormat="{}{0} → {1}">
+                    <Binding Path="From" />
+                    <Binding Path="To" />
+                  </MultiBinding>
+                </TextBlock.Text>
+              </TextBlock>
+              <Border Style="{StaticResource Chip}" HorizontalAlignment="Right" Margin="0,8,0,0" Visibility="{Binding Chip, Converter={StaticResource Visible}}">
+                <TextBlock Style="{StaticResource ChipText}" Text="{Binding Chip}" />
+              </Border>
+            </StackPanel>
             <Button Grid.Column="4" Style="{StaticResource SecondaryButton}" Padding="16,0" VerticalAlignment="Center"
                     Command="{Binding ActCommand}" Visibility="{Binding HasAction, Converter={StaticResource Visible}}"
                     IsEnabled="{Binding IsBusy, Converter={StaticResource Not}}">
@@ -88,7 +91,8 @@
         </Border>
         <StackPanel Grid.Column="1" Margin="14,3,0,0">
           <TextBlock FontSize="14" FontWeight="Bold" Foreground="{StaticResource TextoPrincipalBrush}" Text="{Binding Headline}" TextWrapping="Wrap" />
-          <TextBlock Style="{StaticResource Small}" Text="{Binding Explanation}" Margin="0,2,0,0" />
+          <TextBlock Style="{StaticResource Small}" Text="{Binding Explanation}" Margin="0,2,0,0"
+                     Visibility="{Binding Explanation, Converter={StaticResource Visible}}" />
           <TextBlock Style="{StaticResource Small}" FontSize="12" Opacity="0.85" Text="{Binding SourceLabel}" Margin="0,2,0,0" />
         </StackPanel>
       </Grid>

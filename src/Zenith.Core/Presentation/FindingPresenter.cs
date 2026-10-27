@@ -127,8 +127,11 @@ public static class FindingPresenter
     private static FindingCard Guide(FindingResult r, string icon, string headline, string explanation, string chip, string action, GuideKind guide) =>
         new(r.Id, FindingGroup.NeedsYou, icon, headline, explanation, r.Change, chip, FindingAction.Guide, action, guide, r.Summary, r.Source);
 
-    private static FindingCard Quiet(FindingResult r, FindingGroup group) =>
-        new(r.Id, group, IconOf(r.Id), r.Title, r.Summary, null, null, FindingAction.None, null, GuideKind.None, r.Summary, r.Source);
+    // Already fine: the reader's summary says it ("Seu monitor já está na taxa máxima"), the problem title would read
+    // like an alarm next to a check mark. No clear answer: the title says what was checked, the summary why it is unclear.
+    private static FindingCard Quiet(FindingResult r, FindingGroup group) => group == FindingGroup.AllGood
+        ? new(r.Id, group, IconOf(r.Id), r.Summary, "", null, null, FindingAction.None, null, GuideKind.None, r.Summary, r.Source)
+        : new(r.Id, group, IconOf(r.Id), r.Title, r.Summary, null, null, FindingAction.None, null, GuideKind.None, r.Summary, r.Source);
 
     private static string IconOf(string findingId) => findingId switch
     {
