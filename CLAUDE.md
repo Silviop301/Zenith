@@ -58,6 +58,7 @@ Diagrama: `docs/diagramas/arquitetura.svg`.
 - Lançamento só em português; código preparado para tradução desde o início (arquivos de recursos), inglês depois. (24/10/2026)
 - Código fechado por enquanto; abrir partes (ex.: base de conhecimento) pode ser reavaliado depois. (24/10/2026)
 - Critério da Fase 0 adaptado a um único desktop de teste: os achados testáveis no desktop detectam, aplicam e desfazem sem sobras; os que não se aplicam não aparecem lá; e o coletor (só leitura) roda sem erro em pelo menos 5 PCs de terceiros, entre eles 1 notebook com duas placas e 1 PC com vídeo integrado. (25/10/2026)
+- Instalador em Inno Setup (`.exe` próprio), não MSIX nem MSI. (27/10/2026)
 - Fase 0 já usa o serviço do Windows (com privilégio e named pipes) para aplicar, desfazer e guardar o diário; não fica tudo no probe. (27/10/2026)
 - O serviço é dono do diário e aplica só o que é do sistema (plano de energia). O que é da sessão ou do perfil do usuário (taxa do monitor, HDR, placa por jogo) é aplicado por um agente sem privilégio na sessão do usuário (o probe agora, o app depois), que registra tudo no diário do serviço. Motivo: o serviço roda na sessão 0 e não alcança a tela nem o perfil de quem está logado. (27/10/2026)
 - Fase 0 encerrada sem o teste do coletor em PCs de terceiros: o Silvio não tem testadores. Os achados 4 e 5 e a classificação de placa integrada/dedicada nunca rodaram em hardware real com duas placas, então são o maior risco de achado errado. (27/10/2026)
@@ -84,7 +85,8 @@ Desktop do Silvio: Ryzen 5 5600 (sem vídeo integrado, então os achados 4 e 5 n
 - `src/Zenith.Core/Sensors`: coleta silenciosa (`SensorCollector`, `SensorStore` em `%ProgramData%\Zenith\sensors.db`, 1 ano) e as fontes: CPU e memória, NVIDIA (NVML), disco (`MSFT_StorageReliabilityCounter`) e bateria. Roda no serviço (`SensorWorker`); `zenith-probe sensores` mostra a última leitura de cada sensor.
 - `src/Zenith.Service`: `zenith-service.exe`, o serviço do Windows (LocalSystem). Guarda o diário em `%ProgramData%\Zenith\journal.db` e aplica só o plano de energia.
 - `src/Zenith.Probe`: `zenith-probe.exe`. Sem comando, só lê e salva um relatório (coletor). Com `aplicar`, `diario`, `desfazer` e `desfazer-tudo`, age como o agente na sessão do usuário.
-- `scripts/`: instalar e remover o serviço (PowerShell como administrador).
+- `installer/zenith.iss`: instalador Inno Setup (`zenith-setup-<versão>.exe`). Instala app, probe e serviço em `Program Files\Zenith`, com um único pedido de administrador. Ao desinstalar, oferece desfazer tudo: se sim, apaga também o diário; se não, guarda o diário para desfazer depois. O CI gera o instalador e testa instalar, aplicar e desinstalar de ponta a ponta.
+- `scripts/`: instalar e remover só o serviço (PowerShell como administrador), para testes sem o instalador.
 - `tests/Zenith.Core.Tests`: testes xUnit das partes que não dependem do Windows (classificadores, leitura de textos, diário, `ChangeEngine` e `CommandHandler`).
 - Compilar e testar: `dotnet build` e `dotnet test`. Compila também em Linux (`EnableWindowsTargeting`), mas só roda no Windows.
 - O CI (GitHub Actions, `windows-latest`) compila, testa, roda o probe, instala o serviço e testa aplicar e desfazer o plano de energia de ponta a ponta. Publica os dois .exe e os scripts como artefato.
