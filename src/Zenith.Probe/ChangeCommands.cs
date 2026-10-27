@@ -63,6 +63,28 @@ internal static class ChangeCommands
         return 0;
     }
 
+    public static int Sensors()
+    {
+        using var agent = SessionAgent.Connect();
+        var samples = agent.LatestSensors();
+        if (samples.Count == 0)
+        {
+            Console.WriteLine("Ainda não há leituras. O serviço lê os sensores logo ao iniciar e depois a cada 5 minutos.");
+            return 0;
+        }
+        foreach (var s in samples)
+            Console.WriteLine($"{s.At:dd/MM HH:mm}  {s.Sensor,-30} {s.Value,8:0.#} {Unit(s.Sensor),-3} {s.Target}");
+        return 0;
+    }
+
+    private static string Unit(string sensor) => sensor switch
+    {
+        _ when sensor.EndsWith(".temperature") => "°C",
+        _ when sensor.EndsWith(".usage") || sensor is "disk.wear" or "battery.health" => "%",
+        "disk.power-on-hours" => "h",
+        _ => "",
+    };
+
     public static int Undo(string[] args)
     {
         if (args.Length == 0 || !long.TryParse(args[0], out var id))

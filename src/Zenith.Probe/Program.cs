@@ -24,6 +24,7 @@ try
         "diario" => ChangeCommands.Journal(),
         "desfazer" => ChangeCommands.Undo(rest),
         "desfazer-tudo" => ChangeCommands.UndoAll(),
+        "sensores" => ChangeCommands.Sensors(),
         _ => Usage(),
     };
 }
@@ -57,6 +58,7 @@ static int Usage()
           diario               Lista as alterações feitas pelo Zenith
           desfazer <número>    Desfaz uma alteração do diário
           desfazer-tudo        Desfaz todas as alterações ainda ativas
+          sensores             Mostra a leitura mais recente de cada sensor coletado pelo serviço
 
         Opções de verificar: --out <arquivo>, --no-wait
         """);

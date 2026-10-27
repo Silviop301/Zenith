@@ -27,6 +27,7 @@ public static class Protocol
         public const string SystemUndoAll = "system.undo-all";
         public const string UserRecord = "user.record";
         public const string UserClose = "user.close";
+        public const string SensorsLatest = "sensors.latest";
     }
 
     public static readonly JsonSerializerOptions Json = new()
