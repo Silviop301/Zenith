@@ -1,0 +1,83 @@
+<UserControl x:Class="Zenith.App.Views.JournalPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:Zenith.App.Controls"
+             xmlns:r="clr-namespace:Zenith.Core.Resources;assembly=Zenith.Core">
+  <ScrollViewer Style="{StaticResource Scroll}">
+    <StackPanel MaxWidth="1000" Margin="48,44,48,56">
+      <Grid c:Motion.Rise="True">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <StackPanel MaxWidth="620" HorizontalAlignment="Left" Margin="0,0,24,0">
+          <TextBlock Style="{StaticResource Eyebrow}" Text="{x:Static r:Strings.JournalEyebrow}" />
+          <TextBlock Style="{StaticResource Title}" Text="{x:Static r:Strings.JournalTitle}" Margin="0,12,0,0" />
+          <TextBlock Style="{StaticResource Lead}" Text="{x:Static r:Strings.JournalLead}" Margin="0,12,0,0" />
+        </StackPanel>
+        <Button Grid.Column="1" Style="{StaticResource SecondaryButton}" Command="{Binding UndoAllCommand}" VerticalAlignment="Bottom"
+                Visibility="{Binding ActiveChanges, Converter={StaticResource Visible}}">
+          <TextBlock Text="{x:Static r:Strings.JournalUndoAll}" />
+        </Button>
+      </Grid>
+
+      <Border Margin="0,28,0,0" CornerRadius="{StaticResource RaioCartao}" Padding="22,16" Background="{StaticResource StatusAlertaFundoBrush}"
+              Visibility="{Binding ShowServiceBanner, Converter={StaticResource Visible}}">
+        <StackPanel>
+          <TextBlock FontSize="14" FontWeight="Bold" Foreground="{StaticResource StatusAlertaTextoBrush}" Text="{Binding ServiceTitle}" />
+          <TextBlock Style="{StaticResource Body}" Foreground="{StaticResource StatusAlertaTextoBrush}" Text="{Binding ServiceDetail}" Margin="0,4,0,0" />
+        </StackPanel>
+      </Border>
+
+      <Border Style="{StaticResource Card}" Margin="0,32,0,0" Padding="22,24" Visibility="{Binding IsJournalEmpty, Converter={StaticResource Visible}}">
+        <TextBlock Style="{StaticResource Body}" Text="{x:Static r:Strings.JournalEmpty}" />
+      </Border>
+
+      <ItemsControl ItemsSource="{Binding JournalLines}" Margin="0,32,0,0" Focusable="False">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Border Style="{StaticResource Card}" Margin="0,0,0,12" c:Motion.Rise="True" c:Motion.Index="{Binding Index}">
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="48" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource IconTile}"
+                        Background="{Binding IsActive, Converter={StaticResource BrushWhen}, ConverterParameter=ResgateSuaveBrush|SuperficieFundoBrush}">
+                  <Path Style="{StaticResource IconPath}" Data="{Binding Icon, Converter={StaticResource Icon}}"
+                        Stroke="{Binding IsActive, Converter={StaticResource BrushWhen}, ConverterParameter=ModulosResgateBrush|TextoForteBrush}" />
+                </Border>
+                <StackPanel Grid.Column="1" Margin="20,0,20,0" VerticalAlignment="Center">
+                  <TextBlock Style="{StaticResource CardTitle}" Text="{Binding What}" />
+                  <TextBlock Style="{StaticResource Small}" Text="{Binding When}" Margin="0,2,0,0" />
+                  <TextBlock Style="{StaticResource Small}" Text="{Binding Note}" Margin="0,4,0,0" Visibility="{Binding HasNote, Converter={StaticResource Visible}}" />
+                </StackPanel>
+                <TextBlock Grid.Column="2" FontSize="15" FontWeight="ExtraBold" VerticalAlignment="Center" Margin="0,0,20,0"
+                           Foreground="{Binding IsActive, Converter={StaticResource BrushWhen}, ConverterParameter=ModulosResgateBrush|TextoSecundarioBrush}">
+                  <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} → {1}">
+                      <Binding Path="From" />
+                      <Binding Path="To" />
+                    </MultiBinding>
+                  </TextBlock.Text>
+                </TextBlock>
+                <Border Grid.Column="3" Style="{StaticResource Chip}" Margin="0,0,20,0"
+                        Background="{Binding IsActive, Converter={StaticResource BrushWhen}, ConverterParameter=ModulosResgateFundoBrush|SuperficieFundoBrush}">
+                  <TextBlock Style="{StaticResource ChipText}" Text="{Binding StatusLabel}"
+                             Foreground="{Binding IsActive, Converter={StaticResource BrushWhen}, ConverterParameter=ModulosResgateTextoBrush|TextoForteBrush}" />
+                </Border>
+                <Button Grid.Column="4" Style="{StaticResource SecondaryButton}" Padding="16,0" VerticalAlignment="Center"
+                        Command="{Binding UndoCommand}" Visibility="{Binding IsActive, Converter={StaticResource Visible}}">
+                  <TextBlock Text="{x:Static r:Strings.JournalUndo}" />
+                </Button>
+              </Grid>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

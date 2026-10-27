@@ -1,0 +1,96 @@
+<UserControl x:Class="Zenith.App.Views.ShellView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:Zenith.App.Controls"
+             xmlns:v="clr-namespace:Zenith.App.Views"
+             xmlns:r="clr-namespace:Zenith.Core.Resources;assembly=Zenith.Core"
+             FontFamily="{StaticResource Fonte}"
+             TextOptions.TextFormattingMode="Ideal"
+             UseLayoutRounding="True">
+  <Grid Background="{StaticResource SuperficieFundoBrush}">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="248" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+
+    <!-- Sidebar -->
+    <Border Grid.Column="0" Background="{StaticResource SuperficieCartaoBrush}" BorderBrush="{StaticResource SuperficieBordaBrush}"
+            BorderThickness="0,0,1,0" Padding="20,28">
+      <DockPanel LastChildFill="False">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+          <Border Width="40" Height="40" CornerRadius="{StaticResource RaioControle}" Background="{StaticResource MarcaNoiteBrush}">
+            <!-- Ascensão: dots that rise and grow (design/marca/zenith-simbolo-claro.svg). -->
+            <Viewbox Width="40" Height="40">
+              <Canvas Width="64" Height="64">
+                <Ellipse Canvas.Left="16" Canvas.Top="39.6" Width="4.8" Height="4.8" Fill="{StaticResource MarcaLuzBrush}" />
+                <Ellipse Canvas.Left="20.8" Canvas.Top="29.3" Width="6.4" Height="6.4" Fill="{StaticResource MarcaLuzBrush}" />
+                <Ellipse Canvas.Left="27.8" Canvas.Top="22.6" Width="8" Height="8" Fill="{StaticResource MarcaLuzBrush}" />
+                <Ellipse Canvas.Left="36.6" Canvas.Top="19.1" Width="10.8" Height="10.8" Fill="{StaticResource MarcaLuzBrush}" />
+              </Canvas>
+            </Viewbox>
+          </Border>
+          <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+            <TextBlock Text="{x:Static r:Strings.AppName}" FontSize="17" FontWeight="ExtraBold" Foreground="{StaticResource MarcaNoiteBrush}" />
+            <TextBlock Text="{x:Static r:Strings.AppTagline}" FontSize="12" FontWeight="Medium" Foreground="{StaticResource TextoSecundarioBrush}" Margin="0,2,0,0" />
+          </StackPanel>
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Top" Margin="0,32,0,0">
+          <RadioButton Style="{StaticResource NavButton}" GroupName="nav" IsChecked="{Binding IsFindingsPage, Mode=OneWay}"
+                       Command="{Binding ShowFindingsCommand}" Margin="0,0,0,4">
+            <DockPanel>
+              <Border DockPanel.Dock="Right" CornerRadius="999" Padding="9,3" Background="{StaticResource ModulosResgateBrush}"
+                      Visibility="{Binding FindingsBadge, Converter={StaticResource Visible}}">
+                <TextBlock Text="{Binding FindingsBadge}" FontSize="12" FontWeight="Bold" Foreground="{StaticResource SuperficieCartaoBrush}" />
+              </Border>
+              <TextBlock Text="{x:Static r:Strings.NavFindings}" VerticalAlignment="Center" />
+            </DockPanel>
+          </RadioButton>
+          <RadioButton Style="{StaticResource NavButton}" GroupName="nav" IsChecked="{Binding IsJournalPage, Mode=OneWay}"
+                       Command="{Binding ShowJournalCommand}">
+            <DockPanel>
+              <TextBlock DockPanel.Dock="Right" Text="{Binding JournalBadge}" FontSize="12" FontWeight="SemiBold"
+                         Foreground="{StaticResource TextoSecundarioBrush}" VerticalAlignment="Center" />
+              <TextBlock Text="{x:Static r:Strings.NavJournal}" VerticalAlignment="Center" />
+            </DockPanel>
+          </RadioButton>
+        </StackPanel>
+
+        <!-- Service status -->
+        <Border DockPanel.Dock="Bottom" CornerRadius="14" Padding="16" Background="{StaticResource SuperficieFundoBrush}">
+          <StackPanel>
+            <StackPanel Orientation="Horizontal">
+              <Ellipse Width="8" Height="8" VerticalAlignment="Center"
+                       Fill="{Binding IsServiceReady, Converter={StaticResource BrushWhen}, ConverterParameter=ModulosResgateBrush|StatusAlertaBrush}" />
+              <TextBlock Text="{Binding ServiceTitle}" FontSize="13" FontWeight="Bold" Margin="8,0,0,0" Foreground="{StaticResource TextoPrincipalBrush}" />
+            </StackPanel>
+            <TextBlock Text="{Binding ServiceDetail}" Style="{StaticResource Small}" FontSize="12" LineHeight="18" Margin="0,6,0,0"
+                       Visibility="{Binding ServiceDetail, Converter={StaticResource Visible}}" />
+          </StackPanel>
+        </Border>
+      </DockPanel>
+    </Border>
+
+    <!-- Pages -->
+    <v:FindingsPage Grid.Column="1" Visibility="{Binding IsFindingsPage, Converter={StaticResource Visible}}" />
+    <v:JournalPage Grid.Column="1" Visibility="{Binding IsJournalPage, Converter={StaticResource Visible}}" />
+
+    <!-- Toast -->
+    <Border Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="24,0,24,28" MaxWidth="640"
+            CornerRadius="14" Padding="18,12" Background="{StaticResource MarcaNoiteBrush}"
+            Visibility="{Binding Toast, Converter={StaticResource Visible}}">
+      <DockPanel>
+        <Button DockPanel.Dock="Right" Style="{StaticResource LinkButton}" Foreground="{StaticResource MarcaLuzBrush}" Margin="16,0,0,0"
+                Command="{Binding DismissToastCommand}" Content="OK" VerticalAlignment="Center" />
+        <TextBlock Text="{Binding Toast}" Foreground="{StaticResource MarcaLuzBrush}" FontSize="14" FontWeight="SemiBold"
+                   TextWrapping="Wrap" VerticalAlignment="Center" />
+      </DockPanel>
+    </Border>
+
+    <!-- Dialogs: HDR test and guides -->
+    <Grid Grid.ColumnSpan="2" Background="{StaticResource FundoOverlayBrush}" Visibility="{Binding HasOverlay, Converter={StaticResource Visible}}">
+      <v:HdrTrialDialog DataContext="{Binding HdrTrial}" Visibility="{Binding Converter={StaticResource Visible}}" />
+      <v:GuideDialog DataContext="{Binding Guide}" Visibility="{Binding Converter={StaticResource Visible}}" />
+    </Grid>
+  </Grid>
+</UserControl>

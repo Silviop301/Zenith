@@ -1,0 +1,11 @@
+<Window x:Class="Zenith.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:v="clr-namespace:Zenith.App.Views"
+        Title="Zenith"
+        Icon="pack://application:,,,/zenith.ico"
+        Width="1280" Height="860" MinWidth="1100" MinHeight="680"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource SuperficieFundoBrush}">
+  <v:ShellView />
+</Window>

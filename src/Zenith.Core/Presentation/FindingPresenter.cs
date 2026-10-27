@@ -141,7 +141,7 @@ public static class FindingPresenter
         _ => "info",
     };
 
-    internal static string Plural(int n, string one, string other) => n == 1 ? one : F(other, n);
+    public static string Plural(int n, string one, string other) => n == 1 ? one : F(other, n);
 
     private static string F(string format, params object[] args) => string.Format(CultureInfo.CurrentCulture, format, args);
 }

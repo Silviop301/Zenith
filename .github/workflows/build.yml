@@ -21,11 +21,30 @@ jobs:
       - name: Test
         run: dotnet test -c Release --no-build
 
-      - name: Publish zenith-probe.exe and zenith-service.exe
+      - name: Publish zenith.exe, zenith-probe.exe and zenith-service.exe
         run: |
+          dotnet publish src/Zenith.App -c Release -o publish
           dotnet publish src/Zenith.Probe -c Release -o publish
           dotnet publish src/Zenith.Service -c Release -o publish
           Copy-Item scripts/*.ps1 publish/
+
+      # Renders every screen to PNG: the made-up PC (--demo) and this CI machine as it is, with the
+      # service not installed yet. Fails if the app throws while building a screen.
+      - name: App screenshots
+        run: |
+          foreach ($run in @(@{ dir = 'telas/demo'; args = '--screenshot telas/demo --demo' }, @{ dir = 'telas/ci'; args = '--screenshot telas/ci' })) {
+            New-Item -ItemType Directory -Force $run.dir | Out-Null
+            $p = Start-Process -FilePath publish/zenith.exe -ArgumentList $run.args -Wait -PassThru
+            if (Test-Path "$($run.dir)/erro.txt") { Get-Content "$($run.dir)/erro.txt" }
+            if ($p.ExitCode -ne 0) { throw "zenith.exe $($run.args) failed ($($p.ExitCode))" }
+            Get-ChildItem $run.dir
+          }
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: zenith-telas
+          path: telas/
 
       # Smoke test: the CI machine has no real monitor or GPU, so findings will mostly be
       # "não se aplica" or "erro"; this only checks the probe runs to the end and writes a report.
@@ -66,8 +85,9 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: zenith-phase0
+          name: zenith
           path: |
+            publish/zenith.exe
             publish/zenith-probe.exe
             publish/zenith-service.exe
             publish/*.ps1

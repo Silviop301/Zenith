@@ -1,0 +1,38 @@
+<UserControl x:Class="Zenith.App.Views.GuideDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:r="clr-namespace:Zenith.Core.Resources;assembly=Zenith.Core">
+  <Border Style="{StaticResource Dialog}" Width="600">
+    <StackPanel>
+      <TextBlock Style="{StaticResource DialogTitle}" Text="{Binding Title}" />
+      <TextBlock Style="{StaticResource Lead}" FontSize="15" Text="{Binding Intro}" Margin="0,8,0,0" />
+
+      <ItemsControl ItemsSource="{Binding Steps}" Margin="0,24,0,0" Focusable="False">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Grid Margin="0,0,0,16">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="28" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <Border Width="28" Height="28" CornerRadius="999" Background="{StaticResource ModulosResgateFundoBrush}" VerticalAlignment="Top">
+                <TextBlock Text="{Binding Number}" FontSize="13" FontWeight="ExtraBold" Foreground="{StaticResource ModulosResgateTextoBrush}"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+              </Border>
+              <TextBlock Grid.Column="1" Style="{StaticResource Body}" Foreground="{StaticResource TextoForteBrush}" Text="{Binding Text}" Margin="14,4,0,0" />
+            </Grid>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+
+      <Border CornerRadius="{StaticResource RaioControle}" Padding="16,12" Background="{StaticResource StatusAlertaFundoBrush}" Margin="0,4,0,0"
+              Visibility="{Binding HasSafety, Converter={StaticResource Visible}}">
+        <TextBlock Style="{StaticResource Small}" Foreground="{StaticResource StatusAlertaTextoBrush}" Text="{Binding Safety}" />
+      </Border>
+
+      <Button Style="{StaticResource PrimaryButton}" Command="{Binding CloseCommand}" HorizontalAlignment="Right" Margin="0,24,0,0">
+        <TextBlock Text="{x:Static r:Strings.GuideClose}" />
+      </Button>
+    </StackPanel>
+  </Border>
+</UserControl>
