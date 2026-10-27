@@ -17,12 +17,14 @@ var journalPath = Path.Combine(dataDir, "journal.db");
 builder.Services.AddSingleton(_ => ChangeJournal.Open(journalPath));
 builder.Services.AddSingleton(_ => SensorStore.Open(Path.Combine(dataDir, "sensors.db")));
 builder.Services.AddSingleton(sp => new ChangeEngine(
-    sp.GetRequiredService<ChangeJournal>(), [new ActivePowerSchemeSetting(), new ProcessorMaxStateAcSetting()]));
+    sp.GetRequiredService<ChangeJournal>(),
+    [new ActivePowerSchemeSetting(), new ProcessorMaxStateAcSetting(), new StartupSetting(machineWide: true)]));
 builder.Services.AddSingleton(sp =>
 {
     var engine = sp.GetRequiredService<ChangeEngine>();
     var sensors = sp.GetRequiredService<SensorStore>();
-    return new CommandHandler(sp.GetRequiredService<ChangeJournal>(), engine, () => PowerPlanFix.Apply(engine), journalPath, sensors.Latest);
+    return new CommandHandler(sp.GetRequiredService<ChangeJournal>(), engine, () => PowerPlanFix.Apply(engine), journalPath, sensors.Latest,
+        target => StartupFix.Disable(engine, target));
 });
 builder.Services.AddHostedService<PipeServer>();
 builder.Services.AddHostedService<SensorWorker>();

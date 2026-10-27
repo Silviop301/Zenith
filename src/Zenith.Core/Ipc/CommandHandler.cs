@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using Zenith.Core.Bestiary;
 using Zenith.Core.Changes;
 using Zenith.Core.Sensors;
 using Zenith.Core.Settings;
@@ -16,7 +17,8 @@ public sealed class CommandHandler(
     ChangeEngine systemEngine,
     Func<IReadOnlyList<JournalEntry>> powerFix,
     string journalPath,
-    Func<IReadOnlyList<SensorSample>>? latestSensors = null)
+    Func<IReadOnlyList<SensorSample>>? latestSensors = null,
+    Func<string, JournalEntry?>? startupDisable = null)
 {
     /// <summary>User-scope settings the agent may record. Anything else is refused.</summary>
     public static readonly IReadOnlySet<string> UserSettingKeys = new HashSet<string>
@@ -24,6 +26,7 @@ public sealed class CommandHandler(
         RefreshRateSetting.SettingKey,
         HdrSetting.SettingKey,
         GpuPreferenceSetting.SettingKey,
+        StartupSetting.UserKey,
     };
 
     public Response Handle(Request request, string? callerSid)
@@ -52,6 +55,7 @@ public sealed class CommandHandler(
         Protocol.Commands.UserClose => UserClose(Required<UserCloseArgs>(request), RequireSid(callerSid)),
         // Read-only and the same for every user: hardware readings, nothing personal.
         Protocol.Commands.SensorsLatest => Node(latestSensors?.Invoke() ?? []),
+        Protocol.Commands.StartupDisable => Node(StartupDisable(Required<StartupArgs>(request).Target, callerSid)),
         _ => throw new ArgumentException($"Comando desconhecido: {request.Command}."),
     };
 
@@ -64,6 +68,20 @@ public sealed class CommandHandler(
         if (entry.Scope != ChangeScope.System)
             throw new InvalidOperationException("Esta alteração é do usuário e é desfeita pelo app, não pelo serviço.");
         return systemEngine.Undo(id);
+    }
+
+    /// <summary>
+    /// Any signed-in user may stop a machine-wide program from starting, as in Task Manager (which asks for
+    /// administrator rights for these). Only the switch changes, it is journaled and undoable, and the fix itself
+    /// refuses Windows and antivirus entries.
+    /// </summary>
+    private JournalEntry? StartupDisable(string target, string? callerSid)
+    {
+        // Machine-wide like the power plan, so not stamped with a user, but only for a caller Windows identified.
+        RequireSid(callerSid);
+        if (!StartupTarget.IsMachineWide(StartupTarget.Parse(target).Location))
+            throw new ArgumentException("Programas que só iniciam para você são alterados pelo app, não pelo serviço.");
+        return (startupDisable ?? throw new InvalidOperationException("Este serviço não altera a inicialização."))(target);
     }
 
     private long UserRecord(UserRecordArgs args, string callerSid)

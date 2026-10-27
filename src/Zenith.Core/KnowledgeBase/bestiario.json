@@ -1,0 +1,1073 @@
+{
+ "comment": "Fichas do Bestiário. names: arquivos (sem diferenciar maiúsculas). publishers: trechos do nome de quem assina; uma assinatura válida de outra pessoa vira suspeita, então só preencha quando tiver certeza. pathContains: para nomes genéricos.",
+ "entries": [
+  {
+   "id": "defender",
+   "names": [
+    "MsMpEng.exe",
+    "NisSrv.exe",
+    "MpDefenderCoreService.exe"
+   ],
+   "title": "Antimalware Service",
+   "category": "Guardião do Windows",
+   "what": "O antivírus que vem no Windows (Microsoft Defender). Procura e bloqueia programas maliciosos.",
+   "level": "Protector",
+   "publishers": [
+    "Microsoft"
+   ],
+   "startup": "Deixe como está. O Zenith nunca mexe em proteção."
+  },
+  {
+   "id": "defender-tray",
+   "names": [
+    "SecurityHealthSystray.exe",
+    "SecurityHealthService.exe"
+   ],
+   "title": "Segurança do Windows",
+   "category": "Guardião do Windows",
+   "what": "O ícone e o serviço da Segurança do Windows, que mostram se a proteção está ligada.",
+   "level": "Protector",
+   "publishers": [
+    "Microsoft"
+   ],
+   "startup": "Deixe como está. O Zenith nunca mexe em proteção."
+  },
+  {
+   "id": "avast",
+   "names": [
+    "AvastUI.exe",
+    "AvastSvc.exe",
+    "aswToolsSvc.exe",
+    "wsc_proxy.exe"
+   ],
+   "title": "Avast",
+   "category": "Antivírus",
+   "what": "Programa de proteção (Avast). Procura e bloqueia ameaças enquanto o PC está ligado.",
+   "level": "Protector",
+   "publishers": [
+    "Avast",
+    "Gen Digital"
+   ],
+   "startup": "Deixe como está. O Zenith nunca mexe em proteção."
+  },
+  {
+   "id": "avg",
+   "names": [
+    "AVGUI.exe",
+    "AVGSvc.exe"
+   ],
+   "title": "AVG",
+   "category": "Antivírus",
+   "what": "Programa de proteção (AVG). Procura e bloqueia ameaças enquanto o PC está ligado.",
+   "level": "Protector",
+   "publishers": [
+    "AVG",
+    "Avast",
+    "Gen Digital"
+   ],
+   "startup": "Deixe como está. O Zenith nunca mexe em proteção."
+  },
+  {
+   "id": "kaspersky",
+   "names": [
+    "avp.exe",
+    "avpui.exe"
+   ],
+   "title": "Kaspersky",
+   "category": "Antivírus",
+   "what": "Programa de proteção (Kaspersky). Procura e bloqueia ameaças enquanto o PC está ligado.",
+   "level": "Protector",
+   "publishers": [
+    "Kaspersky"
+   ],
+   "startup": "Deixe como está. O Zenith nunca mexe em proteção."
+  },
+  {
+   "id": "eset",
+   "names": [
+    "ekrn.exe",
+    "egui.exe",
+    "eguiProxy.exe"
+   ],
+   "title": "ESET",
+   "category": "Antivírus",
+   "what": "Programa de proteção (ESET). Procura e bloqueia ameaças enquanto o PC está ligado.",
+   "level": "Protector",
+   "publishers": [
+    "ESET"
+   ],
+   "startup": "Deixe como está. O Zenith nunca mexe em proteção."
+  },
+  {
+   "id": "norton",
+   "names": [
+    "NortonUI.exe",
+    "NortonSvc.exe"
+   ],
+   "title": "Norton",
+   "category": "Antivírus",
+   "what": "Programa de proteção (Norton). Procura e bloqueia ameaças enquanto o PC está ligado.",
+   "level": "Protector",
+   "publishers": [
+    "Norton",
+    "Symantec",
+    "Gen Digital"
+   ],
+   "startup": "Deixe como está. O Zenith nunca mexe em proteção."
+  },
+  {
+   "id": "mcafee",
+   "names": [
+    "McUICnt.exe",
+    "mcshield.exe",
+    "mfemms.exe",
+    "ModuleCoreService.exe"
+   ],
+   "title": "McAfee",
+   "category": "Antivírus",
+   "what": "Programa de proteção (McAfee). Procura e bloqueia ameaças enquanto o PC está ligado.",
+   "level": "Protector",
+   "publishers": [
+    "McAfee"
+   ],
+   "startup": "Deixe como está. O Zenith nunca mexe em proteção."
+  },
+  {
+   "id": "bitdefender",
+   "names": [
+    "bdagent.exe",
+    "bdservicehost.exe",
+    "vsserv.exe",
+    "bdredline.exe"
+   ],
+   "title": "Bitdefender",
+   "category": "Antivírus",
+   "what": "Programa de proteção (Bitdefender). Procura e bloqueia ameaças enquanto o PC está ligado.",
+   "level": "Protector",
+   "publishers": [
+    "Bitdefender"
+   ],
+   "startup": "Deixe como está. O Zenith nunca mexe em proteção."
+  },
+  {
+   "id": "malwarebytes",
+   "names": [
+    "MBAMService.exe",
+    "mbamtray.exe",
+    "Malwarebytes.exe",
+    "mbam.exe"
+   ],
+   "title": "Malwarebytes",
+   "category": "Antivírus",
+   "what": "Programa de proteção (Malwarebytes). Procura e bloqueia ameaças enquanto o PC está ligado.",
+   "level": "Protector",
+   "publishers": [
+    "Malwarebytes"
+   ],
+   "startup": "Deixe como está. O Zenith nunca mexe em proteção."
+  },
+  {
+   "id": "warsaw",
+   "names": [
+    "core.exe"
+   ],
+   "title": "Warsaw (módulo de segurança dos bancos)",
+   "category": "Banco",
+   "what": "Módulo de segurança que bancos como Caixa, Banco do Brasil, Itaú e Sicredi pedem para instalar. Protege o internet banking no navegador.",
+   "level": "Harmless",
+   "pathContains": [
+    "\\Warsaw\\"
+   ],
+   "startup": "Os bancos contam com ele ligado. Se impedir de iniciar, o internet banking pode pedir para instalar de novo."
+  },
+  {
+   "id": "gbplugin",
+   "names": [
+    "GbpSv.exe"
+   ],
+   "title": "G-Buster (módulo de segurança dos bancos)",
+   "category": "Banco",
+   "what": "Módulo de segurança antigo usado por alguns bancos no internet banking.",
+   "level": "Harmless",
+   "startup": "Se você ainda usa o banco que pediu este módulo, deixe ligado."
+  },
+  {
+   "id": "webview2",
+   "names": [
+    "msedgewebview2.exe"
+   ],
+   "title": "Edge WebView2",
+   "category": "Motor de apps",
+   "what": "Peça do Windows que outros programas usam para mostrar telas feitas como páginas da web (Teams, Widgets e muitos outros).",
+   "level": "Harmless",
+   "publishers": [
+    "Microsoft"
+   ]
+  },
+  {
+   "id": "edge",
+   "names": [
+    "msedge.exe"
+   ],
+   "title": "Microsoft Edge",
+   "category": "Navegador",
+   "what": "O navegador da Microsoft. Cada aba e extensão é um processo à parte.",
+   "level": "Harmless",
+   "publishers": [
+    "Microsoft"
+   ],
+   "startup": "Se ele inicia com o Windows, é a opção de inicialização rápida do Edge, que dá para desligar nas configurações dele."
+  },
+  {
+   "id": "chrome",
+   "names": [
+    "chrome.exe"
+   ],
+   "title": "Google Chrome",
+   "category": "Navegador",
+   "what": "O navegador do Google. Cada aba e extensão é um processo à parte.",
+   "level": "Harmless",
+   "publishers": [
+    "Google"
+   ],
+   "startup": "Se ele inicia com o Windows, é a opção \"continuar executando em segundo plano\" do Chrome."
+  },
+  {
+   "id": "firefox",
+   "names": [
+    "firefox.exe"
+   ],
+   "title": "Mozilla Firefox",
+   "category": "Navegador",
+   "what": "O navegador da Mozilla.",
+   "level": "Harmless",
+   "publishers": [
+    "Mozilla"
+   ]
+  },
+  {
+   "id": "opera",
+   "names": [
+    "opera.exe",
+    "opera_gx_splash.exe"
+   ],
+   "title": "Opera / Opera GX",
+   "category": "Navegador",
+   "what": "Navegador Opera; o GX é a versão voltada para jogos.",
+   "level": "Harmless",
+   "publishers": [
+    "Opera"
+   ],
+   "startup": "Não precisa iniciar com o Windows. Você abre quando quiser, e nada deixa de funcionar."
+  },
+  {
+   "id": "brave",
+   "names": [
+    "brave.exe"
+   ],
+   "title": "Brave",
+   "category": "Navegador",
+   "what": "Navegador focado em bloquear anúncios e rastreadores.",
+   "level": "Harmless",
+   "publishers": [
+    "Brave"
+   ]
+  },
+  {
+   "id": "google-update",
+   "names": [
+    "GoogleUpdate.exe",
+    "GoogleCrashHandler.exe",
+    "GoogleCrashHandler64.exe"
+   ],
+   "title": "Atualizador do Google",
+   "category": "Atualizador",
+   "what": "Mantém o Chrome e outros programas do Google atualizados.",
+   "level": "Dispensable",
+   "publishers": [
+    "Google"
+   ],
+   "startup": "Não precisa iniciar com o Windows: o programa procura atualizações quando você o abre."
+  },
+  {
+   "id": "google-updater",
+   "names": [
+    "updater.exe"
+   ],
+   "title": "Atualizador do Google",
+   "category": "Atualizador",
+   "what": "Mantém o Chrome e outros programas do Google atualizados.",
+   "level": "Dispensable",
+   "publishers": [
+    "Google"
+   ],
+   "pathContains": [
+    "\\Google\\"
+   ],
+   "startup": "Não precisa iniciar com o Windows: o programa procura atualizações quando você o abre."
+  },
+  {
+   "id": "edge-update",
+   "names": [
+    "MicrosoftEdgeUpdate.exe"
+   ],
+   "title": "Atualizador do Edge",
+   "category": "Atualizador",
+   "what": "Mantém o Edge e o WebView2 atualizados.",
+   "level": "Dispensable",
+   "publishers": [
+    "Microsoft"
+   ],
+   "startup": "Não precisa iniciar com o Windows: o programa procura atualizações quando você o abre."
+  },
+  {
+   "id": "adobe-arm",
+   "names": [
+    "AdobeARM.exe",
+    "armsvc.exe"
+   ],
+   "title": "Atualizador do Adobe Reader",
+   "category": "Atualizador",
+   "what": "Procura atualizações do Adobe Acrobat Reader.",
+   "level": "Dispensable",
+   "publishers": [
+    "Adobe"
+   ],
+   "startup": "Não precisa iniciar com o Windows: o programa procura atualizações quando você o abre."
+  },
+  {
+   "id": "java-update",
+   "names": [
+    "jusched.exe",
+    "jucheck.exe"
+   ],
+   "title": "Atualizador do Java",
+   "category": "Atualizador",
+   "what": "Procura atualizações do Java.",
+   "level": "Dispensable",
+   "publishers": [
+    "Oracle"
+   ],
+   "startup": "Não precisa iniciar com o Windows: o programa procura atualizações quando você o abre."
+  },
+  {
+   "id": "discord-update",
+   "names": [
+    "Update.exe"
+   ],
+   "title": "Atualizador do Discord",
+   "category": "Atualizador",
+   "what": "É por ele que o Discord inicia com o Windows: confere atualizações e abre o Discord.",
+   "level": "Dispensable",
+   "publishers": [
+    "Discord"
+   ],
+   "pathContains": [
+    "\\Discord\\"
+   ],
+   "startup": "Se impedir, o Discord só abre quando você abrir. Nada mais muda."
+  },
+  {
+   "id": "teams-update",
+   "names": [
+    "Update.exe"
+   ],
+   "title": "Atualizador do Teams (clássico)",
+   "category": "Atualizador",
+   "what": "Abre e atualiza o Teams clássico.",
+   "level": "Dispensable",
+   "publishers": [
+    "Microsoft"
+   ],
+   "pathContains": [
+    "\\Microsoft\\Teams\\"
+   ],
+   "startup": "Não precisa iniciar com o Windows: o programa procura atualizações quando você o abre."
+  },
+  {
+   "id": "office-c2r",
+   "names": [
+    "OfficeClickToRun.exe"
+   ],
+   "title": "Microsoft Office",
+   "category": "Atualizador",
+   "what": "Serviço que instala e atualiza o Microsoft Office.",
+   "level": "Harmless",
+   "publishers": [
+    "Microsoft"
+   ]
+  },
+  {
+   "id": "steam",
+   "names": [
+    "steam.exe",
+    "steamwebhelper.exe",
+    "steamservice.exe"
+   ],
+   "title": "Steam",
+   "category": "Plataforma de jogos",
+   "what": "A loja e biblioteca de jogos da Valve. O steamwebhelper desenha as telas da loja.",
+   "level": "Harmless",
+   "publishers": [
+    "Valve"
+   ],
+   "startup": "Pode deixar de iniciar com o Windows: ele abre quando você abrir um jogo."
+  },
+  {
+   "id": "epic",
+   "names": [
+    "EpicGamesLauncher.exe",
+    "EpicWebHelper.exe"
+   ],
+   "title": "Epic Games",
+   "category": "Plataforma de jogos",
+   "what": "A loja e biblioteca de jogos da Epic (Fortnite e outros).",
+   "level": "Harmless",
+   "publishers": [
+    "Epic Games"
+   ],
+   "startup": "Pode deixar de iniciar com o Windows: ele abre quando você abrir um jogo."
+  },
+  {
+   "id": "riot",
+   "names": [
+    "RiotClientServices.exe",
+    "RiotClientUx.exe",
+    "RiotClientUxRender.exe",
+    "Riot Client.exe"
+   ],
+   "title": "Riot Client",
+   "category": "Plataforma de jogos",
+   "what": "O launcher do League of Legends e do Valorant.",
+   "level": "Harmless",
+   "publishers": [
+    "Riot Games"
+   ],
+   "startup": "Pode deixar de iniciar com o Windows: ele abre quando você abrir um jogo."
+  },
+  {
+   "id": "vanguard",
+   "names": [
+    "vgtray.exe",
+    "vgc.exe"
+   ],
+   "title": "Riot Vanguard",
+   "category": "Antitrapaça",
+   "what": "O antitrapaça do Valorant e do League of Legends. Roda desde a inicialização do Windows.",
+   "level": "Harmless",
+   "publishers": [
+    "Riot Games"
+   ],
+   "startup": "O Valorant exige o Vanguard ligado desde a inicialização. Se impedir, o jogo pede para reiniciar o PC."
+  },
+  {
+   "id": "battlenet",
+   "names": [
+    "Battle.net.exe",
+    "Agent.exe"
+   ],
+   "title": "Battle.net",
+   "category": "Plataforma de jogos",
+   "what": "O launcher da Blizzard (Diablo, Overwatch, WoW).",
+   "level": "Harmless",
+   "publishers": [
+    "Blizzard"
+   ],
+   "pathContains": [
+    "\\Battle.net\\"
+   ],
+   "startup": "Pode deixar de iniciar com o Windows: ele abre quando você abrir um jogo."
+  },
+  {
+   "id": "ea",
+   "names": [
+    "EADesktop.exe",
+    "EABackgroundService.exe",
+    "EALocalHostSvc.exe"
+   ],
+   "title": "EA app",
+   "category": "Plataforma de jogos",
+   "what": "O launcher da Electronic Arts (EA FC, The Sims).",
+   "level": "Harmless",
+   "publishers": [
+    "Electronic Arts"
+   ],
+   "startup": "Pode deixar de iniciar com o Windows: ele abre quando você abrir um jogo."
+  },
+  {
+   "id": "ubisoft",
+   "names": [
+    "upc.exe",
+    "UplayWebCore.exe"
+   ],
+   "title": "Ubisoft Connect",
+   "category": "Plataforma de jogos",
+   "what": "O launcher da Ubisoft.",
+   "level": "Harmless",
+   "publishers": [
+    "Ubisoft"
+   ],
+   "startup": "Pode deixar de iniciar com o Windows: ele abre quando você abrir um jogo."
+  },
+  {
+   "id": "gog",
+   "names": [
+    "GalaxyClient.exe",
+    "GalaxyClientService.exe"
+   ],
+   "title": "GOG Galaxy",
+   "category": "Plataforma de jogos",
+   "what": "O launcher da GOG.",
+   "level": "Harmless",
+   "publishers": [
+    "GOG"
+   ],
+   "startup": "Pode deixar de iniciar com o Windows: ele abre quando você abrir um jogo."
+  },
+  {
+   "id": "xbox",
+   "names": [
+    "XboxPcApp.exe",
+    "XboxPcAppFT.exe",
+    "GamingServices.exe"
+   ],
+   "title": "App Xbox",
+   "category": "Plataforma de jogos",
+   "what": "O app Xbox e o Game Pass no PC.",
+   "level": "Harmless",
+   "publishers": [
+    "Microsoft"
+   ],
+   "startup": "Pode deixar de iniciar com o Windows: ele abre quando você abrir um jogo."
+  },
+  {
+   "id": "overwolf",
+   "names": [
+    "Overwolf.exe",
+    "OverwolfBrowser.exe",
+    "OverwolfHelper.exe",
+    "OverwolfHelper64.exe"
+   ],
+   "title": "Overwolf",
+   "category": "Complementos de jogos",
+   "what": "Plataforma de complementos que aparecem por cima dos jogos (CurseForge, estatísticas).",
+   "level": "Harmless",
+   "publishers": [
+    "Overwolf"
+   ],
+   "startup": "Não precisa iniciar com o Windows. Você abre quando quiser, e nada deixa de funcionar."
+  },
+  {
+   "id": "exitlag",
+   "names": [
+    "ExitLag.exe"
+   ],
+   "title": "ExitLag",
+   "category": "Rede para jogos",
+   "what": "Muda a rota da conexão até o servidor do jogo para tentar reduzir o ping.",
+   "level": "Harmless",
+   "startup": "Não precisa iniciar com o Windows. Você abre quando quiser, e nada deixa de funcionar."
+  },
+  {
+   "id": "noping",
+   "names": [
+    "NoPing.exe"
+   ],
+   "title": "NoPing",
+   "category": "Rede para jogos",
+   "what": "Muda a rota da conexão até o servidor do jogo para tentar reduzir o ping.",
+   "level": "Harmless",
+   "startup": "Não precisa iniciar com o Windows. Você abre quando quiser, e nada deixa de funcionar."
+  },
+  {
+   "id": "wallpaper-engine",
+   "names": [
+    "wallpaper64.exe",
+    "wallpaper32.exe"
+   ],
+   "title": "Wallpaper Engine",
+   "category": "Personalização",
+   "what": "Papel de parede animado. Usa a placa de vídeo enquanto roda.",
+   "level": "Harmless",
+   "startup": "Se você gosta do papel de parede animado, deixe. Se não, impedir de iniciar libera a placa de vídeo."
+  },
+  {
+   "id": "discord",
+   "names": [
+    "Discord.exe"
+   ],
+   "title": "Discord",
+   "category": "Comunicação",
+   "what": "Chat de voz e texto, muito usado em jogos.",
+   "level": "Harmless",
+   "publishers": [
+    "Discord"
+   ],
+   "startup": "Pode deixar de iniciar com o Windows: abre quando você quiser conversar."
+  },
+  {
+   "id": "whatsapp",
+   "names": [
+    "WhatsApp.exe",
+    "WhatsApp.Root.exe"
+   ],
+   "title": "WhatsApp",
+   "category": "Comunicação",
+   "what": "O WhatsApp para computador.",
+   "level": "Harmless",
+   "startup": "Não precisa iniciar com o Windows. Você abre quando quiser, e nada deixa de funcionar."
+  },
+  {
+   "id": "telegram",
+   "names": [
+    "Telegram.exe"
+   ],
+   "title": "Telegram",
+   "category": "Comunicação",
+   "what": "O Telegram para computador.",
+   "level": "Harmless",
+   "publishers": [
+    "Telegram"
+   ],
+   "startup": "Não precisa iniciar com o Windows. Você abre quando quiser, e nada deixa de funcionar."
+  },
+  {
+   "id": "zoom",
+   "names": [
+    "Zoom.exe"
+   ],
+   "title": "Zoom",
+   "category": "Comunicação",
+   "what": "Chamadas de vídeo e reuniões.",
+   "level": "Harmless",
+   "publishers": [
+    "Zoom"
+   ],
+   "startup": "Não precisa iniciar com o Windows. Você abre quando quiser, e nada deixa de funcionar."
+  },
+  {
+   "id": "teams",
+   "names": [
+    "ms-teams.exe",
+    "Teams.exe"
+   ],
+   "title": "Microsoft Teams",
+   "category": "Comunicação",
+   "what": "Chat e reuniões da Microsoft.",
+   "level": "Harmless",
+   "publishers": [
+    "Microsoft"
+   ],
+   "startup": "Não precisa iniciar com o Windows. Você abre quando quiser, e nada deixa de funcionar."
+  },
+  {
+   "id": "skype",
+   "names": [
+    "Skype.exe"
+   ],
+   "title": "Skype",
+   "category": "Comunicação",
+   "what": "Chamadas de voz e vídeo da Microsoft.",
+   "level": "Harmless",
+   "publishers": [
+    "Microsoft",
+    "Skype"
+   ],
+   "startup": "Não precisa iniciar com o Windows. Você abre quando quiser, e nada deixa de funcionar."
+  },
+  {
+   "id": "onedrive",
+   "names": [
+    "OneDrive.exe",
+    "FileCoAuth.exe",
+    "OneDrive.Sync.Service.exe"
+   ],
+   "title": "OneDrive",
+   "category": "Nuvem",
+   "what": "Guarda e sincroniza seus arquivos na nuvem da Microsoft.",
+   "level": "Harmless",
+   "publishers": [
+    "Microsoft"
+   ],
+   "startup": "Se você usa o OneDrive para guardar arquivos, deixe: sem ele, nada sincroniza até você abrir."
+  },
+  {
+   "id": "dropbox",
+   "names": [
+    "Dropbox.exe"
+   ],
+   "title": "Dropbox",
+   "category": "Nuvem",
+   "what": "Guarda e sincroniza seus arquivos na nuvem.",
+   "level": "Harmless",
+   "publishers": [
+    "Dropbox"
+   ],
+   "startup": "Se você usa o Dropbox, deixe: sem ele, nada sincroniza até você abrir."
+  },
+  {
+   "id": "gdrive",
+   "names": [
+    "GoogleDriveFS.exe"
+   ],
+   "title": "Google Drive",
+   "category": "Nuvem",
+   "what": "Guarda e sincroniza seus arquivos no Google Drive.",
+   "level": "Harmless",
+   "publishers": [
+    "Google"
+   ],
+   "startup": "Se você usa o Google Drive no PC, deixe: sem ele, nada sincroniza até você abrir."
+  },
+  {
+   "id": "phone-link",
+   "names": [
+    "PhoneExperienceHost.exe"
+   ],
+   "title": "Vincular ao Celular",
+   "category": "Comunicação",
+   "what": "App do Windows que mostra notificações e fotos do celular no PC.",
+   "level": "Harmless",
+   "publishers": [
+    "Microsoft"
+   ],
+   "startup": "Não precisa iniciar com o Windows. Você abre quando quiser, e nada deixa de funcionar."
+  },
+  {
+   "id": "spotify",
+   "names": [
+    "Spotify.exe"
+   ],
+   "title": "Spotify",
+   "category": "Música",
+   "what": "Música e podcasts.",
+   "level": "Harmless",
+   "publishers": [
+    "Spotify"
+   ],
+   "startup": "Não precisa iniciar com o Windows. Você abre quando quiser, e nada deixa de funcionar."
+  },
+  {
+   "id": "obs",
+   "names": [
+    "obs64.exe",
+    "obs32.exe"
+   ],
+   "title": "OBS Studio",
+   "category": "Transmissão",
+   "what": "Grava a tela e faz transmissões ao vivo.",
+   "level": "Harmless"
+  },
+  {
+   "id": "vlc",
+   "names": [
+    "vlc.exe"
+   ],
+   "title": "VLC",
+   "category": "Vídeo",
+   "what": "Reprodutor de vídeo e música.",
+   "level": "Harmless",
+   "publishers": [
+    "VideoLAN"
+   ]
+  },
+  {
+   "id": "nvidia-app",
+   "names": [
+    "NVIDIA app.exe",
+    "NVIDIA Overlay.exe",
+    "NVIDIA Share.exe",
+    "NVIDIA Web Helper.exe"
+   ],
+   "title": "NVIDIA App",
+   "category": "Placa de vídeo",
+   "what": "O painel da NVIDIA: drivers, gravação de tela e a sobreposição nos jogos.",
+   "level": "Harmless",
+   "publishers": [
+    "NVIDIA"
+   ]
+  },
+  {
+   "id": "nvidia-container",
+   "names": [
+    "nvcontainer.exe",
+    "NVDisplay.Container.exe"
+   ],
+   "title": "Serviços da NVIDIA",
+   "category": "Placa de vídeo",
+   "what": "Serviços do driver da NVIDIA, que o painel de controle e a sobreposição usam.",
+   "level": "Harmless",
+   "publishers": [
+    "NVIDIA"
+   ]
+  },
+  {
+   "id": "amd-software",
+   "names": [
+    "RadeonSoftware.exe",
+    "AMDRSServ.exe",
+    "AMDRSSrcExt.exe",
+    "atieclxx.exe",
+    "amdfendrsr.exe",
+    "cncmd.exe"
+   ],
+   "title": "AMD Software",
+   "category": "Placa de vídeo",
+   "what": "O painel e os serviços do driver de vídeo da AMD.",
+   "level": "Harmless",
+   "publishers": [
+    "Advanced Micro Devices",
+    "AMD"
+   ]
+  },
+  {
+   "id": "intel-graphics",
+   "names": [
+    "igfxEM.exe",
+    "IntelGraphicsSoftware.exe",
+    "IGCC.exe"
+   ],
+   "title": "Intel Graphics",
+   "category": "Placa de vídeo",
+   "what": "O painel e os serviços do vídeo integrado da Intel.",
+   "level": "Harmless",
+   "publishers": [
+    "Intel"
+   ]
+  },
+  {
+   "id": "lghub",
+   "names": [
+    "lghub.exe",
+    "lghub_agent.exe",
+    "lghub_updater.exe",
+    "lghub_system_tray.exe"
+   ],
+   "title": "Logitech G HUB",
+   "category": "Periféricos",
+   "what": "Configura mouse, teclado e headset da Logitech (luzes, botões, DPI).",
+   "level": "Harmless",
+   "publishers": [
+    "Logitech"
+   ],
+   "startup": "Se impedir, os perfis e luzes do mouse e teclado podem só valer depois que você abrir o G HUB."
+  },
+  {
+   "id": "razer",
+   "names": [
+    "Razer Synapse 3.exe",
+    "RazerCentralService.exe",
+    "Razer Synapse Service.exe",
+    "RazerAppEngine.exe"
+   ],
+   "title": "Razer Synapse",
+   "category": "Periféricos",
+   "what": "Configura os periféricos da Razer (luzes, botões, DPI).",
+   "level": "Harmless",
+   "publishers": [
+    "Razer"
+   ],
+   "startup": "Se impedir, os perfis e luzes podem só valer depois que você abrir o Synapse."
+  },
+  {
+   "id": "icue",
+   "names": [
+    "iCUE.exe",
+    "Corsair.Service.exe"
+   ],
+   "title": "Corsair iCUE",
+   "category": "Periféricos",
+   "what": "Configura os periféricos e as luzes da Corsair.",
+   "level": "Harmless",
+   "publishers": [
+    "Corsair"
+   ],
+   "startup": "Se impedir, as luzes e perfis podem só valer depois que você abrir o iCUE."
+  },
+  {
+   "id": "steelseries",
+   "names": [
+    "SteelSeriesGG.exe",
+    "SteelSeriesEngine.exe"
+   ],
+   "title": "SteelSeries GG",
+   "category": "Periféricos",
+   "what": "Configura os periféricos da SteelSeries.",
+   "level": "Harmless",
+   "publishers": [
+    "SteelSeries"
+   ],
+   "startup": "Se impedir, os perfis podem só valer depois que você abrir o GG."
+  },
+  {
+   "id": "realtek-audio",
+   "names": [
+    "RtkAudUService64.exe",
+    "RAVBg64.exe",
+    "RtkNGUI64.exe"
+   ],
+   "title": "Áudio Realtek",
+   "category": "Áudio",
+   "what": "Serviço e painel do áudio da placa-mãe (Realtek).",
+   "level": "Harmless",
+   "publishers": [
+    "Realtek"
+   ]
+  },
+  {
+   "id": "anydesk",
+   "names": [
+    "AnyDesk.exe"
+   ],
+   "title": "AnyDesk",
+   "category": "Acesso remoto",
+   "what": "Programa de acesso remoto: deixa outra pessoa ver e controlar este PC. É útil para suporte técnico, mas golpistas também pedem para instalar. Se você não instalou ou não sabe quem usa, desconfie e desinstale.",
+   "level": "Attention",
+   "publishers": [
+    "AnyDesk",
+    "philandro"
+   ],
+   "startup": "Se ninguém precisa acessar este PC de fora, ele não precisa iniciar com o Windows."
+  },
+  {
+   "id": "teamviewer",
+   "names": [
+    "TeamViewer.exe",
+    "TeamViewer_Service.exe",
+    "tv_w32.exe",
+    "tv_x64.exe"
+   ],
+   "title": "TeamViewer",
+   "category": "Acesso remoto",
+   "what": "Programa de acesso remoto: deixa outra pessoa ver e controlar este PC. É útil para suporte técnico, mas golpistas também pedem para instalar. Se você não instalou ou não sabe quem usa, desconfie e desinstale.",
+   "level": "Attention",
+   "publishers": [
+    "TeamViewer"
+   ],
+   "startup": "Se ninguém precisa acessar este PC de fora, ele não precisa iniciar com o Windows."
+  },
+  {
+   "id": "rustdesk",
+   "names": [
+    "rustdesk.exe"
+   ],
+   "title": "RustDesk",
+   "category": "Acesso remoto",
+   "what": "Programa de acesso remoto: deixa outra pessoa ver e controlar este PC. É útil para suporte técnico, mas golpistas também pedem para instalar. Se você não instalou ou não sabe quem usa, desconfie e desinstale.",
+   "level": "Attention",
+   "startup": "Se ninguém precisa acessar este PC de fora, ele não precisa iniciar com o Windows."
+  },
+  {
+   "id": "ccleaner",
+   "names": [
+    "CCleaner64.exe",
+    "CCleaner.exe",
+    "CCleanerBrowser.exe"
+   ],
+   "title": "CCleaner",
+   "category": "Utilitário",
+   "what": "Programa de limpeza. O Windows já faz a limpeza de arquivos temporários sozinho.",
+   "level": "Dispensable",
+   "startup": "Não precisa iniciar com o Windows. Você abre quando quiser, e nada deixa de funcionar."
+  },
+  {
+   "id": "lightshot",
+   "names": [
+    "Lightshot.exe"
+   ],
+   "title": "Lightshot",
+   "category": "Utilitário",
+   "what": "Tira prints de partes da tela. O Windows também faz isso com Win + Shift + S.",
+   "level": "Harmless",
+   "startup": "Se você usa a tecla Print Screen com ele, deixe."
+  },
+  {
+   "id": "powertoys",
+   "names": [
+    "PowerToys.exe"
+   ],
+   "title": "PowerToys",
+   "category": "Utilitário",
+   "what": "Ferramentas extras da Microsoft para o Windows.",
+   "level": "Harmless",
+   "publishers": [
+    "Microsoft"
+   ]
+  },
+  {
+   "id": "adobe-cc",
+   "names": [
+    "Creative Cloud.exe",
+    "CCXProcess.exe",
+    "AdobeIPCBroker.exe",
+    "CoreSync.exe",
+    "Adobe Desktop Service.exe"
+   ],
+   "title": "Adobe Creative Cloud",
+   "category": "Utilitário",
+   "what": "O gerenciador dos programas da Adobe (Photoshop, Premiere) e da sincronização de arquivos e fontes.",
+   "level": "Dispensable",
+   "publishers": [
+    "Adobe"
+   ],
+   "startup": "Não precisa iniciar com o Windows. Você abre quando quiser, e nada deixa de funcionar."
+  },
+  {
+   "id": "qbittorrent",
+   "names": [
+    "qbittorrent.exe"
+   ],
+   "title": "qBittorrent",
+   "category": "Download",
+   "what": "Programa para baixar arquivos por torrent.",
+   "level": "Harmless",
+   "startup": "Se ninguém deixa downloads rodando ao ligar o PC, ele não precisa iniciar com o Windows."
+  },
+  {
+   "id": "utorrent",
+   "names": [
+    "uTorrent.exe",
+    "BitTorrent.exe"
+   ],
+   "title": "uTorrent / BitTorrent",
+   "category": "Download",
+   "what": "Programa para baixar arquivos por torrent. As versões grátis mostram anúncios e já vieram com programas extras no instalador.",
+   "level": "Harmless",
+   "startup": "Se ninguém deixa downloads rodando ao ligar o PC, ele não precisa iniciar com o Windows."
+  },
+  {
+   "id": "winrar",
+   "names": [
+    "WinRAR.exe"
+   ],
+   "title": "WinRAR",
+   "category": "Utilitário",
+   "what": "Abre e cria arquivos compactados (.rar, .zip).",
+   "level": "Harmless"
+  },
+  {
+   "id": "7zip",
+   "names": [
+    "7zFM.exe",
+    "7zG.exe"
+   ],
+   "title": "7-Zip",
+   "category": "Utilitário",
+   "what": "Abre e cria arquivos compactados (.7z, .zip).",
+   "level": "Harmless"
+  },
+  {
+   "id": "zenith",
+   "names": [
+    "zenith.exe",
+    "zenith-service.exe",
+    "zenith-probe.exe"
+   ],
+   "title": "Zenith",
+   "category": "Utilitário",
+   "what": "É este app: explica o PC, aplica só o que é seguro e guarda o diário para desfazer.",
+   "level": "Harmless",
+   "startup": "Inicia discreto na bandeja para avisar de alertas críticos. Dá para desligar no menu do ícone."
+  }
+ ]
+}

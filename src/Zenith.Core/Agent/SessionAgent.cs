@@ -1,4 +1,5 @@
 using System.Security.Principal;
+using Zenith.Core.Bestiary;
 using Zenith.Core.Changes;
 using Zenith.Core.Findings;
 using Zenith.Core.Fixes;
@@ -21,7 +22,7 @@ public sealed class SessionAgent : IDisposable
     private SessionAgent(ServiceClient client)
     {
         _client = client;
-        _engine = new ChangeEngine(new RemoteJournal(client), [new RefreshRateSetting(), new HdrSetting(), new GpuPreferenceSetting()]);
+        _engine = new ChangeEngine(new RemoteJournal(client), [new RefreshRateSetting(), new HdrSetting(), new GpuPreferenceSetting(), new StartupSetting(machineWide: false)]);
     }
 
     /// <exception cref="ServiceUnavailableException">The service is not running.</exception>
@@ -52,6 +53,15 @@ public sealed class SessionAgent : IDisposable
     /// <summary>Undoes changes just made, newest first (used when the HDR test is not confirmed).</summary>
     public IReadOnlyList<UndoResult> Revert(IEnumerable<JournalEntry> applied) =>
         applied.OrderByDescending(e => e.Id).Select(e => Undo(e)).ToList();
+
+    /// <summary>
+    /// Bestiário: stops a program from starting with Windows. This user's entries change here; machine-wide ones
+    /// through the service. Returns null when it was already off.
+    /// </summary>
+    public JournalEntry? DisableStartup(string target) =>
+        StartupTarget.IsMachineWide(StartupTarget.Parse(target).Location)
+            ? _client.Call<JournalEntry?>(Protocol.Commands.StartupDisable, new StartupArgs(target))
+            : StartupFix.Disable(_engine, target, UserSid);
 
     public IReadOnlyList<JournalEntry> Journal() => new RemoteJournal(_client).List();
 

@@ -28,6 +28,7 @@ public static class Protocol
         public const string UserRecord = "user.record";
         public const string UserClose = "user.close";
         public const string SensorsLatest = "sensors.latest";
+        public const string StartupDisable = "startup.disable";
     }
 
     public static readonly JsonSerializerOptions Json = new()
@@ -73,6 +74,9 @@ public sealed record UserCloseArgs(long Id, JournalStatusArg Status, string? Not
 public sealed record NewestActiveArgs(string SettingKey, string Target, string? UserSid);
 
 public sealed record IdArgs(long Id);
+
+/// <summary>A machine-wide startup entry, e.g. "machine-run|Steam".</summary>
+public sealed record StartupArgs(string Target);
 
 public sealed record ListArgs(bool ActiveOnly);
 
