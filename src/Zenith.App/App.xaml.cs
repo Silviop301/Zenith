@@ -275,6 +275,16 @@ public partial class App : Application
         {
             vm.Bestiary.Select("steam.exe");
             Save(view, folder, "10-bestiario-ficha.png");
+
+            // Scrolled to the bottom of the list on the default window size: the fiche follows the scroll.
+            vm.Bestiary.Select("hpsmartupdate.exe");
+            view.Measure(new Size(1280, 860));
+            view.Arrange(new Rect(0, 0, 1280, 860));
+            view.UpdateLayout();
+            var scroll = FindNamed<System.Windows.Controls.ScrollViewer>(view, "PageScroll");
+            scroll?.ScrollToBottom();
+            Save(view, folder, "13-bestiario-rolado.png", 1280, 860);
+            scroll?.ScrollToTop();
         }
         vm.Page = AppPage.Findings;
 
@@ -315,6 +325,17 @@ public partial class App : Application
             }
         }
         sheet.Save(Path.Combine(folder, "07-bandeja.png"), System.Drawing.Imaging.ImageFormat.Png);
+    }
+
+    private static T? FindNamed<T>(DependencyObject root, string name) where T : FrameworkElement
+    {
+        for (var i = 0; i < VisualTreeHelper.GetChildrenCount(root); i++)
+        {
+            var child = VisualTreeHelper.GetChild(root, i);
+            if (child is T found && found.Name == name) return found;
+            if (FindNamed<T>(child, name) is { } deeper) return deeper;
+        }
+        return null;
     }
 
     private static void Save(FrameworkElement view, string folder, string name, int width = 1280, int height = 1240)
